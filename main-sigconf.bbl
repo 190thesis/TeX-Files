@@ -21,6 +21,11 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{agnarsson2006graph}
+G.~Agnarsson and R.~Greenlaw, \emph{Graph Theory: Modeling, Applications, and
+  Algorithms}.\hskip 1em plus 0.5em minus 0.4em\relax Prentice-Hall, Inc.,
+  2006.
+
 \bibitem{viralmarketing}
 S.~Jurvetson, ``What exactly is viral marketing,'' \emph{Red Herring}, vol.~78,
   pp. 110--112, 2000.
@@ -38,10 +43,6 @@ M.~Abuljadail, N.~C. Bi, A.~Fisher, C.~Y. Joa, K.~Kim, X.~Wen, and F.~R. Zhang,
 L.~Ha, ``Most popular youtube channels,'' \emph{The Audience and Business of
   YouTube and Online Videos}, p. 135, 2018.
 
-\bibitem{chen}
-N.~Chen, ``On the approximability of influence in social networks,'' \emph{SIAM
-  Journal on Discrete Mathematics}, vol.~23, no.~3, pp. 1400--1415, 2009.
-
 \bibitem{Kempe}
 \BIBentryALTinterwordspacing
 D.~Kempe, J.~Kleinberg, and E.~Tardos, ``Maximizing the spread of influence
@@ -50,6 +51,10 @@ D.~Kempe, J.~Kleinberg, and E.~Tardos, ``Maximizing the spread of influence
   '03.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY, USA: ACM, 2003, pp.
   137--146. [Online]. Available: \url{http://doi.acm.org/10.1145/956750.956769}
 \BIBentrySTDinterwordspacing
+
+\bibitem{chen}
+N.~Chen, ``On the approximability of influence in social networks,'' \emph{SIAM
+  Journal on Discrete Mathematics}, vol.~23, no.~3, pp. 1400--1415, 2009.
 
 \bibitem{Shakarian:2012:LSN:2456719.2457081}
 \BIBentryALTinterwordspacing
