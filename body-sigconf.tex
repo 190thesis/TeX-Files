@@ -1,4 +1,444 @@
-\section{Introduction}"Viral Marketing" is a term first introduced in 1997 by Steve Jurvetson and Time Draper\cite{viralmarketing}. It is an effective way of advertising a product to a large group of people by having little groups eventually spread awareness to your product. Companies make a commercial with this in mind. Many over-the-top and absurd commercial having been making rounds across the internet \cite{commercialrise}. First, being seen by a few people who were entertained by the commercial enough for them to hit the share button creating a network to other people who will eventually see the commercial shared by their friend and promptly clicking the share button themselves. Thus, repeating the cycle and expanding the network. 
+\section{Review on Graph Theory  \cite{agnarsson2006graph}}
+\subsection{Preliminaries}
+\begin{itemize}
+\item \textbf{set} - a group of objects
+\item \textbf{element} - an object inside a set
+\item \textbf{empty set} - null set;contains no element; denoted by $\varnothing$ or $\{\}$
+\item If n element $a$ is in set $S$, then $a \in S $.
+\item If a set $t$ contains some or all the elements of a set S, then $t \subseteq S$.
+\item If set $S$ contains all the elements of $T$ and vice-versa, then $t=S$.
+\item Let $A$ and $B$ be sets,
+\begin{itemize}
+	\item $A \cup B$ or the \textit{union of A and B} is the set containing all the element/s of both set $A$ and set $B$.
+	\item $A \cap B$ or the \textit{intersection of A and B} is the set containing the element/s that are present in both set $A$ and set $B$.
+	\item set $A$ and set $B$ are disjoint sets if they have no same elements. Disjoint sets can be written as $A \cap B=\varnothing$.
+	\item $A \setminus B$ or the \textit{set difference of A and B} is the set containing all the elements of $A$ that are not in $B$.
+	\item $A \Delta B$ or the \textit{symmetric difference of A and B} is equal to $(A \setminus B) \cup (B \setminus A)$. 
+\end{itemize}
+ \item \textbf{finite set} - a countable set; set that contains countable number elements
+ \item  \textbf{cardinality of set $S$ or $|S|$} - the number of elements of set $S$
+ \item \textbf{power set of $S$ or $P(S)$} - the set that all the possible subsets of S including the empty set
+ \item Let $k \in \mathbb{N}$ and $a_1,a_2,...,a_k$ are any k number of objects; \textit{ordered k-tuple or k-tuple} can be written as $(a_1,a_2,...,a_k)$.
+ \item Some sets of numbers:
+ \begin{itemize}
+ 	\item set of natural numbers or $\mathbb{N} = \{1,2,3,...\}$
+ 	\item integer set or $\mathbb{Z} = \{...,-2,-1,0,1,2,...\}$
+ 	\item set of rational numbers or $\mathbb{Q} = \{a/b:a,b \in \mathbb{Z},b\neq 0 \}$
+ 	\item set of real numbers or $\mathbb{R}$
+ \end{itemize}
+\end{itemize}
+
+\subsection{Graphs}
+\begin{itemize}
+ \item \textbf{graph or general graph} - ordered triple $G=(V,E,\phi)$ where, $V\neq\emptyset$, $V \cap E = \emptyset$ and $\phi:E \rightarrow P(V)$ such that the cardinality of $\phi$ is either 1 or 2 for every $e \in E$.
+ \item Let G be a graph with $G = (V,E,\phi)$,
+	\begin{itemize}
+		\item The vertex set or $V$ is the set of vertices of G
+		\item The edge set or $E$ is the set of edges
+		\item $\phi(e)$ contains the endvertex/endvertices of each $e$ which are the elements of the vertex set. 
+	\end{itemize}	 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [below left of=1] {$v_2$};
+  \node[main node] (3) [below of=1] {$v_3$};
+  \node[main node] (4) [below right of=1] {$v_4$};
+  \node[main node] (5) [below of=3] {$v_5$};
+  \node[main node] (6) [right of=4] {$v_6$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node [right] {$e_3$} (4)
+    	edge node [left] {$e_1$} (2)
+    	edge node {$e_2$} (3)
+    (2) edge [loop left] node {$e_6$} (2)
+    (3) edge node [right] {$e_4$} (5)
+        edge node [right] {$e_7$} (4)
+    (4) edge node {$e_5$} (5)
+	(5) 
+    ;
+\end{tikzpicture}
+\caption{Graph G with 6 vertices and seven edges.}
+\label{graph1}
+\end{figure}
+In figure \ref{graph1}, 
+\begin{equation}
+\begin{array}{l}
+G=(V,E,\phi) \\
+V=\{v_1,v_2,v_3,v_4,v_5,v_6\} \\
+E=\{e_1,e_2,e_3,e_4,e_5,e_6,e_7\} \\
+\phi(e_1)=\{v_1,v_2\} \\
+\phi(e_2)=\{v_1,v_3\} \\
+\phi(e_3)=\{v_1,v_4\} \\
+\phi(e_4)=\{v_3,v_5\} \\
+\phi(e_5)=\{v_4,v_5\} \\
+\phi(e_6)=\{v_2,v_2\} \\
+\phi(e_7)=\{v_3,v_4\}
+\end{array}
+\end{equation}
+Let the graph $G=(V,E,\phi)$,
+	\begin{itemize}
+\item The vertices $u$ and $v$ are in $V$ and are \textit{adjacent/neighbor} of each other , if there is some edge $e \in E$ that has $\phi(e)=\{u,v\}$ or $\{v,u\}$. In figure 1, $v_1$ and $v_2$ are neighbors.
+\item The edges $e_1$ and $e_2$ are in $E$ and are \textit{adjacent} if they contain atleast one same endvertex on their respective $\phi$, such that $\phi\{e_1\} \cap \phi\{e_2\} \neq 0$. In figure 1, $e_1$ and $e_2$ are adjacent
+\item Vertex $v$ and edge $e$ are in $V$ and $E$ respectively and are \textit{incident}, if $v$ is in $\phi(e)$. In figure 1, $v_1$ and $e_3$ are incident.
+\item \textbf{Loop} is an edge $e$ with the same endvertices given that $|\phi(e)|=2$. In the figure, $e_2$ is a loop because $\phi(e)=\{v_2,v_2\}$
+\item $E'$ is a edge set with \textit{multiple/parallel edges}, if $|E'| \leq 2$ and for any edges $e$ and $f$ in $E'$, $\phi(e)=\phi(f)$
+%%include example for parallel edges
+\item The vertex $v$ is \textit{isolated} if $v$ is not in $\phi(e)$ for all $e$ in $E$
+	\end{itemize}
+	\item A \textbf{simple graph} is a graph without multiple/parallel edges or loops.
+	\item A graph $G=(V,E)$ is a simple graph if,
+	\begin{enumerate}
+		\item $V\neq\emptyset$
+		\item $E=\emptyset$
+		\item $E=\{\{v_1,v_2\}:v_1,v_2 \in V, v_1 \neq v_2\}$
+	\end{enumerate}
+	\begin{figure}[h]
+	\centering
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [below left of=1] {$v_2$};
+  \node[main node] (3) [below right of=1] {$v_3$};
+  \node[main node] (4) [above right of=1] {$v_4$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node [right] {$e_1$} (2)
+    	edge node [left] {$e_2$} (3)
+    	edge node {$e_4$} (4)
+    (2) 
+    (3) edge node {$e_3$} (4)
+        
+    (4) 
+    ;
+\end{tikzpicture}
+		\caption{An example of simple graph}
+	\end{figure}
+	Some examples of Common graphs:
+	\item A graph $G=(V,E)$ is a \textit{null graph} on $n$ vertices if,
+		\begin{enumerate}
+			\item $V=\{v_1,v_2,...,v_n\}$
+			\item $E=\emptyset$
+		\end{enumerate}
+		\begin{figure}[h]
+			\centering
+			\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [right of=1] {$v_2$};
+  \node[main node] (3) [right of=2] {$v_3$};
+  \node[main node] (4) [right of=3] {$v_4$};
+  
+    ;
+\end{tikzpicture}
+\caption{An example of a null graph on 4 vertices}
+		\end{figure}
+		
+	\item A graph $G=(V,E)$ is a \textit{path graph} on $n\geq2$ vertices if,
+		\begin{enumerate}
+			\item $V=\{v_1,v_2,...,v_n\}$
+			\item $E=\{\{u_1,u_2\},\{u_2,u_3\},...,\{u_{n-1},u_{n}\}\}$
+		\end{enumerate}
+		
+		\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [right of=1] {$v_2$};
+  \node[main node] (3) [right of=2] {$v_3$};
+  \node[main node] (4) [right of=3] {$v_4$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {$e_1$} (2)
+    (2) edge node {$e_2$} (3)
+    (3) edge node {$e_3$} (4)  
+    (4) 
+    ;
+\end{tikzpicture}
+\caption{An example of a path graph one 4 vertices}
+		\end{figure}
+	\item A graph $G=(V,E)$ is a \textit{cycle graph or cycle} on $n\geq3$ vertices if,
+	\begin{enumerate}
+		\item $V=\{v_1,v_2,...,v_n\}$
+		\item $E=\{\{v_1,v_2\},\{v_2,v_3\},...,\{v_{n-1},v_{n}\},\{v_n,v_1\}\}$
+	\end{enumerate}
+	\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [right of=1] {$v_2$};
+  \node[main node] (3) [below right of=2] {$v_3$};
+  \node[main node] (4) [below left of=3] {$v_4$};
+  \node[main node] (5) [left of=4] {$v_5$};
+  \node[main node] (6) [above left of=5] {$v_6$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {$e_1$} (2)
+    (2) edge node {$e_2$} (3)
+    (3) edge node {$e_3$} (4)  
+    (4) edge node {$e_4$} (5)
+    (5) edge node {$e_5$} (6)
+    (6) edge node {$e_6$} (1)
+    ;
+\end{tikzpicture}
+	
+	\caption{An example of a cycle graph on 6 vertices}
+	\end{figure}
+	\item A graph $G=(V,E)$ is a \textit{complete graph} on $n$ vertices if,
+	\begin{enumerate}
+		\item $V=\{v_1,v_2,...,v_n\}$
+		\item $E=\{\{v_i,v_j\}:1\leq i \leq j \leq n\}$
+	\end{enumerate}
+	\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [right of=1] {$v_2$};
+  \node[main node] (3) [below right of=2] {$v_3$};
+  \node[main node] (4) [below left of=3] {$v_4$};
+  \node[main node] (5) [left of=4] {$v_5$};
+  \node[main node] (6) [above left of=5] {$v_6$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    	edge node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (2) edge node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)  
+    (4) edge node {} (5)
+    	edge node {} (6)
+    (5) edge node {} (6)
+    (6)
+    ;
+\end{tikzpicture}
+	
+	\caption{An example of a complete graph on 6 vertices}
+	\end{figure}
+	\item A graph is a \textit{complete bipartite (m,n)-graph} on $m+n$ vertices, if
+	\begin{enumerate}
+		\item $V=\{s_1,s_2,...,s_m\} \cup \{v_1,v_2,...,v_n\}$
+		\item $E=\{\{s_i,v_j\}:1\leq i \leq m, 1 \leq j \leq n\}$
+	\end{enumerate}	
+	\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [right of=1] {$v_2$};
+  \node[main node] (3) [right of=2] {$v_3$};
+  \node[main node] (4) [right of=3] {$v_4$};
+  \node[main node] (5) [below left of=1] {$s_1$};
+  \node[main node] (6) [below right of=1] {$s_2$};
+  \node[main node] (7) [below right of=2] {$s_3$};
+  \node[main node] (8) [below right of=3] {$s_4$};
+  \node[main node] (9) [below right of=4] {$s_5$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (5)
+    	edge node {} (6)
+    	edge node {} (7)
+    	edge node {} (8)
+    	edge node {} (9)
+    (2) edge node {} (5)
+    	edge node {} (6)
+    	edge node {} (7)
+    	edge node {} (8)
+    	edge node {} (9)
+    (3) edge node {} (5)
+    	edge node {} (6)
+    	edge node {} (7)
+    	edge node {} (8)
+    	edge node {} (9)  
+    (4) edge node {} (5)
+    	edge node {} (6)
+    	edge node {} (7)
+    	edge node {} (8)
+    	edge node {} (9)
+    ;
+\end{tikzpicture}
+\caption{An example of a complete bipartite $(4,5)$-graph on $4+5$ vertices}
+\end{figure}	 
+\end{itemize}
+\subsection{Degrees and Regular Graph}
+Let $G=(V,E,\phi)$ be a graph with vertex $v\in V$,
+\begin{itemize}
+
+	\item $d_G(v)$ or $d(v)$ (when there is no other given graphs) is the \textit{degree of the vertex $v$} given by,
+	$$d(v)=|\{e\in E: v \in \phi(e), |\phi(e)|=1,2 \}|$$
+	It is the cardinality of edges that are connected to the vertex $v$.\\ 
+	Some Remarks:\\  \\
+	\begin{tabular}{|l|l|}\hline
+		Type of Graph & $d(v)$ \\ \hline
+		Simple & number of neighbors of $v$ \\ \hline
+		Loopless & number of edges that have $v$ as endvertex \\ \hline
+		General & same as loopless but loops are counted twice \\ \hline
+	\end{tabular}
+	\item The set $N_G(v)$ or $N(v)$ is called the \textit{open neighborhood of v} or the \textit{neighborhood of v}.It is the set of all the vertex neighbors of the vertex $v$ in graph $G$. It is given by,
+		$$N(v)=\{w \in V: \phi(e)=\{v,w\} or \{w,v\}, e \in E\}$$
+	\item Additionally, the \textit{closed neighborhood of v}  denoted by $N[v]$  is the set of all the elements in the open neighbor with the vertex $v$ itself. 
+	$$N[v]=N(v) \cup v$$
+	
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [below left of=1] {$v_2$};
+  \node[main node] (3) [below right of=1] {$v_3$};
+  \node[main node] (4) [right of=3] {$v_4$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    	edge node {} (3)
+    (2) edge [bend left]node {} (3)
+    	edge [loop left] node {} (2)
+    (3) edge [bend left] node {} (2)
+    	edge node {} (4)
+    (4) 
+    ;
+\end{tikzpicture}
+\caption{An example of a graph with various degrees.}
+\label{degreefig}
+\end{figure}
+
+In figure \ref{degreefig}, 
+\begin{equation}
+\begin{array}{c c}
+d(v_1)=2 & N(v_1)=\{v_2,v_3\} \\
+d(v_2)=5 & N(v_2)=\{v_1,v_3\}\\
+d(v_3)=4 & N(v_3)=\{v_1,v_2,v_4\}\\
+d(v_4)=1 & N(v_4)=\{v_3\}\\
+N[v_1]=N[v_2]=\{v_1,v_2,v_3\} & N[v_3]=V\\
+N[v_4]=\{v_3,v_4\}
+
+\end{array}
+\end{equation}
+\\ \\
+ \item Hand Shake Theorem \\ The \textit{hand shake theorem} was inspired from the hand shaking scenario on a party. Each person in the party needs to shake hands with the other persons in the room. The amount of shake hands made is twice the number of persons in the party. In parallel to graphs, people in the party represents the vertex set of the graph and the shake hands made are the edge set of the graph. The graph $G=(V,E)$ has a total degree of,
+ $$\sum\limits_{u\in V} d(v) = 2|E|$$
+	\item The graph $F=(V',E',\phi')$ is a subset of graph $G=(V,E,\phi)$ if,
+	\begin{enumerate}
+		\item $V' \subseteq V$,
+		\item $E' \subseteq E$,
+		\item $\phi'(e) = \phi(e) \forall e \in E'$	
+	\end{enumerate}	 
+	The subgraph relationship is denoted by $\subseteq$. So that, we can say $F \subseteq G$
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [below right of=1] {$v_2$};
+  \node[main node] (3) [below left of=1] {$v_3$};
+  \node[main node] (4) [above left of=3] {$v_4$};
+  \node[main node] (5) [left of=3] {$v_5$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    	edge node {} (4)
+    	edge node {} (5)
+    (2) 
+    (3) edge node {} (4)
+    	edge node {} (5)
+    (4) edge node {} (5)
+    (5)
+    ;
+\end{tikzpicture}
+
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (3) [below left of=1] {$v_3$};
+  \node[main node] (4) [above left of=3] {$v_4$};
+  \node[main node] (5) [left of=3] {$v_5$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1)	edge node {} (4)
+    	edge node {} (5)
+    (2) 
+    (3) edge node {} (4)
+    	edge node {} (5)
+    (4) edge node {} (5)
+    (5)
+    ;
+\end{tikzpicture}
+\caption{The graph $F$ (bottom) is a subgraph of graph $G$ (top). }
+\label{subgraphfig}
+\end{figure}	
+\end{itemize}	
+\subsection{Directed Graphs}
+\begin{itemize}
+	\item A \textit{directed graph or digraph} is an ordered triple given by $G=(V,E,\eta)$ where,
+	\begin{enumerate}
+		\item $V \neq \emptyset$
+		\item $V \cap E = \emptyset$
+		\item $\eta:E \mapsto V \times V$
+	\end{enumerate}
+	\begin{itemize}
+		\item $V$ is the vertex set
+		\item $E$ is the set of directed edges
+		\item If $u,v \in V$,$e \in E$ and $\eta(e)=(u,v)$, then $u$ is the tail of $e$ and $v$ is the head of $e$.
+	\end{itemize}
+	\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [right of=1] {$v_2$};
+  \node[main node] (3) [below left of=2] {$v_3$};
+  \node[main node] (4) [below of=2] {$v_4$};
+  \node[main node] (5) [below of=4] {$v_5$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {$e_1$} (2)
+    	
+    (2) edge node {$e_2$} (4)
+    (3) edge node {$e_3$} (2)
+    (4) edge node {$e_4$} (5)
+    (5) edge node {$e_5$} (3)
+    ;
+\end{tikzpicture}
+\caption{An example of a directed graph.}
+
+\label{digraphfig}
+\end{figure}
+In figure \ref{digraphfig}, 
+\begin{equation}
+\begin{array}{c}
+V=\{v_1,v_2,v_3,v_4,v_5\}, \\
+E=\{e_1,e_2,e_3,e_4,e_5\}, \\
+\eta(e_1)=(v_1,v_2), \\
+\eta(e_2)=(v_2,v_4), \\
+\eta(e_3)=(v_3,v_2), \\
+\eta(e_4)=(v_4,v_5), \\
+\eta(e_5)=(v_5,v_3), \\
+\end{array}
+\end{equation}
+\end{itemize}
+\newpage
+\section{Introduction to the Problem}"Viral Marketing" is a term first introduced in 1997 by Steve Jurvetson and Time Draper\cite{viralmarketing}. It is an effective way of advertising a product to a large group of people by having little groups eventually spread awareness to your product. Companies make a commercial with this in mind. Many over-the-top and absurd commercial having been making rounds across the internet \cite{commercialrise}. First, being seen by a few people who were entertained by the commercial enough for them to hit the share button creating a network to other people who will eventually see the commercial shared by their friend and promptly clicking the share button themselves. Thus, repeating the cycle and expanding the network. 
 
 Online social networks are a good medium to advertise on. Viral Marketing on online social networks is a very cost-effective technique that most companies today utilize. For only spending a few dollars, the payoff can be amazing\cite{viralmarketing}. In 1996, this strategy was used by the once popular e-mail service Hotmail: Every mail sent via Hotmail contained advertisement for the service. A total of \$50,000 was spent on this campaign. Hotmail expanded into 12 million users in just 18 months\cite{viralmarketing}. 
 
