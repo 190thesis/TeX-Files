@@ -623,4 +623,39 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 VirAds selects in each step the vertex $u$ with the highest effectiveness which is defined as $n^{(e)}_{u}+n^{(e)}_{a}$. Which is basically the vertex $v$ which can activate the most number of $edges$. It also considers the vertex with the most active neighbors. After that, the algorithm updates the measures for all the remaining vertices. VirAds will make the selection based on the information within $d$-hop neighbor around the considered vertices rather than only one-hop neighbor as in the degree-based heuristic. When a vertex $u$ is selected, it causes a chain-reaction and activate a sequence of vertices or lower the rounds in which vertices are activated\cite{virads}.
 
 The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagine, a line at any commercial establishment where the first who came is the first who's served. 
-\newpage
+\section{Main algortihm developed in the study}
+\subsection{Preliminaries}
+	Let $G = (V,E)$ be a graph modeling a network. $\Gamma$ is the neighborhood of current vertex $v$ and $d_{g}(v)$ or $|\Gamma_{g}(v)|$ as the degree of current vertex $v$.
+	Let $t: V \rightarrow N_{0}={0,1,...}$ be the threshold function assigned to the vertices of $G$. For each node $v \in V$, the threshold $t(v)$ indicates how hard or how easy it is to influence vertex $v$. Low thresholds means easier to influence and high thresholds are hard to influence.
+	
+	The activation process in $G$ starting at $S$ is a sequence of vertex subsets $Active_{G}[S,0] \subseteq Active_{G}[S,1] \subseteq ... \subseteq Active_{G}[S,\ell] \subseteq ... \subseteq V$ of vertex subsets, with $Active_{G}[S,0]=S$ and 
+	
+	$Active_{G}[S,\ell]=Active_{G}[S,\ell-1] \cup {u:|\Gamma_{G}(u)\cap Active_{G}[S,\l-1]|\geq t(u)}, for \; \ell \geq 1$
+	
+	A target set for $G$ is set $S \subseteq V$ such that $Active_{G}[S,\lambda]=V$ for some $\lambda \geq 0$
+	
+	This means at each round $\ell$ the set of active nodes is augmented by the set of nodes $u$ that have anumber of already activated neighbors greater or equal to $u$'s threshold $t(u)$. The vertex $v$ is said to be activated at round $\ell \ge 0$ if $v \in Active_{G}[S,\ell]\ Active_{G}[S,\ell-1]$.
+	
+	\subsection{The TSS Algorithm}
+	
+	Given the input graph $G$, at each round/iteration if the vertex has already been considered it will be removed from the graph. When the current vertex $v$ is deleted in the graph its neighbors degree is updated and the current $v$ is removed from the neighbor set of the neighbors of $v$.
+	
+	If the vertex $v$ is deemed applicable to be in the target set, the thresholds of their neighbors are decreased by one since the deleted node is able to activate them.
+	
+	In this algorithm 3 cases are considered:
+	\begin{itemize}
+		\item Case 1: The threshold $k$ of the current vertex $v$ is 0.\\
+		The vertex $v$ is activated by the influence of its neighbors in $V - U$ only; it can then influence its neighbors in U.\\
+		So, for each neighbor of vertex $v$ denoted by $u$, reduce the threshold of $u$ by 1.
+		\item Case 2: The degree of $v$ is less than the its threshold.\\
+		The vertex v is added to S, since no sufficient neighbors remain in $U$ to activate it; v can then influence its neighbors in $U$.\\
+		Add the current $v$ to S
+		For each neighbor of vertex $v$ denoted by $u$, reduce the threshold of $u$ by 1.
+		\item Case 3: The other conditions are not met.\\
+		The vertex $v$ will be influence by some of its neighbors in $U$.\\
+		Set the vertex $v$ as the vertex in which this equation $\frac{k(u)}{\delta(u)(\delta(u)+1)}$.\\ Note: the maximum value that this equation bears when $k(u)=\delta(u)=1$. When 1 is substituted to the equation $\frac{1}{2}$ is obtained. With the threshold and degree of a vertex = 1, the node is a leaf. This implies that for every change of v, the ones with low degrees and threshold are considered first.
+		
+	\end{itemize}
+	
+	
+	
