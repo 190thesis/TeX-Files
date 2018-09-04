@@ -607,9 +607,9 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 		
 		\EndFor
 		\While{$Q\not=\emptyset$}
-		\State$(t,r_{t})  = Q.pop() $
+		\State$(t,\widetilde{r_{t}})  = Q.pop() $
 		\ForAll{$w \in N(t)$}
-		\ForAll{$i=r_{t}\  to$ min $\{r_{t}-1,r_{w}-2\}$}
+		\ForAll{$i=r_{t}\  to$ min $\{\widetilde{r_{t}}-1,r_{w}-2\}$}
 		\State $r_{w}^{i}=r_{w}^{i}+1 $
 		\If{$(r_{w}^{(i)}\geq \rho \cdot d_{w})\wedge(r_{w}\geq d)\wedge(i+1<d)$}
 		\ForAll{$x\in N(w)$}
