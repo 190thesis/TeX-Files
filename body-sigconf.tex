@@ -468,36 +468,8 @@ This case is when all the thresholds are small constants. However, this threshol
 \cite{NPhardness}. \begin{itemize}
 	\item NP or Non-deterministic polynomial time is the set of languages that can verified in polynomial time, or equivalently, that can be solved in polynomial time by a "guessing computer", whose guesses are guaranteed to produce an output of "yes" if at all possible.
 	\item A problem is NP-hard if an algorithm for solving it can be translated into one for solving any NP-problem.
-	\item Boolean Variables are variables having a value of TRUE represented by $x_{i}$ and FALSE represented by the negation of $x_{i}$ which is $\bar{x_{i}}$. They can be interchanged if $\bar{x_{i}}$ is defined as TRUE. Let $x_{1},x_{2},...,x_{n}$ be boolean varibles.
-	\item A literal is either one of the variables $x_{i}$ or its negation $\bar{x_{i}}$.
-	\item Clause is a set of literals.
-	\item A Clause is SATISFIABLE if there is an assignment of truth values to the variables $x_{1},x_{2},...,x_{n}$ so that each clause is satisfied.
-	\item 3SAT is a set of problems with each clause having the logical OR 3 boolean variables. Each clause is then connected by the logical AND. Example: $(x_{1}\vee x_{2} \vee x_{3})\wedge(\neg x_{1}\vee \neg x_{2} \vee x_{3}) \wedge (x_{1} \vee \neg x_{2} \vee x_{3})$
-	
-	
 \end{itemize} 
 \textbf{The Target Set Selection problem is NP-hard when the threshold $k$ for every vertex $v$ is at most 2}
-
-$Proof$: We reduce 3SAT in order to prove that the TSS is NP hard. Given a formula $\phi(x_{1}, x_{2},..., x_{n})=C_{1}\wedge C_{2}\wedge ... \wedge C_{n}$. 3SAT has at most 3 literals for each clause. With this in mind, we can assume that both $x_{i}$ and $\bar{x_{i}}$ will appear atleast once in the formula. We create a graph $G=(V,E)$ Fig.\ref{Fig1}.(The left gadget is if $x_{i}$ occurs twice and $\bar{x_{i}}$ occurs once, the middle one if $x_{i}$ occurs once and $\bar{x_{i}}$ occurs twice, and the right one if both variables occur once). The numbers in the nodes are their corresponding thresholds. For each clause $C_{j}$, we add a vertex $w_{j}$ with a threshold of 1. Let $W={w_{1},w_{2},...,w_{m}}$. If $x_{i} \in C_{j},$ we connect $v_{i}$ to $w_{j}$. If $\bar{x_{i}} \in C_{j},$ we connect $v_{i}'$ to $w_{j}$. Notice that $v$ and $v'$ in the graph have thresholds equal to their degree.
-\begin{center}
-	\begin{figure}
-		\includegraphics[scale=1]{NPGraph.png}
-		\caption{Gadget for each variable $x_{i}$}
-		\label{Fig1}
-	\end{figure}
-\end{center}
-We claim that $\phi$ is satisfiable if and only if the optimal target size of $G$ has a size of $n$.
-
-We assume that $\phi$ is satifiable. Define a target set.
-\begin{equation}
-S = \{{u_{i}| 1\leq i \leq n: x_{i} = true\} \cup \{u_{i}'| 1\leq i \leq n: x_{i} = false}\}
-\end{equation}
-Note that $|S|=n$. If $u_{i} \in S$, we can see that $v_{i}$ and other nodes between $v_{i}\; and\; u_{i}$ becomes active. The same can be said for $u_{i}'$ and $v_{i}'$. Since we've made the assumption that $\phi$ is satisfiable, by the construction of $G$, all vertices in $W$ become active, which in implies that $v_{i}$ and $v_{i}'$ become active. After this, vertices in $G$ become active.
-
-Let $T$ be the the target set. Suppose that $|T|\leq n$. For any $i = 1,2,...,n$, the threshold of $u_{i}$ and $u_{i}$' is 2. This implies that at least one of them is in $T$. Hence, $|T|=n$ and $T$ does not contain any vertex other than $u_{i},u_{i}'$.
-
-To make $w_{j}$ active, at least of its neighbors have to be active before it. Asumme without loss of generality, $v_{i}$ is active before $w_{j}$. To make $v_{i}$ itself active, we need to have $u_{i}$ active. This implies that $u_{i} \in T$. In summary, if all the vertices in $W$ are active by targeting $T$, the assignment corresponding to $T$ satisfies $\phi$.
-Hence, $\phi$ is satisfiable if and only if the optimal target set of $G$ has the size $n$, which would imply that the Target Set Selection problem is NP-hard.\cite{chen}
 
 For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set of all node's thresholds $k=1$. Activate any of the nodes in that graph and you will create a chain reaction of activating \textbf{every} node in that graph. So, with $k=1$ we can take any one node from that graph that is our target set.\cite{chen}.
 \subsubsection{Unanimous Thresholds}
