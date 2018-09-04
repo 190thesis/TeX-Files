@@ -588,7 +588,7 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 		
 		\Require Graph $G = (V,E),0<\rho<1,d\in N^{+}$
 		\Ensure A small $d-seeding$ 
-		\State $n_{v}^{(e)} = d(v),n_{v}^{a} = \rho \cdot d(v), r_{v}  = d + 1, v \in V $
+		\State $n_{v}^{(e)} = d(v),n_{v}^{(a)} = \rho \cdot d(v), r_{v}  = d + 1, v \in V $
 		
 		\State $r_{v}^{i}=0, i=0..d, P  = \emptyset $
 		
@@ -598,12 +598,12 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 		\State $u  = argmax_{v\not\in P}\{n_{v}^{(e)}+n_{v}^{(a)}\}$ 
 		
 		Recompute $n_{v}^{(e)}$ as the number of new active edges after adding $u$.
-		\Until{$u = argmax_{v\not\in P}\{n_{v}^{(e)}+n_{v}^{a}\}$ }
+		\Until{$u = argmax_{v\not\in P}\{n_{v}^{(e)}+n_{v}^{(a)}\}$ }
 		\State $P  = P \cup \{u\} $
 		\State Initialize a queue: $Q  = \{(u,r_{v})\} $
 		\ForAll{$x \in N(u)$}
 		
-		\State $n_{x}^{(a)}  = max\{n_{x}^{a}-1,0\} $
+		\State $n_{x}^{(a)}  = max\{n_{x}^{(a)}-1,0\} $
 		
 		\EndFor
 		\While{$Q\not=\emptyset$}
@@ -643,7 +643,7 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 	\item This then leads to the thresholds of the neighbors of the that neighbor $w$ being decremented.
 	\item In line 21 the round of the neighbor $w$ is incremented and if that current $w \notin Q$ then it is added to the queue and the while loop starts again.
 \end{itemize}
-VirAds selects in each step the vertex $u$ with the highest effectiveness which is defined as $n^{(e)}_{u}+n^{(e)}_{a}$. Which is basically the vertex $v$ which can activate the most number of $edges$. It also considers the vertex with the most active neighbors. After that, the algorithm updates the measures for all the remaining vertices. VirAds will make the selection based on the information within $d$-hop neighbor around the considered vertices rather than only one-hop neighbor as in the degree-based heuristic. When a vertex $u$ is selected, it causes a chain-reaction and activate a sequence of vertices or lower the rounds in which vertices are activated.\cite{virads}
+VirAds selects in each step the vertex $u$ with the highest effectiveness which is defined as $n^{(e)}_{u}+n^{(e)}_{(a)}$. Which is basically the vertex $v$ which can activate the most number of $edges$. It also considers the vertex with the most active neighbors. After that, the algorithm updates the measures for all the remaining vertices. VirAds will make the selection based on the information within $d$-hop neighbor around the considered vertices rather than only one-hop neighbor as in the degree-based heuristic. When a vertex $u$ is selected, it causes a chain-reaction and activate a sequence of vertices or lower the rounds in which vertices are activated.\cite{virads}
 
 The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagine, a line at any commercial establishment where the first who came is the first who's served. 
 \section{Main algortihm developed in the study}
