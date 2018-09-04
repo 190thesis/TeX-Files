@@ -437,6 +437,45 @@ E=\{e_1,e_2,e_3,e_4,e_5\}, \\
 \end{array}
 \end{equation}
 \end{itemize}
+\subsection{Paths and Cycles}
+Let $G=(V,E,\phi)$ be a graph with $V=\{v_1,v_2,...,v_k\}$ and $E=\{e_1,e_2,...,e_k\}$ as its vertex and edge set respectively, then,
+\begin{enumerate}
+	\item A \textbf{walk} in graph G is the alternating sequence of edges and vertices that start and stops with a vertex given by,
+	$(v_1,e_1,v_1,e_1,...,v_k,e_k)$ such that $\phi(e_j)=\{v_{j-1},v_j\}$ for $j \in k$.
+	\item A trail in G is a walk with all of its edges to be distinct.
+	\item A path in G is a walk with all of its vertices to be distinct.
+	\item A $u-v$ walk/trail/path is a walk starting from  the vertex $u$ and ends on the vertex $v$ with their respective characteristics.
+	\item A $v-v$ walk/trail is a circuit (or closed walk/trail/path).
+	\item A $v-v$ path is a cycle.
+	\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [right of=1] {$v_2$};
+  \node[main node] (3) [below left of=1] {$v_3$};
+  \node[main node] (4) [below of=2] {$v_4$};
+  \node[main node] (5) [below right of=3] {$v_5$};
+  \node[main node] (6) [right of=5] {$v_6$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {$e_1$} (2)
+    	edge node {$e_2$} (3)
+    	edge node {$e_3$} (5)
+    	edge node {$e_4$} (6)
+    (2) edge node {$e_5$} (4)
+    (3) edge node {$e_6$} (5)
+    (4) edge node {$e_7$} (6)
+    (5) edge node {$e_8$} (6)
+    (6)
+    ;
+\end{tikzpicture}
+\caption{An example of a directed graph.}
+
+\label{digraphfig}
+\end{figure}
+\end{enumerate}
 \newpage
 \section{Introduction to the Problem}"Viral Marketing" is a term first introduced in 1997 by Steve Jurvetson and Time Draper\cite{viralmarketing}. It is an effective way of advertising a product to a large group of people by having little groups eventually spread awareness to your product. Companies make a commercial with this in mind. Many over-the-top and absurd commercial having been making rounds across the internet \cite{commercialrise}. First, being seen by a few people who were entertained by the commercial enough for them to hit the share button creating a network to other people who will eventually see the commercial shared by their friend and promptly clicking the share button themselves. Thus, repeating the cycle and expanding the network. 
 
