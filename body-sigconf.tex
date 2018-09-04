@@ -479,68 +479,43 @@ Let $G=(V,E,\phi)$ be a graph with $V=\{v_1,v_2,...,v_k\}$ and $E=\{e_1,e_2,...,
 \newpage
 \section{Introduction to the Problem}"Viral Marketing" is a term first introduced in 1997 by Steve Jurvetson and Time Draper\cite{viralmarketing}. It is an effective way of advertising a product to a large group of people by having little groups eventually spread awareness to your product. Companies make a commercial with this in mind. Many over-the-top and absurd commercial having been making rounds across the internet \cite{commercialrise}. First, being seen by a few people who were entertained by the commercial enough for them to hit the share button creating a network to other people who will eventually see the commercial shared by their friend and promptly clicking the share button themselves. Thus, repeating the cycle and expanding the network. 
 
-Online social networks are a good medium to advertise on. Viral Marketing on online social networks is a very cost-effective technique that most companies today utilize. For only spending a few dollars, the payoff can be amazing\cite{viralmarketing}. In 1996, this strategy was used by the once popular e-mail service Hotmail: Every mail sent via Hotmail contained advertisement for the service. A total of \$50,000 was spent on this campaign. Hotmail expanded into 12 million users in just 18 months\cite{viralmarketing}. 
+Online social networks are a good medium to advertise on. Viral Marketing on online social networks is a very cost-effective technique that most companies today utilize. For only spending a few dollars, the payoff can be amazing.\cite{viralmarketing} In 1996, this strategy was used by the once popular e-mail service Hotmail: Every mail sent via Hotmail contained advertisement for the service. A total of \$50,000 was spent on this campaign. Hotmail expanded into 12 million users in just 18 months.\cite{viralmarketing} 
 
-Recently, the video game company Epic Games, used this tactic to advertise their new battle royale game "Fortnite" and it gave astounding results. The number one video streaming site, Youtube, is a very large network and resource to put to use. They sponsored Youtubers with hundred to millions of subscribers to promote their game\cite{sponsoredvideos}. Youtuber Evan Fong "VanossGaming" was one of the content creators Epic Games sponsored for advertising the beta release of Fortnite \cite{vanoss}. He currently has 23 million subscribers(August 2018). The video, titled "Fortnite Funny Moments-Launcing the Rocket!(Gameplay)", has garnered 10 million views in a span of a year.
+Recently, the video game company Epic Games, used this tactic to advertise their new battle royale game "Fortnite" and it gave astounding results. The number one video streaming site, Youtube, is a very large network and resource to put to use. They sponsored Youtubers with hundred to millions of subscribers to promote their game.\cite{sponsoredvideos} Youtuber Evan Fong "VanossGaming" was one of the content creators Epic Games sponsored for advertising the beta release of Fortnite \cite{vanoss}. He currently has 23 million subscribers(August 2018). The video, titled "Fortnite Funny Moments-Launcing the Rocket!(Gameplay)", has garnered 10 million views in a span of a year.
 
-With this in mind, finding the set of people to target would be ideal. Target Set Selection is basically finding the smallest set of people in a social network to influence all of the people in said network\cite{Kempe,chen,Shakarian:2012:LSN:2456719.2457081}. This network can be represented with a graph $G$ with each person as a node/vertex $V$. Connecting each node/vertex $V$ is an edge $E$. Connected vertices are considered neighbors $n$. The degree $d(v)$ of each node is how many neighbors a node has. The threshold $k(v)$ of each node is a factor to gauge the suceptability of a node from being influenced. The neighbor $N(v)$ is the set of neighbors of the node. 
+With this in mind, finding the set of people to target would be ideal. Target Set Selection is basically finding the smallest set of people in a social network to influence all of the people in said network.\cite{Kempe,chen,Shakarian:2012:LSN:2456719.2457081} This network can be represented with a graph $G$ with each person as a node/vertex $V$. Connecting each node/vertex $V$ is an edge $E$. Connected vertices are considered neighbors $n$. The degree $d(v)$ of each node is how many neighbors a node has. The threshold $k(v)$ of each node is a factor to gauge the suceptability of a node from being influenced. The neighbor $N(v)$ is the set of neighbors of the node. 
 
 \subsection{Two Basic Diffusion Models}
-Two basic diffusion models have been introduced in 2003 by Kempe, Kleinberd and Tardos\cite{Kempe}. These models are improved upon by works proceeding it. These two models are considered in order to further understand the basics and foundations of the models the algorithm is based/taken from.
+Two basic diffusion models have been introduced in 2003 by Kempe, Kleinberd and Tardos.\cite{Kempe} These models are improved upon by works proceeding it. These two models are considered in order to further understand the basics and foundations of the models the algorithm is based/taken from.
 
 
 In the following models, as information spreads through the network nodes will be referred to as either $active$ or $inactive$. The chance of the node to be active increases as more of its neighbor become active. Inactive nodes can become active nodes but the other way around is not to be considered. 
 \subsubsection{Linear Threshold Model}
-In this model, a node $v$ is influence by each neighbor $n$ according to a $weight\, b_{v,w}$ such that $\sum_{w\, neighbor\, of\, v} b_{v,w}\leq{1}$\cite{Kempe}. Each node $v$ is assigned a threshold $k$ uniformly at random from interval [0,1], [1,$\frac{d(v)}{2}$] or [1,10] \cite{chen}. The threshold range varies when applied to different variations of social network problem. In this model, the threshold lies in the interval [0,1]. 
+In this model, a node $v$ is influence by each neighbor $n$ according to a $weight\, b_{v,w}$ such that $\sum_{w\, neighbor\, of\, v} b_{v,w}\leq{1}$.\cite{Kempe} Each node $v$ is assigned a threshold $k$ uniformly at random from interval [0,1], [1,$\frac{d(v)}{2}$] or [1,10].\cite{chen} The threshold range varies when applied to different variations of social network problem. In this model, the threshold lies in the interval [0,1]. 
 
-This represents the fraction of neighbors of a node to be active in order for that node to be active itself.  A weight is assigned to each of their neighbor. If the cumulative weight of that node's neighbors is the same or more as their threshold, the node itself will become active. Thresholds are selected at random because of the lack of knowledge of the tendencies of the node \cite{Kempe}. 
+This represents the fraction of neighbors of a node to be active in order for that node to be active itself.  A weight is assigned to each of their neighbor. If the cumulative weight of that node's neighbors is the same or more as their threshold, the node itself will become active. Thresholds are selected at random because of the lack of knowledge of the tendencies of the node.\cite{Kempe} 
 \subsubsection{Independent Cascade Model}
-This model uses probablity instead of thresholds. Nodes have a  certain probability pertaining to how a single interaction from an active node to an inactive node can go. The active can either activate its neighbor or not. Once the inactive node is influenced, it can do the same to its neighbors with their own probabilities and the cycle continues for each time step until no more nodes can be activated\cite{Kempe}.
+This model uses probablity instead of thresholds. Nodes have a  certain probability pertaining to how a single interaction from an active node to an inactive node can go. The active can either activate its neighbor or not. Once the inactive node is influenced, it can do the same to its neighbors with their own probabilities and the cycle continues for each time step until no more nodes can be activated.\cite{Kempe}
 \subsection{Other threshold models}
 We study other threshold models since the model in this study uses thresholds as a way to gauge how easy or how hard it is to influence/activate a certain node. Learning the tendencies and limitations of other thresholds models will help in understanding the tendencies of the threshold function used in the study. This study has a threshold function that uses real numbers in the set [1,2,...,10].
 \subsubsection{General Threshold Model}
-To be able to express the notion that a node $v$'s tendency to be active can be based on an arbitrary monotone function of the set of neighbors of $v$ is a monotone threshold function $f_{v}$ that maps subsets of $v$'s neighbor set to real numbers in [0,1], with the condition that $f_{v}(\empty) = 0$. The diffusion process follows the general structure of the previously discussed Linear Threshold Model. However, $v$ becomes active in time step if $f_{v}(S) \geq t_{v}$, where $S$ is the set of neighbors of $v$ are active in the previous time step\cite{Kempe}.
+To be able to express the notion that a node $v$'s tendency to be active can be based on an arbitrary monotone function of the set of neighbors of $v$ is a monotone threshold function $f_{v}$ that maps subsets of $v$'s neighbor set to real numbers in [0,1], with the condition that $f_{v}(\emptyset) = 0$. The diffusion process follows the general structure of the previously discussed Linear Threshold Model. However, $v$ becomes active in time step if $f_{v}(S) \geq t_{v}$, where $S$ is the set of neighbors of $v$ are active in the previous time step.\cite{Kempe}
 \subsubsection{Majority Thresholds}
-One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$]\cite{chen}. This can be applied to networks that have voting systems and use the majority rule.
+One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems and use the majority rule.
 \subsubsection{Small Thresholds}
-This case is when all the thresholds are small constants. However, this threshold becomes more complex as the threshold increases from $k=1$. Past researches have studied that, for any $k \leq 2$, the Target Set Selection Problem is NP-hard.A theorem constructed by Chen et.al(2009) states that the Target Set Selection problem is NP-hard when the thresholds are at most 2. In order to prove NP-hardness we need to define a few terms
-\cite{NPhardness}. \begin{itemize}
-	\item NP or Non-deterministic polynomial time is the set of languages that can verified in polynomial time, or equivalently, that can be solved in polynomial time by a "guessing computer", whose guesses are guaranteed to produce an output of "yes" if at all possible.
-	\item A problem is NP-hard if an algorithm for solving it can be translated into one for solving any NP-problem.
-	\item Boolean Variables are variables having a value of TRUE represented by $x_{i}$ and FALSE represented by the negation of $x_{i}$ which is $\bar{x_{i}}$. They can be interchanged if $\bar{x_{i}}$ is defined as TRUE. Let $x_{1},x_{2},...,x_{n}$ be boolean varibles.
-	\item A literal is either one of the variables $x_{i}$ or its negation $\bar{x_{i}}$.
-	\item Clause is a set of literals.
-	\item A Clause is SATISFIABLE if there is an assignment of truth values to the variables $x_{1},x_{2},...,x_{n}$ so that each clause is satisfied.
-	\item 3SAT is a set of problems with each clause having the logical OR 3 boolean variables. Each clause is then connected by the logical AND. Example: $(x_{1}\vee x_{2} \vee x_{3})\wedge(\neg x_{1}\vee \neg x_{2} \vee x_{3}) \wedge (x_{1} \vee \neg x_{2} \vee x_{3})$
-	
-	
+This case is when all the thresholds are small constants. However, this threshold becomes more complex as the threshold increases from $k=1$. Past researches have studied that, for any $k \leq 2$, the Target Set Selection Problem is NP-hard.A statement constructed by Chen et.al(2009) states that the Target Set Selection problem is NP-hard when the thresholds are at most 2. Earlier before that, Dreyer(2000) proved this instance for only $k \geq 3$.\cite{dreyer} \cite{NPhardness} 
+\begin{itemize}
+	\item Time Complexity defines the runtime of a certain algorithm. Denoted by the Big-O notation. Example: $O(n)$ is linear time, $n$ represents the size of the input.
+	\item P or Polynomial time is a set of languages that are relatively easy to get the solution and to verify it (i.e Multiplication, sorting, finding primes, etc). This determined from the time complexity of the algorithm. Being in polynomial time, the notation would be $O(n^k)$ for some $k>1$.
+	\item NP or Non-deterministic polynomial time is the set of languages that can verified in polynomial time, or equivalently, that can be solved in polynomial time by a "guessing computer", whose guesses are guaranteed to produce an output of "yes" if at all possible. Basically NP Problems are problems that when given a solution, it is easy to verify the solution, but hard to get the solution itself.
+	\item NP-Complete problems are problems that are in NP and are NP-hard(i.e $n^{2}by\; n^{2}$ sudoku, Boolean Satisfiability Problem). 
+	\item A problem is NP-hard if the problem is atleast as hard or even harder than the problems in NP. This means that if you find an algorithm that solves an NP-hard problem, you can use that very algorithm to solve any other problem in NP in polynomial time(i.e Cryptography, Routing, Scheduling).  
 \end{itemize} 
 \textbf{The Target Set Selection problem is NP-hard when the threshold $k$ for every vertex $v$ is at most 2}
 
-$Proof$: We reduce 3SAT in order to prove that the TSS is NP hard. Given a formula $\phi(x_{1}, x_{2},..., x_{n})=C_{1}\wedge C_{2}\wedge ... \wedge C_{n}$. 3SAT has at most 3 literals for each clause. With this in mind, we can assume that both $x_{i}$ and $\bar{x_{i}}$ will appear atleast once in the formula. We create a graph $G=(V,E)$ Fig.\ref{Fig1}.(The left gadget is if $x_{i}$ occurs twice and $\bar{x_{i}}$ occurs once, the middle one if $x_{i}$ occurs once and $\bar{x_{i}}$ occurs twice, and the right one if both variables occur once). The numbers in the nodes are their corresponding thresholds. For each clause $C_{j}$, we add a vertex $w_{j}$ with a threshold of 1. Let $W={w_{1},w_{2},...,w_{m}}$. If $x_{i} \in C_{j},$ we connect $v_{i}$ to $w_{j}$. If $\bar{x_{i}} \in C_{j},$ we connect $v_{i}'$ to $w_{j}$. Notice that $v$ and $v'$ in the graph have thresholds equal to their degree.
-\begin{center}
-	\begin{figure}
-		\includegraphics[scale=1]{NPGraph.png}
-		\caption{Gadget for each variable $x_{i}$}
-		\label{Fig1}
-	\end{figure}
-\end{center}
-We claim that $\phi$ is satisfiable if and only if the optimal target size of $G$ has a size of $n$.
-
-We assume that $\phi$ is satifiable. Define a target set.
-\begin{equation}
-S = \{{u_{i}| 1\leq i \leq n: x_{i} = true\} \cup \{u_{i}'| 1\leq i \leq n: x_{i} = false}\}
-\end{equation}
-Note that $|S|=n$. If $u_{i} \in S$, we can see that $v_{i}$ and other nodes between $v_{i}\; and\; u_{i}$ becomes active. The same can be said for $u_{i}'$ and $v_{i}'$. Since we've made the assumption that $\phi$ is satisfiable, by the construction of $G$, all vertices in $W$ become active, which in implies that $v_{i}$ and $v_{i}'$ become active. After this, vertices in $G$ become active.
-
-Let $T$ be the the target set. Suppose that $|T|\leq n$. For any $i = 1,2,...,n$, the threshold of $u_{i}$ and $u_{i}$' is 2. This implies that at least one of them is in $T$. Hence, $|T|=n$ and $T$ does not contain any vertex other than $u_{i},u_{i}'$.
-
-To make $w_{j}$ active, at least of its neighbors have to be active before it. Asumme without loss of generality, $v_{i}$ is active before $w_{j}$. To make $v_{i}$ itself active, we need to have $u_{i}$ active. This implies that $u_{i} \in T$. In summary, if all the vertices in $W$ are active by targeting $T$, the assignment corresponding to $T$ satisfies $\phi$.
-Hence, $\phi$ is satisfiable if and only if the optimal target set of $G$ has the size $n$, which would imply that the Target Set Selection problem is NP-hard.\cite{chen}
-
-For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set of all node's thresholds $k=1$. Activate any of the nodes in that graph and you will create a chain reaction of activating \textbf{every} node in that graph. So, with $k=1$ we can take any one node from that graph that is our target set.\cite{chen}.
+For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set of all node's thresholds $k=1$. Activate any of the nodes in that graph and you will create a chain reaction of activating \textbf{every} node in that graph. So, with $k=1$ we can take any one node from that graph that is our target set.\cite{chen}
 \subsubsection{Unanimous Thresholds}
-This settings is considered the most influence-resistant of the previously mentioned\cite{chen}. All the nodes have unanimous thresholds  i.e, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures\cite{chen}.
+This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen}
 \subsection{Target Set Selection Algorithms compared in this study}
 
 \subsubsection{TIP-DECOMP}
@@ -559,11 +534,11 @@ This settings is considered the most influence-resistant of the previously menti
 		\State FLAG=TRUE 
 		\While{FLAG=TRUE}
 			\For{$v_{i} \in V $}
-				\If{$v_{i}=min(dist_{i})$}
+				\If{$v_{i}\; has \;min(dist_{i})$}
 					\State $v_{i}=$ current $v$
 				\EndIf
 			\EndFor
-			\If{$dist_{j}=\infty$}
+			\If{$dist_{i}=\infty$}
 				\State FLAG=FALSE 
 			\Else
 			\State Remove $v_{i}$ from $G$ 
@@ -593,7 +568,7 @@ This settings is considered the most influence-resistant of the previously menti
 \end{itemize}
 TIP-DECOMP or Tipping Decomposition is model based on the idea of node "tipping" when a node adopts a property or behavior if a number of his neighbors currently exhibit the same. It is a type of Target Set Selection Algorithm. 
 
-The algorithm above inputs a threshold function $t$ and the social network $G$ and outputs the network with vertices removed based off the condition in the algorithm.\cite{tipdecomp}.
+The algorithm above inputs a threshold function $t$ and the social network $G$ and outputs the network with vertices removed based off the condition in the algorithm.\cite{tipdecomp}
 \subsection{VirAds} 
 
 
@@ -659,7 +634,88 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 	\item This then leads to the thresholds of the neighbors of the that neighbor $w$ being decremented.
 	\item In line 21 the round of the neighbor $w$ is incremented and if that current $w \notin Q$ then it is added to the queue and the while loop starts again.
 \end{itemize}
-VirAds selects in each step the vertex $u$ with the highest effectiveness which is defined as $n^{(e)}_{u}+n^{(e)}_{a}$. Which is basically the vertex $v$ which can activate the most number of $edges$. It also considers the vertex with the most active neighbors. After that, the algorithm updates the measures for all the remaining vertices. VirAds will make the selection based on the information within $d$-hop neighbor around the considered vertices rather than only one-hop neighbor as in the degree-based heuristic. When a vertex $u$ is selected, it causes a chain-reaction and activate a sequence of vertices or lower the rounds in which vertices are activated\cite{virads}.
+VirAds selects in each step the vertex $u$ with the highest effectiveness which is defined as $n^{(e)}_{u}+n^{(e)}_{a}$. Which is basically the vertex $v$ which can activate the most number of $edges$. It also considers the vertex with the most active neighbors. After that, the algorithm updates the measures for all the remaining vertices. VirAds will make the selection based on the information within $d$-hop neighbor around the considered vertices rather than only one-hop neighbor as in the degree-based heuristic. When a vertex $u$ is selected, it causes a chain-reaction and activate a sequence of vertices or lower the rounds in which vertices are activated.\cite{virads}
 
 The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagine, a line at any commercial establishment where the first who came is the first who's served. 
-\newpage
+\section{Main algortihm developed in the study}
+\subsection{Preliminaries}
+	Let $G = (V,E)$ be a graph modeling a network. $\Gamma$ is the neighborhood of current vertex $v$ and $d_{g}(v)$ or $|\Gamma_{g}(v)|$ as the degree of current vertex $v$.
+	Let $t: V \rightarrow N_{0}={0,1,...}$ be the threshold function assigned to the vertices of $G$. For each node $v \in V$, the threshold $t(v)$ indicates how hard or how easy it is to influence vertex $v$. Low thresholds means easier to influence and high thresholds are hard to influence.
+	
+	The activation process in $G$ starting at $S$ is a sequence of vertex subsets $Active_{G}[S,0] \subseteq Active_{G}[S,1] \subseteq ... \subseteq Active_{G}[S,\ell] \subseteq ... \subseteq V$ of vertex subsets, with $Active_{G}[S,0]=S$ and 
+	
+	$Active_{G}[S,\ell]=Active_{G}[S,\ell-1] \cup \{u:|\Gamma_{G}(u)\cap Active_{G}[S,\l-1]|\geq t(u)\}, for \; \ell \geq 1$
+	
+	A target set for $G$ is set $S \subseteq V$ such that $Active_{G}[S,\lambda]=V$ for some $\lambda \geq 0$
+	
+	This means at each round $\ell$ the set of active nodes is augmented by the set of nodes $u$ that have a number of already activated neighbors greater or equal to $u$'s threshold $t(u)$. The vertex $v$ is said to be activated at round $\ell \ge 0$ if $v \in Active_{G}[S,\ell]\setminus Active_{G}[S,\ell-1]$.
+	
+	\subsection{The TSS Algorithm}
+	
+	Given the input graph $G$, at each round/iteration if the vertex has already been considered it will be removed from the graph. When the current vertex $v$ is deleted in the graph its neighbors degree is updated and the current $v$ is removed from the neighbor set of the neighbors of $v$.
+	
+	If the vertex $v$ is deemed applicable to be in the target set, the thresholds of their neighbors are decreased by one since the deleted node is able to activate them.
+	
+	In this algorithm 3 cases are considered:
+	\begin{itemize}
+		\item Case 1: The threshold $k$ of the current vertex $v$ is 0.\\
+		The vertex $v$ is activated by the influence of its neighbors in $V - U$ only; it can then influence its neighbors in U.\\
+		So, for each neighbor of vertex $v$ denoted by $u$, reduce the threshold of $u$ by 1.
+		\item Case 2: The degree of $v$ is less than the its threshold.\\
+		The vertex v is added to S, since no sufficient neighbors remain in $U$ to activate it; v can then influence its neighbors in $U$.\\
+		Add the current $v$ to S
+		For each neighbor of vertex $v$ denoted by $u$, reduce the threshold of $u$ by 1.
+		\item Case 3: The other conditions are not met.\\
+		The vertex $v$ will be influence by some of its neighbors in $U$.\\
+		Set the vertex $v$ as the vertex in which this equation $\frac{k(u)}{\delta(u)(\delta(u)+1)}$.\\ Note: the maximum value that this equation bears when $k(u)=\delta(u)=1$. When 1 is substituted to the equation $\frac{1}{2}$ is obtained. With the threshold and degree of a vertex = 1, the node is a leaf. This implies that for every change of v, the ones with low degrees and threshold are considered first.
+		
+	\end{itemize}
+	
+	\subsubsection{Pseudocode of TSS Algorithm}
+		\paragraph{Definition of Variables} 
+		\begin{itemize}
+			\item $S$: target Set
+			\item $d(v)$: degree of vertex $v$
+ 			\item $t(v)$: threshold of vertex $v$
+ 			\item $Gamma(v)$: neighbor set of vertex $v$
+		\end{itemize}
+		\begin{algorithm}
+			\caption{TSS Algorithm}
+			\begin{algorithmic}[1]
+				\Require $G=(V,E),$ Thresholds $ t(v)$ for $v\in V$
+				\Ensure Target Set $S$
+				\State $S=\emptyset$
+				\State 
+				$U=V$
+				\ForAll{$v \in v$}
+					\State $\delta(v)=d(v)$
+					\State $k(v)=t(v)$
+					\State	$N(v)=\Gamma(v)$
+				\EndFor
+				\While{$U \not = \emptyset$}
+					\If{there exists $v\in U \; s.t \; k(v)=0$}
+					
+					\ForAll{$u \in N{v}$}
+						\State$k(u)=max(k(u)-1,0)$
+						\State $S=S\cup \{v\}$
+					\EndFor
+					\Else 
+						\If{ there exists $v \in U\; s.t\; \delta(v) \le k(v)$}
+						\ForAll{$u \in N(v)$}
+						\State $k(u)=k(u)-1$
+						\EndFor
+						\Else 
+							\State $v=argmax_{u\in U}\{\frac{k(u)}{\delta(u)(\delta(u)+1)}\}$
+						\EndIf
+					\EndIf
+					\ForAll{$u \in N(v)$}
+						\State $\delta(u)=\delta(u)-1$
+						\State $N(u)=N(u)-{v}$
+					\EndFor
+					\State $U=U-{v}$
+				\EndWhile
+			\end{algorithmic}
+		\end{algorithm}
+	
+	
+	
