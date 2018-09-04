@@ -468,11 +468,11 @@ This case is when all the thresholds are small constants. However, this threshol
 \begin{itemize}
 	\item Time Complexity defines the runtime of a certain algorithm. Denoted by the Big-O notation. Example: $O(n)$ is linear time, $n$ represents the size of the input.
 	\item P or Polynomial time is a set of languages that are relatively easy to get the solution and to verify it (i.e Multiplication, sorting, finding primes, etc). This determined from the time complexity of the algorithm. Being in polynomial time, the notation would be $O(n^k)$ for some $k>1$.
-	\item NP or Non-deterministic polynomial time is the set of languages that can verified in polynomial time, or equivalently, that can be solved in polynomial time by a "guessing computer", whose guesses are guaranteed to produce an output of "yes" if at all possible. Basically NP Problems are problems that when given a solution, it is easy to verify the solution, but hard to get the solution itself.
-	\item NP-Complete problems are problems that are in NP and are NP-hard(i.e $n^{2}by\; n^{2}$ sudoku, Boolean Satisfiability Problem). 
-	\item A problem is NP-hard if the problem is atleast as hard or even harder than the problems in NP. This means that if you find an algorithm that solves an NP-hard problem, you can use that very algorithm to solve any other problem in NP in polynomial time(i.e Cryptography, Routing, Scheduling).  
+	\item NP or Non-deterministic polynomial time is the set of languages that can verified in polynomial time. Basically NP Problems are problems that when given a solution, it is easy to verify the solution, but hard to get the solution itself.
+	\item NP-Complete problems are problems that are in NP and are NP-hard(i.e $n^{2}by\; n^{2}$ sudoku, Boolean Satisfiability Problem). They are also considered as the hardest problems in NP.
+	\item A problem is NP-hard if the problem is atleast as hard or even harder than the problems in NP. This means that if you find an algorithm that solves an NP-hard problem, you can use that very algorithm to solve any other problem in NP in polynomial time or P = NP(i.e Cryptography, Routing, Scheduling).  
 \end{itemize} 
-\textbf{The Target Set Selection problem is NP-hard when the threshold $k$ for every vertex $v$ is at most 2}
+\textbf{The Target Set Selection problem is NP-hard when the threshold $k$ for every vertex $v$ is at most 2}. \cite{chen,dreyer}
 
 For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set of all node's thresholds $k=1$. Activate any of the nodes in that graph and you will create a chain reaction of activating \textbf{every} node in that graph. So, with $k=1$ we can take any one node from that graph that is our target set.\cite{chen}
 \subsubsection{Unanimous Thresholds}
