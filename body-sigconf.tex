@@ -475,7 +475,7 @@ This case is when all the thresholds are small constants. However, this threshol
 
 For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set of all node's thresholds $k=1$. Activate any of the nodes in that graph and you will create a chain reaction of activating \textbf{every} node in that graph. So, with $k=1$ we can take any one node from that graph that is our target set.\cite{chen}
 \subsubsection{Unanimous Thresholds}
-This settings is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds  i.e, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen}
+This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen}
 \subsection{Target Set Selection Algorithms compared in this study}
 
 \subsubsection{TIP-DECOMP}
@@ -604,11 +604,11 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
 	
 	The activation process in $G$ starting at $S$ is a sequence of vertex subsets $Active_{G}[S,0] \subseteq Active_{G}[S,1] \subseteq ... \subseteq Active_{G}[S,\ell] \subseteq ... \subseteq V$ of vertex subsets, with $Active_{G}[S,0]=S$ and 
 	
-	$Active_{G}[S,\ell]=Active_{G}[S,\ell-1] \cup {u:|\Gamma_{G}(u)\cap Active_{G}[S,\l-1]|\geq t(u)}, for \; \ell \geq 1$
+	$Active_{G}[S,\ell]=Active_{G}[S,\ell-1] \cup \{u:|\Gamma_{G}(u)\cap Active_{G}[S,\l-1]|\geq t(u)\}, for \; \ell \geq 1$
 	
 	A target set for $G$ is set $S \subseteq V$ such that $Active_{G}[S,\lambda]=V$ for some $\lambda \geq 0$
 	
-	This means at each round $\ell$ the set of active nodes is augmented by the set of nodes $u$ that have anumber of already activated neighbors greater or equal to $u$'s threshold $t(u)$. The vertex $v$ is said to be activated at round $\ell \ge 0$ if $v \in Active_{G}[S,\ell]\ Active_{G}[S,\ell-1]$.
+	This means at each round $\ell$ the set of active nodes is augmented by the set of nodes $u$ that have a number of already activated neighbors greater or equal to $u$'s threshold $t(u)$. The vertex $v$ is said to be activated at round $\ell \ge 0$ if $v \in Active_{G}[S,\ell]\setminus Active_{G}[S,\ell-1]$.
 	
 	\subsection{The TSS Algorithm}
 	
