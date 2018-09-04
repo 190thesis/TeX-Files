@@ -460,14 +460,16 @@ This model uses probablity instead of thresholds. Nodes have a  certain probabil
 \subsection{Other threshold models}
 We study other threshold models since the model in this study uses thresholds as a way to gauge how easy or how hard it is to influence/activate a certain node. Learning the tendencies and limitations of other thresholds models will help in understanding the tendencies of the threshold function used in the study. This study has a threshold function that uses real numbers in the set [1,2,...,10].
 \subsubsection{General Threshold Model}
-To be able to express the notion that a node $v$'s tendency to be active can be based on an arbitrary monotone function of the set of neighbors of $v$ is a monotone threshold function $f_{v}$ that maps subsets of $v$'s neighbor set to real numbers in [0,1], with the condition that $f_{v}(\empty) = 0$. The diffusion process follows the general structure of the previously discussed Linear Threshold Model. However, $v$ becomes active in time step if $f_{v}(S) \geq t_{v}$, where $S$ is the set of neighbors of $v$ are active in the previous time step\cite{Kempe}.
+To be able to express the notion that a node $v$'s tendency to be active can be based on an arbitrary monotone function of the set of neighbors of $v$ is a monotone threshold function $f_{v}$ that maps subsets of $v$'s neighbor set to real numbers in [0,1], with the condition that $f_{v}(\emptyset) = 0$. The diffusion process follows the general structure of the previously discussed Linear Threshold Model. However, $v$ becomes active in time step if $f_{v}(S) \geq t_{v}$, where $S$ is the set of neighbors of $v$ are active in the previous time step\cite{Kempe}.
 \subsubsection{Majority Thresholds}
 One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$]\cite{chen}. This can be applied to networks that have voting systems and use the majority rule.
 \subsubsection{Small Thresholds}
-This case is when all the thresholds are small constants. However, this threshold becomes more complex as the threshold increases from $k=1$. Past researches have studied that, for any $k \leq 2$, the Target Set Selection Problem is NP-hard.A theorem constructed by Chen et.al(2009) states that the Target Set Selection problem is NP-hard when the thresholds are at most 2. In order to prove NP-hardness we need to define a few terms
+This case is when all the thresholds are small constants. However, this threshold becomes more complex as the threshold increases from $k=1$. Past researches have studied that, for any $k \leq 2$, the Target Set Selection Problem is NP-hard.A statement constructed by Chen et.al(2009) states that the Target Set Selection problem is NP-hard when the thresholds are at most 2. Earlier before that, Dreyer(2000) proved this instance for only $k \geq 3$.\cite{dreyer}
 \cite{NPhardness}. \begin{itemize}
-	\item NP or Non-deterministic polynomial time is the set of languages that can verified in polynomial time, or equivalently, that can be solved in polynomial time by a "guessing computer", whose guesses are guaranteed to produce an output of "yes" if at all possible.
-	\item A problem is NP-hard if an algorithm for solving it can be translated into one for solving any NP-problem.
+	\item P or Polynomial time is a set of languages that are relatively easy to get the solution and to verify it (i.e Multiplication, sorting, finding primes, etc).
+	\item NP or Non-deterministic polynomial time is the set of languages that can verified in polynomial time, or equivalently, that can be solved in polynomial time by a "guessing computer", whose guesses are guaranteed to produce an output of "yes" if at all possible. Basically NP Problems are problems that when given a solution, it is easy to verify the solution, but hard to get the solution itself.
+	\item NP-Complete problems are problems that are in NP and are NP-hard(i.e $n^{2}by\; n^{2}$ sudoku, Boolean Satisfiability Problem). 
+	\item A problem is NP-hard if the problem is atleast as hard or even harder than the problems in NP. This means that if you find an algorithm that solves an NP-hard problem, you can use that very algorithm to solve any other problem in NP in polynomial time(i.e Cryptography, Routing, Scheduling).  
 \end{itemize} 
 \textbf{The Target Set Selection problem is NP-hard when the threshold $k$ for every vertex $v$ is at most 2}
 
@@ -492,11 +494,11 @@ This settings is considered the most influence-resistant of the previously menti
 		\State FLAG=TRUE 
 		\While{FLAG=TRUE}
 			\For{$v_{i} \in V $}
-				\If{$v_{i}=min(dist_{i})$}
+				\If{$v_{i}\; has \;min(dist_{i})$}
 					\State $v_{i}=$ current $v$
 				\EndIf
 			\EndFor
-			\If{$dist_{j}=\infty$}
+			\If{$dist_{i}=\infty$}
 				\State FLAG=FALSE 
 			\Else
 			\State Remove $v_{i}$ from $G$ 
@@ -628,6 +630,52 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
 		Set the vertex $v$ as the vertex in which this equation $\frac{k(u)}{\delta(u)(\delta(u)+1)}$.\\ Note: the maximum value that this equation bears when $k(u)=\delta(u)=1$. When 1 is substituted to the equation $\frac{1}{2}$ is obtained. With the threshold and degree of a vertex = 1, the node is a leaf. This implies that for every change of v, the ones with low degrees and threshold are considered first.
 		
 	\end{itemize}
+	
+	\subsubsection{Pseudocode of TSS Algorithm}
+		\paragraph{Definition of Variables} 
+		\begin{itemize}
+			\item $S$: target Set
+			\item $d(v)$: degree of vertex $v$
+ 			\item $t(v)$: threshold of vertex $v$
+ 			\item $Gamma(v)$: neighbor set of vertex $v$
+		\end{itemize}
+		\begin{algorithm}
+			\caption{TSS Algorithm}
+			\begin{algorithmic}[1]
+				\Require $G=(V,E),$ Thresholds $ t(v)$ for $v\in V$
+				\Ensure Target Set $S$
+				\State $S=\emptyset$
+				\State 
+				$U=V$
+				\ForAll{$v \in v$}
+					\State $\delta(v)=d(v)$
+					\State $k(v)=t(v)$
+					\State	$N(v)=\Gamma(v)$
+				\EndFor
+				\While{$U \not = \emptyset$}
+					\If{there exists $v\in U \; s.t \; k(v)=0$}
+					
+					\ForAll{$u \in N{v}$}
+						\State$k(u)=max(k(u)-1,0)$
+						\State $S=S\cup \{v\}$
+					\EndFor
+					\Else 
+						\If{ there exists $v \in U\; s.t\; \delta(v) \le k(v)$}
+						\ForAll{$u \in N(v)$}
+						\State $k(u)=k(u)-1$
+						\EndFor
+						\Else 
+							\State $v=argmax_{u\in U}\{\frac{k(u)}{\delta(u)(\delta(u)+1)}\}$
+						\EndIf
+					\EndIf
+					\ForAll{$u \in N(v)$}
+						\State $\delta(u)=\delta(u)-1$
+						\State $N(u)=N(u)-{v}$
+					\EndFor
+					\State $U=U-\{v\}$
+				\EndWhile
+			\end{algorithmic}
+		\end{algorithm}
 	
 	
 	
