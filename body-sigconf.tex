@@ -1,23 +1,96 @@
-\section{Review on Graph Theory  \cite{agnarsson2006graph}}
+\section{Review on Graph Theory  }
+The definitions stated on this section is based on the book \textit{Graph Theory: Modeling, Applications, and Algorithms} by G. Agnarsson and R. Greenlaw. Reference is on \cite{agnarsson2006graph}.
 \subsection{Preliminaries}
 \begin{itemize}
-\item \textbf{set} - a group of objects
+\item \textbf{set} - a group of objects\\
+Ex. $A=\{1,2,3,4,5,6,7\}$,$B=\{2,4,6,8,10,12\}$ 
 \item \textbf{element} - an object inside a set
 \item \textbf{empty set} - null set;contains no element; denoted by $\varnothing$ or $\{\}$
 \item If n element $a$ is in set $S$, then $a \in S $.
-\item If a set $t$ contains some or all the elements of a set S, then $t \subseteq S$.
-\item If set $S$ contains all the elements of $T$ and vice-versa, then $t=S$.
+\item If a set $t$ contains some or all the elements of a set S, then $t \subseteq S$.\\
+Ex. If $A=\{1,2,3,4\}$ and $t=\{2,3\}$, then $t \subseteq S$.
+\item If set $S$ contains all the elements of $T$ and vice-versa, then $t=S$.\\
+Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \item Let $A$ and $B$ be sets,
 \begin{itemize}
-	\item $A \cup B$ or the \textit{union of A and B} is the set containing all the element/s of both set $A$ and set $B$.
-	\item $A \cap B$ or the \textit{intersection of A and B} is the set containing the element/s that are present in both set $A$ and set $B$.
-	\item set $A$ and set $B$ are disjoint sets if they have no same elements. Disjoint sets can be written as $A \cap B=\varnothing$.
+	\item $A \cup B$ or the \textit{union of A and B} is the set that contains elements or objects that belong to either $A$ or to $B$ or to both.
+	\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+\draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
+\fill[gray] (0,0) circle (1cm);
+\fill[gray] (1.5,0) circle (1cm);
+\draw (0,0) circle (1cm) node {$A$};
+\draw (1.5,0) circle (1cm) node {$B$};
+\end{tikzpicture}
+\caption{$A \cup B$ on a Venn Diagram}
+	\end{figure}
+	\item $A \cap B$ or the \textit{intersection of A and B} is the set containing the element/s that are present in both $A$ and $B$.
+	\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+\draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
+\begin{scope}
+\clip (0,0) circle (1cm);
+\fill[gray] (1.5,0) circle (1cm);
+\end{scope}
+\draw (0,0) circle (1cm) node {$A$};
+\draw (1.5,0) circle (1cm) node {$B$};
+\end{tikzpicture}
+\caption{$A \cap B$ on a Venn Diagram}
+	\end{figure}
+	\item $A$ an $B$ are disjoint sets if they have no same elements. Disjoint sets can be written as $A \cap B=\varnothing$.
+	\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+\draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
+\draw (-0.5,0) circle (1cm) node {$A$};
+\draw (2,0) circle (1cm) node {$B$};
+\end{tikzpicture}
+\caption{Disjoint sets $A$ and $B$ on a Venn Diagram}
+	\end{figure}
 	\item $A \setminus B$ or the \textit{set difference of A and B} is the set containing all the elements of $A$ that are not in $B$.
-	\item $A \Delta B$ or the \textit{symmetric difference of A and B} is equal to $(A \setminus B) \cup (B \setminus A)$. 
+	\begin{itemize}
+		\item If $A=B$, then $A \setminus B=\varnothing$.
+		\item If $A=\varnothing$, then in any $B$, $A \setminus B=\varnothing$.
+	\end{itemize}
+	\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+\draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
+\fill[gray] (0,0) circle (1cm);
+\begin{scope}
+\clip (0,0) circle (1cm);
+\fill[white] (1.5,0) circle (1cm);
+\end{scope}
+\draw (0,0) circle (1cm) node {$A$};
+\draw (1.5,0) circle (1cm) node {$B$};
+\end{tikzpicture}
+\caption{$A \setminus B$ on a Venn Diagram}
+	\end{figure}
+	\item $A \Delta B$ or the \textit{symmetric difference of A and B} is  the set containing the elements of set $A$ that are not in set $B$ combined (union) with the set containing the elements of set $B$ that are not in set $A$. It can be written as $(A \setminus B) \cup (B \setminus A)$. 
 \end{itemize}
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+\draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
+\fill[gray] (0,0) circle (1cm);
+\fill[gray] (1.5,0) circle (1cm);
+\begin{scope}
+\clip (0,0) circle (1cm);
+\fill[white] (1.5,0) circle (1cm);
+\end{scope}
+\draw (0,0) circle (1cm) node {$A$};
+\draw (1.5,0) circle (1cm) node {$B$};
+\end{tikzpicture}
+\caption{$A \Delta B$ on a Venn Diagram}
+	\end{figure}
+
  \item \textbf{finite set} - a countable set; set that contains countable number elements
  \item  \textbf{cardinality of set $S$ or $|S|$} - the number of elements of set $S$
- \item \textbf{power set of $S$ or $P(S)$} - the set that all the possible subsets of S including the empty set
+ Ex. Let $A=\{1,3,5,7,9,11,13,15\}$, then $|A|=8$
+ \item \textbf{power set of $S$ or $P(S)$} - the set that all the possible subsets of S including the empty set\\
+ Ex. Let $B=\{0,1\}$, then $P(B)=\{\varnothing,0,1,01\}$ and $|P(B)|=4$
  \item Let $k \in \mathbb{N}$ and $a_1,a_2,...,a_k$ are any k number of objects; \textit{ordered k-tuple or k-tuple} can be written as $(a_1,a_2,...,a_k)$.
  \item Some sets of numbers:
  \begin{itemize}
@@ -30,7 +103,7 @@
 
 \subsection{Graphs}
 \begin{itemize}
- \item \textbf{graph or general graph} - ordered triple $G=(V,E,\phi)$ where, $V\neq\emptyset$, $V \cap E = \emptyset$ and $\phi:E \rightarrow P(V)$ such that the cardinality of $\phi$ is either 1 or 2 for every $e \in E$.
+ \item \textbf{graph or general graph} - ordered triple $G=(V,E,\phi)$ where, $V\neq\varnothing$, $V \cap E = \varnothing$ and $\phi:E \rightarrow P(V)$ such that $|\phi(e)|={1,2}$ for every $e \in E$.
  \item Let G be a graph with $G = (V,E,\phi)$,
 	\begin{itemize}
 		\item The vertex set or $V$ is the set of vertices of G
@@ -54,8 +127,9 @@
     	edge node [left] {$e_1$} (2)
     	edge node {$e_2$} (3)
     (2) edge [loop left] node {$e_6$} (2)
-    (3) edge node [right] {$e_4$} (5)
+    (3) edge node [bend left] {$e_4$} (5)
         edge node [right] {$e_7$} (4)
+        edge node [bend right] {$e_8$} (5)
     (4) edge node {$e_5$} (5)
 	(5) 
     ;
@@ -74,7 +148,7 @@ E=\{e_1,e_2,e_3,e_4,e_5,e_6,e_7\} \\
 \phi(e_3)=\{v_1,v_4\} \\
 \phi(e_4)=\{v_3,v_5\} \\
 \phi(e_5)=\{v_4,v_5\} \\
-\phi(e_6)=\{v_2,v_2\} \\
+\phi(e_6)=\{v_2\} \\
 \phi(e_7)=\{v_3,v_4\}
 \end{array}
 \end{equation}
@@ -91,8 +165,8 @@ Let the graph $G=(V,E,\phi)$,
 	\item A \textbf{simple graph} is a graph without multiple/parallel edges or loops.
 	\item A graph $G=(V,E)$ is a simple graph if,
 	\begin{enumerate}
-		\item $V\neq\emptyset$
-		\item $E=\emptyset$
+		\item $V\neq\varnothing$
+		\item $E=\varnothing$
 		\item $E=\{\{v_1,v_2\}:v_1,v_2 \in V, v_1 \neq v_2\}$
 	\end{enumerate}
 	\begin{figure}[h]
@@ -121,7 +195,7 @@ Let the graph $G=(V,E,\phi)$,
 	\item A graph $G=(V,E)$ is a \textit{null graph} on $n$ vertices if,
 		\begin{enumerate}
 			\item $V=\{v_1,v_2,...,v_n\}$
-			\item $E=\emptyset$
+			\item $E=\varnothing$
 		\end{enumerate}
 		\begin{figure}[h]
 			\centering
@@ -391,8 +465,8 @@ N[v_4]=\{v_3,v_4\}
 \begin{itemize}
 	\item A \textit{directed graph or digraph} is an ordered triple given by $G=(V,E,\eta)$ where,
 	\begin{enumerate}
-		\item $V \neq \emptyset$
-		\item $V \cap E = \emptyset$
+		\item $V \neq \varnothing$
+		\item $V \cap E = \varnothing$
 		\item $\eta:E \mapsto V \times V$
 	\end{enumerate}
 	\begin{itemize}
@@ -485,11 +559,12 @@ Let $G=(V,E,\phi)$ be a graph with $V=\{v_1,v_2,...,v_k\}$ and $E=\{e_1,e_2,...,
 \end{itemize}
 
 \end{enumerate}
-\subsection{Connectivity, Isomorphism and Homomorphism}
-\begin{itemize}
-	\item A graph $G=(V,E,\phi)$ is \textit{connected} if, for every unique pair vertices $u,v \in V$, $G$ has a $u,v$-path. Otherwise, $G$ is \textit{disconnected}.
-	\item Let $G=(V,E,\phi)$ and $G'=(V',E',\phi')$ be graphs. A \textit{homomorphism} $f:G \rightarrow G'$ from $G$ to $G'$ is an ordered pair $f=(f_1,f_2)$ of maps, $f_1:V \rightarrow V'$ and $f_2=E \rightarrow E'$, also satisfying the compatibility condition, $$\phi(e)=\{u,v\} \$$
-\end{itemize}
+%\subsection{Connectivity, Isomorphism and Homomorphism}
+%\begin{itemize}
+%	\item A graph $G=(V,E,\phi)$ is \textit{connected} if, for every unique pair vertices $u,v \in V$, $G$ has a $u,v$-path. Otherwise, $G$ is \textit{disconnected}.
+%	\item Let $G=(V,E,\phi)$ and $G'=(V',E',\phi')$ be graphs. A \textit{homomorphism} $f:G \rightarrow G'$ from $G$ to $G'$ is an ordered pair $f=(f_1,f_2)$ of maps, $f_1:V \rightarrow V'$ and $f_2=E \rightarrow E'$, also satisfying the compatibility condition, $$\phi(e)=\{u,v\} \implies \phi'(f_2(e))= \{f_1(u),f_1(v)\} $$
+%	So if $u$ and $v$ are envertices of an edge $e$ in $G$, then $f_1(u)$ and $f_21(v)$ must also be the end vertices of edge $f_2(e)$ in $G'$.
+%\end{itemize}
 
 
 
@@ -515,7 +590,7 @@ This model uses probablity instead of thresholds. Nodes have a  certain probabil
 \subsection{Other threshold models}
 We study other threshold models since the model in this study uses thresholds as a way to gauge how easy or how hard it is to influence/activate a certain node. Learning the tendencies and limitations of other thresholds models will help in understanding the tendencies of the threshold function used in the study. This study has a threshold function that uses real numbers in the set [1,2,...,10].
 \subsubsection{General Threshold Model}
-To be able to express the notion that a node $v$'s tendency to be active can be based on an arbitrary monotone function of the set of neighbors of $v$ is a monotone threshold function $f_{v}$ that maps subsets of $v$'s neighbor set to real numbers in [0,1], with the condition that $f_{v}(\emptyset) = 0$. The diffusion process follows the general structure of the previously discussed Linear Threshold Model. However, $v$ becomes active in time step if $f_{v}(S) \geq t_{v}$, where $S$ is the set of neighbors of $v$ are active in the previous time step.\cite{Kempe}
+To be able to express the notion that a node $v$'s tendency to be active can be based on an arbitrary monotone function of the set of neighbors of $v$ is a monotone threshold function $f_{v}$ that maps subsets of $v$'s neighbor set to real numbers in [0,1], with the condition that $f_{v}(\varnothing) = 0$. The diffusion process follows the general structure of the previously discussed Linear Threshold Model. However, $v$ becomes active in time step if $f_{v}(S) \geq t_{v}$, where $S$ is the set of neighbors of $v$ are active in the previous time step.\cite{Kempe}
 \subsubsection{Majority Thresholds}
 One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems and use the majority rule.
 \subsubsection{Small Thresholds}
@@ -597,7 +672,7 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 		\Ensure A small $d-seeding$ 
 		\State $n_{v}^{(e)} = d(v),n_{v}^{(a)} = \rho \cdot d(v), r_{v}  = d + 1, v \in V $
 		
-		\State $r_{v}^{i}=0, i=0..d, P  = \emptyset $
+		\State $r_{v}^{i}=0, i=0..d, P  = \varnothing $
 		
 		
 		\While{there exist inactive vertices}
@@ -608,16 +683,17 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 		\Until{$u = argmax_{v\not\in P}\{n_{v}^{(e)}+n_{v}^{(a)}\}$ }
 		\State $P  = P \cup \{u\} $
 		\State Initialize a queue: $Q  = \{(u,r_{v})\} $
+		\State $r_u = 0 $
 		\ForAll{$x \in N(u)$}
 		
 		\State $n_{x}^{(a)}  = max\{n_{x}^{(a)}-1,0\} $
 		
 		\EndFor
-		\While{$Q\not=\emptyset$}
+		\While{$Q\not=\varnothing$}
 		\State$(t,\widetilde{r_{t}})  = Q.pop() $
 		\ForAll{$w \in N(t)$}
 		\ForAll{$i=r_{t}\  to$ min $\{\widetilde{r_{t}}-1,r_{w}-2\}$}
-		\State $r_{w}^{i}=r_{w}^{i}+1 $
+		\State $r_{w}^{(i)}=r_{w}^{(i)}+1 $
 		\If{$(r_{w}^{(i)}\geq \rho \cdot d_{w})\wedge(r_{w}\geq d)\wedge(i+1<d)$}
 		\ForAll{$x\in N(w)$}
 		\State $n_{x}^{(a)} =$max$\{n_{x}^{(a)}-1,0\} $	
@@ -644,11 +720,11 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 	\item Line 4-6 finds the value where the maximum occurs in the sum of the degree of v and it's effectiveness.
 	\item $u$ is added to P in line 7
 	\item A queue is initialized by adding the vertex and its corresponding round, which at the start is zero $(u,r_{v})$
-	\item Lines 9-11 updates the neighbors of $u$, reducing their degree by 1. If less than zero is reached, it goes back to zero.
-	\item At the start of the while loop in line 13 $(t,r_{t})$ is set as the head of the queue. This is obtained by the pop function. 
+	\item Lines 10-12 updates the neighbors of $u$, reducing their degree by 1. If less than zero is reached, it goes back to zero.
+	\item At the start of the while loop in line 14 $(t,r_{t})$ is set as the head of the queue. This is obtained by the pop function. 
 	\item For all neighbors $w$ of the current node $t$, another for loop is used for checking if the neighbors of $t$ have reached the threshold defined by $\rho \cdot d_{w}$ AND $round \; r_{w} \geq the\; max\; round\; d$ AND the index $i$ of the for loop doesn't exceed the max rounds $d$.
 	\item This then leads to the thresholds of the neighbors of the that neighbor $w$ being decremented.
-	\item In line 21 the round of the neighbor $w$ is incremented and if that current $w \notin Q$ then it is added to the queue and the while loop starts again.
+	\item In line 22 the round of the neighbor $w$ is incremented and if that current $w \notin Q$ then it is added to the queue and the while loop starts again.
 \end{itemize}
 VirAds selects in each step the vertex $u$ with the highest effectiveness which is defined as $n^{(e)}_{u}+n^{(e)}_{(a)}$. Which is basically the vertex $v$ which can activate the most number of $edges$. It also considers the vertex with the most active neighbors. After that, the algorithm updates the measures for all the remaining vertices. VirAds will make the selection based on the information within $d$-hop neighbor around the considered vertices rather than only one-hop neighbor as in the degree-based heuristic. When a vertex $u$ is selected, it causes a chain-reaction and activate a sequence of vertices or lower the rounds in which vertices are activated.\cite{virads}
 
@@ -700,7 +776,7 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
 			\begin{algorithmic}[1]
 				\Require $G=(V,E),$ Thresholds $ t(v)$ for $v\in V$
 				\Ensure Target Set $S$
-				\State $S=\emptyset$
+				\State $S=\varnothing$
 				\State 
 				$U=V$
 				\ForAll{$v \in v$}
@@ -708,7 +784,7 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
 					\State $k(v)=t(v)$
 					\State	$N(v)=\Gamma(v)$
 				\EndFor
-				\While{$U \not = \emptyset$}
+				\While{$U \not = \varnothing$}
 					\If{there exists $v\in U \; s.t \; k(v)=0$}
 					
 					\ForAll{$u \in N{v}$}
@@ -732,6 +808,53 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
 				\EndWhile
 			\end{algorithmic}
 		\end{algorithm}
+\newpage
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$}] (1) {$3$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$1$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
+  
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\caption{A tree with 10 vertices where the number inside the circle is the vertex threshold.}
+\label{degreefig}
+\end{figure}
+\begin{equation}
+\begin{array}{l c c c c c c c c c c}
+	Iteration & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+	vertex & v_1 & v_2 & v_3 & v_4 & v_5 & v_6 & v_7 & v_8 & v_9 & v_{10} \\
+	Case & 3 & 3 & 3 & 2 & 3 & 2 & 1 & 3 & 3 & 2\\
+\end{array}
+\end{equation}
 	
 	
 	
