@@ -14,7 +14,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \item Let $A$ and $B$ be sets,
 \begin{itemize}
 	\item $A \cup B$ or the \textit{union of A and B} is the set that contains elements or objects that belong to either $A$ or to $B$ or to both.
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 \draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
@@ -26,7 +26,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \caption{$A \cup B$ on a Venn Diagram}
 	\end{figure}
 	\item $A \cap B$ or the \textit{intersection of A and B} is the set containing the element/s that are present in both $A$ and $B$.
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 \draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
@@ -40,7 +40,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \caption{$A \cap B$ on a Venn Diagram}
 	\end{figure}
 	\item $A$ an $B$ are disjoint sets if they have no same elements. Disjoint sets can be written as $A \cap B=\varnothing$.
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 \draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
@@ -54,7 +54,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 		\item If $A=B$, then $A \setminus B=\varnothing$.
 		\item If $A=\varnothing$, then in any $B$, $A \setminus B=\varnothing$.
 	\end{itemize}
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 \draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
@@ -70,7 +70,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 	\end{figure}
 	\item $A \Delta B$ or the \textit{symmetric difference of A and B} is  the set containing the elements of set $A$ that are not in set $B$ combined (union) with the set containing the elements of set $B$ that are not in set $A$. It can be written as $(A \setminus B) \cup (B \setminus A)$. 
 \end{itemize}
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 \draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
@@ -110,7 +110,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 		\item The edge set or $E$ is the set of edges
 		\item $\phi(e)$ contains the endvertex/endvertices of each $e$ which are the elements of the vertex set. 
 	\end{itemize}	 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -127,9 +127,9 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
     	edge node [left] {$e_1$} (2)
     	edge node {$e_2$} (3)
     (2) edge [loop left] node {$e_6$} (2)
-    (3) edge node [bend left] {$e_4$} (5)
-        edge node [right] {$e_7$} (4)
-        edge node [bend right] {$e_8$} (5)
+    (3) edge [bend left,pos=0.2] node {$e_4$} (5)
+        edge node [ bend right,pos=0.5] {$e_7$} (4)
+        edge [bend right] node {$e_8$} (5)
     (4) edge node {$e_5$} (5)
 	(5) 
     ;
@@ -154,13 +154,12 @@ E=\{e_1,e_2,e_3,e_4,e_5,e_6,e_7\} \\
 \end{equation}
 Let the graph $G=(V,E,\phi)$,
 	\begin{itemize}
-\item The vertices $u$ and $v$ are in $V$ and are \textit{adjacent/neighbor} of each other , if there is some edge $e \in E$ that has $\phi(e)=\{u,v\}$ or $\{v,u\}$. In figure 1, $v_1$ and $v_2$ are neighbors.
-\item The edges $e_1$ and $e_2$ are in $E$ and are \textit{adjacent} if they contain atleast one same endvertex on their respective $\phi$, such that $\phi\{e_1\} \cap \phi\{e_2\} \neq 0$. In figure 1, $e_1$ and $e_2$ are adjacent
-\item Vertex $v$ and edge $e$ are in $V$ and $E$ respectively and are \textit{incident}, if $v$ is in $\phi(e)$. In figure 1, $v_1$ and $e_3$ are incident.
-\item \textbf{Loop} is an edge $e$ with the same endvertices given that $|\phi(e)|=2$. In the figure, $e_2$ is a loop because $\phi(e)=\{v_2,v_2\}$
-\item $E'$ is a edge set with \textit{multiple/parallel edges}, if $|E'| \leq 2$ and for any edges $e$ and $f$ in $E'$, $\phi(e)=\phi(f)$
-%%include example for parallel edges
-\item The vertex $v$ is \textit{isolated} if $v$ is not in $\phi(e)$ for all $e$ in $E$
+\item The vertices $u$ and $v$ are in $V$ and are \textit{adjacent/neighbor} of each other , if there is some edge $e \in E$ that has $\phi(e)=\{u,v\}$ or $\{v,u\}$. In figure \ref{graph1}, $v_1$ and $v_2$ are neighbors.
+\item The edges $e_1$ and $e_2$ are in $E$ and are \textit{adjacent} if they contain atleast one same endvertex on their respective $\phi$, such that $\phi\{e_1\} \cap \phi\{e_2\} \neq 0$. In figure \ref{graph1}, $e_1$ and $e_2$ are adjacent
+\item Vertex $v$ and edge $e$ are in $V$ and $E$ respectively and are \textit{incident}, if $v$ is in $\phi(e)$. In figure \ref{graph1}, $v_1$ and $e_3$ are incident.
+\item \textbf{Loop} is an edge $e$ with the same endvertices given that $|\phi(e)|=1$. In the figure \ref{graph1}, $e_2$ is a loop because $\phi(e)=\{v_2\}$
+\item $E'$ is a edge set with \textit{multiple/parallel edges}, if $|E'| \leq 2$ and for any edges $e$ and $f$ in $E'$, $\phi(e)=\phi(f)$. In the figure \ref{graph1}, a possible edge set with \textit{multiple/parallel edges} is $E'=\{e_4,e_8\}$ because $\phi(e_4)=\phi(e_8)={v_3,v_5}$.
+\item The vertex $v$ is \textit{isolated} if $v$ is not in $\phi(e)$ for all $e$ in $E$. In the figure \ref{graph1}, the vertex $v_6$ is isolated.
 	\end{itemize}
 	\item A \textbf{simple graph} is a graph without multiple/parallel edges or loops.
 	\item A graph $G=(V,E)$ is a simple graph if,
@@ -169,7 +168,7 @@ Let the graph $G=(V,E,\phi)$,
 		\item $E=\varnothing$
 		\item $E=\{\{v_1,v_2\}:v_1,v_2 \in V, v_1 \neq v_2\}$
 	\end{enumerate}
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -192,12 +191,13 @@ Let the graph $G=(V,E,\phi)$,
 		\caption{An example of simple graph}
 	\end{figure}
 	Some examples of Common graphs:
+	Let $n \in \mathbb{N}$,
 	\item A graph $G=(V,E)$ is a \textit{null graph} on $n$ vertices if,
 		\begin{enumerate}
 			\item $V=\{v_1,v_2,...,v_n\}$
 			\item $E=\varnothing$
 		\end{enumerate}
-		\begin{figure}[h]
+		\begin{figure}[h!]
 			\centering
 			\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -215,10 +215,10 @@ Let the graph $G=(V,E,\phi)$,
 	\item A graph $G=(V,E)$ is a \textit{path graph} on $n\geq2$ vertices if,
 		\begin{enumerate}
 			\item $V=\{v_1,v_2,...,v_n\}$
-			\item $E=\{\{u_1,u_2\},\{u_2,u_3\},...,\{u_{n-1},u_{n}\}\}$
+			\item $E=\{\{v_1,v_2\},\{v_2,v_3\},...,\{v_{n-1},v_{n}\}\}$
 		\end{enumerate}
 		
-		\begin{figure}[h]
+		\begin{figure}[h!]
 		\centering
 		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -235,14 +235,14 @@ Let the graph $G=(V,E,\phi)$,
     (4) 
     ;
 \end{tikzpicture}
-\caption{An example of a path graph one 4 vertices}
+\caption{An example of a path graph with 4 vertices}
 		\end{figure}
-	\item A graph $G=(V,E)$ is a \textit{cycle graph or cycle} on $n\geq3$ vertices if,
+	\item A graph $G=(V,E)$ is a \textit{cycle graph or cycle} on $n\geq3$ vertices such that $n \in \mathbb{N}$ if,
 	\begin{enumerate}
 		\item $V=\{v_1,v_2,...,v_n\}$
 		\item $E=\{\{v_1,v_2\},\{v_2,v_3\},...,\{v_{n-1},v_{n}\},\{v_n,v_1\}\}$
 	\end{enumerate}
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -266,12 +266,12 @@ Let the graph $G=(V,E,\phi)$,
 	
 	\caption{An example of a cycle graph on 6 vertices}
 	\end{figure}
-	\item A graph $G=(V,E)$ is a \textit{complete graph} on $n$ vertices if,
+	\item A graph $G=(V,E)$ is a \textit{complete graph} on $n$ vertices  if,
 	\begin{enumerate}
 		\item $V=\{v_1,v_2,...,v_n\}$
 		\item $E=\{\{v_i,v_j\}:1\leq i \leq j \leq n\}$
 	\end{enumerate}
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -310,7 +310,7 @@ Let the graph $G=(V,E,\phi)$,
 		\item $V=\{s_1,s_2,...,s_m\} \cup \{v_1,v_2,...,v_n\}$
 		\item $E=\{\{s_i,v_j\}:1\leq i \leq m, 1 \leq j \leq n\}$
 	\end{enumerate}	
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -351,13 +351,13 @@ Let the graph $G=(V,E,\phi)$,
 \caption{An example of a complete bipartite $(4,5)$-graph on $4+5$ vertices}
 \end{figure}	 
 \end{itemize}
-\subsection{Degrees and Regular Graph}
+\subsection{Degrees, Regular Graph and Subgraphs}
 Let $G=(V,E,\phi)$ be a graph with vertex $v\in V$,
 \begin{itemize}
 
 	\item $d_G(v)$ or $d(v)$ (when there is no other given graphs) is the \textit{degree of the vertex $v$} given by,
-	$$d(v)=|\{e\in E: v \in \phi(e), |\phi(e)|=1,2 \}|$$
-	It is the cardinality of edges that are connected to the vertex $v$.\\ 
+	$$d(v)=|\{e\in E: v \in \phi(e), |\phi(e)|=2 \}|+2|\{e\in E: v \in \phi(e), |\phi(e)|=1 \}|$$
+	It is the cardinality of edges that are connected to the vertex $v$.\\  \\
 	Some Remarks:\\  \\
 	\begin{tabular}{|l|l|}\hline
 		Type of Graph & $d(v)$ \\ \hline
@@ -365,12 +365,12 @@ Let $G=(V,E,\phi)$ be a graph with vertex $v\in V$,
 		Loopless & number of edges that have $v$ as endvertex \\ \hline
 		General & same as loopless but loops are counted twice \\ \hline
 	\end{tabular}
-	\item The set $N_G(v)$ or $N(v)$ is called the \textit{open neighborhood of v} or the \textit{neighborhood of v}.It is the set of all the vertex neighbors of the vertex $v$ in graph $G$. It is given by,
+	\item The set $N_G(v)$ or $N(v)$ is called the \textit{open neighborhood of v} or the \textit{neighborhood of v}. It is the set of all the vertex neighbors of the vertex $v$ in graph $G$. It is given by,
 		$$N(v)=\{w \in V: \phi(e)=\{v,w\} or \{w,v\}, e \in E\}$$
 	\item Additionally, the \textit{closed neighborhood of v}  denoted by $N[v]$  is the set of all the elements in the open neighbor with the vertex $v$ itself. 
-	$$N[v]=N(v) \cup v$$
+	$$N[v]=N(v) \cup \{v\}$$
 	
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -407,7 +407,7 @@ N[v_4]=\{v_3,v_4\}
 \end{array}
 \end{equation}
 \\ \\
- \item Hand Shake Theorem \\ The \textit{hand shake theorem} was inspired from the hand shaking scenario on a party. Each person in the party needs to shake hands with the other persons in the room. The amount of shake hands made is twice the number of persons in the party. In parallel to graphs, people in the party represents the vertex set of the graph and the shake hands made are the edge set of the graph. The graph $G=(V,E)$ has a total degree of,
+ \item Hand Shake Theorem \\ The \textit{hand shake theorem} was inspired from the hand shaking scenario on a party. Each person in the party needs to shake hands with the other persons in the room. If all the persons in the party asked how many other persons they have shake hands with, the sum would be twice the number of total handshakes. In parallel to graphs, people in the party represents the vertex set of the graph, the shake hands made are the edge set of the graph and the amount of each person's handshake to other persons. The graph $G=(V,E)$ has a total degree of,
  $$\sum\limits_{u\in V} d(v) = 2|E|$$
 	\item The graph $F=(V',E',\phi')$ is a subset of graph $G=(V,E,\phi)$ if,
 	\begin{enumerate}
@@ -416,7 +416,7 @@ N[v_4]=\{v_3,v_4\}
 		\item $\phi'(e) = \phi(e) \forall e \in E'$	
 	\end{enumerate}	 
 	The subgraph relationship is denoted by $\subseteq$. So that, we can say $F \subseteq G$
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -474,7 +474,7 @@ N[v_4]=\{v_3,v_4\}
 		\item $E$ is the set of directed edges
 		\item If $u,v \in V$,$e \in E$ and $\eta(e)=(u,v)$, then $u$ is the tail of $e$ and $v$ is the head of $e$.
 	\end{itemize}
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -521,7 +521,7 @@ Let $G=(V,E,\phi)$ be a graph with $V=\{v_1,v_2,...,v_k\}$ and $E=\{e_1,e_2,...,
 	\item A $u-v$ walk/trail/path is a walk starting from  the vertex $u$ and ends on the vertex $v$ with their respective characteristics.
 	\item A $v-v$ walk/trail is a circuit (or closed walk/trail).
 	\item A $v-v$ path is a cycle.\\
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -815,7 +815,7 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
 			\end{algorithmic}
 		\end{algorithm}
 \newpage
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
