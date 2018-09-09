@@ -574,7 +574,7 @@ Online social networks are a good medium to advertise on. Viral Marketing on onl
 
 Recently, the video game company Epic Games, used this tactic to advertise their new battle royale game "Fortnite" and it gave astounding results. The number one video streaming site, Youtube, is a very large network and resource to put to use. They sponsored Youtubers with hundred to millions of subscribers to promote their game.\cite{sponsoredvideos} Youtuber Evan Fong "VanossGaming" was one of the content creators Epic Games sponsored for advertising the beta release of Fortnite \cite{vanoss}. He currently has 23 million subscribers(August 2018). The video, titled "Fortnite Funny Moments-Launcing the Rocket!(Gameplay)", has garnered 10 million views in a span of a year.
 
-With this in mind, finding the set of people to target would be ideal. Target Set Selection is basically finding the smallest set of people in a social network to influence all of the people in said network.\cite{Kempe,chen,Shakarian:2012:LSN:2456719.2457081} This network can be represented with a graph $G$ with each person as a node/vertex $V$. Connecting each node/vertex $V$ is an edge $E$. Connected vertices are considered neighbors $n$. The degree $d(v)$ of each node is how many neighbors a node has. The threshold $k(v)$ of each node is a factor to gauge the suceptability of a node from being influenced. The neighbor $N(v)$ is the set of neighbors of the node. 
+With this in mind, finding the set of people to target would be ideal. \textbf{Target Set Selection} is basically finding the smallest set of people in a social network to influence all of the people in said network.\cite{Kempe,chen,Shakarian:2012:LSN:2456719.2457081} This network can be represented with a graph $G$ with each person as a node/vertex $V$. Connecting each node/vertex $V$ is an edge $E$. Connected vertices are considered neighbors $n$. The degree $d(v)$ of each node is how many neighbors a node has. The threshold $k(v)$ of each node is a factor to gauge the suceptability of a node from being influenced. The neighbor $N(v)$ is the set of neighbors of the node. 
 
 \subsection{Two Basic Diffusion Models}
 Two basic diffusion models have been introduced in 2003 by Kempe, Kleinberd and Tardos.\cite{Kempe} These models are improved upon by works proceeding it. These two models are considered in order to further understand the basics and foundations of the models the algorithm is based/taken from.
@@ -607,15 +607,15 @@ In the first graph in the figure we set to vertex C to be active to start the pr
   \node[main node,label={0.3}] (D) [right of=C] {$D$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (A) edge [bend left] node {$0.5$} (B)
+    (A) edge node {$0.5$} (B)
     	edge node {$0.4$} (C)
     (B) edge node {$0.2$} (A)
-    	edge [bend left] node {$0.3$} (C)
-    	edge [bend left] node {$0.2$} (D)
-    (C) edge [bend left] node {$0.3$} (A)
-    	edge  node {$0.7$} (B)
+    	edge node {$0.3$} (C)
+    	edge node {$0.2$} (D)
+    (C) edge node {$0.3$} (A)
+    	edge node {$0.7$} (B)
     	edge node {$0.5$} (D)
-    (D) edge [bend left] node {$0.3$} (C)
+    (D) edge node {$0.3$} (C)
     	edge node {$0.4$} (B)
     ;
 		\end{tikzpicture}
@@ -630,15 +630,15 @@ In the first graph in the figure we set to vertex C to be active to start the pr
   \node[main node,label={0.3},color={red}] (D) [right of=C] {$D$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (A) edge [bend left] node {$0.5$} (B)
+    (A) edge node {$0.5$} (B)
     	edge node {$0.4$} (C)
     (B) edge node {$0.2$} (A)
-    	edge [bend left] node {$0.3$} (C)
-    	edge [bend left] node {$0.2$} (D)
-    (C) edge [bend left] node {$0.3$} (A)
-    	edge  node {$0.7$} (B)
+    	edge node {$0.3$} (C)
+    	edge node {$0.2$} (D)
+    (C) edge node {$0.3$} (A)
+    	edge node {$0.7$} (B)
     	edge node {$0.5$} (D)
-    (D) edge [bend left] node {$0.3$} (C)
+    (D) edge node {$0.3$} (C)
     	edge node {$0.4$} (B)
     ;
 \end{tikzpicture}
@@ -657,15 +657,15 @@ In the first graph in the figure we set to vertex C to be active to start the pr
   \node[main node,label={0.3}, color={red}] (D) [right of=C] {$D$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (A) edge [bend left] node {$0.5$} (B)
+    (A) edge node {$0.5$} (B)
     	edge node {$0.4$} (C)
     (B) edge node {$0.2$} (A)
-    	edge [bend left] node {$0.3$} (C)
-    	edge [bend left] node {$0.2$} (D)
-    (C) edge [bend left] node {$0.3$} (A)
-    	edge  node {$0.7$} (B)
+    	edge node {$0.3$} (C)
+    	edge node {$0.2$} (D)
+    (C) edge node {$0.3$} (A)
+    	edge node {$0.7$} (B)
     	edge node {$0.5$} (D)
-    (D) edge [bend left] node {$0.3$} (C)
+    (D) edge node {$0.3$} (C)
     	edge node {$0.4$} (B)
     ;
 \end{tikzpicture}
@@ -675,7 +675,7 @@ In the first graph in the figure we set to vertex C to be active to start the pr
 \end{figure}
 
 \subsubsection{Independent Cascade Model}
-Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this defines the probability of $y$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node agian.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
+Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this defines the probability of $y$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node again.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
 \begin{figure}[h]
 	\begin{minipage}{0.45\textwidth}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
@@ -687,16 +687,14 @@ Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this d
   \node[main node] (D) [right of=C] {$D$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (A) edge [bend left] node {$0.5$} (B)
+    (A) edge node {$0.1$} (B)
     	edge node {$0.4$} (C)
-    (B) edge node {$0.2$} (A)
-    	edge [bend left] node {$0.3$} (C)
-    	edge [bend left] node {$0.2$} (D)
-    (C) edge [bend left] node {$0.3$} (A)
-    	edge  node {$0.2$} (B)
+    (B) edge node {$0.5$} (A)
+    (C) edge node {$0.3$} (A)
+    	edge node {$0.2$} (B)
     	edge node {$0.5$} (D)
-    (D) edge [bend left] node {$0.3$} (C)
-    	edge node {$0.4$} (B)
+    (D) 
+    	
     ;
 \end{tikzpicture}
 	\end{minipage}
@@ -704,22 +702,19 @@ Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this d
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node] (A) {$A$};
+  \node[main node,color={gray}] (A) {$A$};
   \node[main node,color={red}] (C) [below of=A] {$C$};
-  \node[main node,color={gray}] (B) [right of=A] {$B$};
-  \node[main node,color={red}] (D) [right of=C] {$D$};
+  \node[main node,color={red}] (B) [right of=A] {$B$};
+  \node[main node,color={gray}] (D) [right of=C] {$D$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (A) edge [bend left] node {$0.5$} (B)
+    (A) edge node {$0.1$} (B)
     	edge node {$0.4$} (C)
-    (B) edge node {$0.2$} (A)
-    	edge [bend left] node {$0.3$} (C)
-    	edge [bend left] node {$0.2$} (D)
-    (C) edge [bend left] node {$0.3$} (A)
-    	edge  node {$0.2$} (B)
+    (B) edge node {$0.5$} (A)
+    (C) edge node {$0.3$} (A)
+    	edge node {$0.2$} (B)
     	edge node {$0.5$} (D)
-    (D) edge [bend left] node {$0.3$} (C)
-    	edge node {$0.4$} (B)
+    (D) 
     ;
 \end{tikzpicture}
 	\end{minipage}
@@ -730,30 +725,27 @@ Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this d
 
   \node[main node,label={0.4}, color={red}] (A) {$A$};
   \node[main node,label={0.8},color={red}] (C) [below of=A] {$C$};
-  \node[main node,label={0.2}, color={gray}] (B) [right of=A] {$B$};
-  \node[main node,label={0.3}, color={red}] (D) [right of=C] {$D$};
+  \node[main node,label={0.2}, color={red}] (B) [right of=A] {$B$};
+  \node[main node,label={0.3}, color={gray}] (D) [right of=C] {$D$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (A) edge [bend left] node {$0.5$} (B)
+    (A) edge node {$0.1$} (B)
     	edge node {$0.4$} (C)
-    (B) edge node {$0.2$} (A)
-    	edge [bend left] node {$0.3$} (C)
-    	edge [bend left] node {$0.2$} (D)
-    (C) edge [bend left] node {$0.3$} (A)
-    	edge  node {$0.2$} (B)
+    (B) edge node {$0.5$} (A)
+    (C) edge node {$0.3$} (A)
+    	edge node {$0.2$} (B)
     	edge node {$0.5$} (D)
-    (D) edge [bend left] node {$0.3$} (C)
-    	edge node {$0.4$} (B)
+    (D) 
     ;
 \end{tikzpicture}
 	\end{minipage}
 \caption{Independent Cascade model of graph G at $r=1,2,3$ with C initially activated}
 \label{Independentfig1}
 \end{figure}
-\subsection{The threshold model used in study}
-We study other threshold models since the model in this study uses thresholds as a way to gauge how easy or how hard it is to influence/activate a certain node. Learning the tendencies and limitations of other thresholds models will help in understanding the tendencies of the threshold function used in the study. This study has a threshold function that uses real numbers in the set [1,2,...,10].
-\subsubsection{General Threshold Model}
-To be able to express the notion that a node $v$'s tendency to be active can be based on an arbitrary monotone function of the set of neighbors of $v$ is a monotone threshold function $f_{v}$ that maps subsets of $v$'s neighbor set to real numbers in [0,1], with the condition that $f_{v}(\varnothing) = 0$. The diffusion process follows the general structure of the previously discussed Linear Threshold Model. However, $v$ becomes active in time step if $f_{v}(S) \geq t_{v}$, where $S$ is the set of neighbors of $v$ are active in the previous time step.\cite{Kempe}
+\subsection{The threshold model reintroduced by Chen}
+Given a undirected connected graph $G=(V,E)$, let $d(v)$ to be the degree of $v \in V$. For each node/vertex $v \in V$, we assign a threshold value $t(v) \in \mathbb{N}$, where $1 \leq t(v) \leq d(v)$. At the start, the states of all the nodes/vertices are set to inactive. We then pick a subset of $V$, the $target\; set$, and set their states to active. At each round/time step, the states of vertices are to be updated if an inactive vertex $v$ has at least as many active neighbors as its threshold $t(v)$. The process ends when all vertices are active or no additional vertices can make the remaining nodes active. Again, the vertices can only change states from being inactive to active, not the other way around \cite{chen}.
+
+The difference of this model the two previously discussed models by Kempe et.al \cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}, is that their model focused on maximization of the vertices the target set can activate. This model on the other hand, will aim to find a target set that activates all or a fixed fraction of vertices. The previous two models were based of probabilistic thresholds where all thresholds were drawn randomly from a given distribution. \cite{Kempe}\cite{chen}
 \subsubsection{Majority Thresholds}
 One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems and use the majority rule.
 \subsubsection{Small Thresholds}
