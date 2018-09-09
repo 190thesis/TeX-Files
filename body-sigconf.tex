@@ -585,15 +585,172 @@ In the following models, as information spreads through the network nodes will b
 Imagine yourself walking down the street. A stranger approaches you and hands you a brochure showing you how amazing a new product is, but still, it's not enough to convince you to buy said product. As you walk home, you see a poster with your favorite celebrity advertising the same product. You think: \textit{"That seems nice, I'll consider buying it"}. You arrive to see your parents using the same product. So you quickly leave your house to buy the product. The next day, you tell your friends about the product you just bought and try to make them buy and use it.
 
 We represent the different vertices in the network graph as the stranger, the poster of the celebrity or your parents, each having individual weights on your decision to buy the product. You start off as unconvinced(inactive) that the product is worth buying, but as time goes by and as the influence of other people pile up on you, you reach your threshold and finally buy the product, making you active. Making you eligible to influence other inactive nodes/vertices.
+
+We also assume that a node can only switch from inactive to active and not the other way around. A active node will remain active during the diffusion process. The process runs until no more activation occurs.\cite{Shakarian:2012:LSN:2456719.2457081}
 \subsubsection{Linear Threshold Model}
 Given a directed simple graph $G=(V,E)$, we assign a weight $w\in \mathbb{R}^{+}$ on each edge $e$ selected uniformly random in the interval $[0,1]$. We also assign a threshold $t \in \mathbb{R}$ to every vertex in $G$ selected uniformly random in the interval $[0,1]$.
 We define a vertex/node as active when
+
 		$$\sum_{e \in \eta^{in}(v)} w(e)$$
 
-This represents the fraction of neighbors of a node to be active in order for that node to be active itself.  A weight is assigned to each of their neighbor. If the cumulative weight of that node's neighbors is the same or more as their threshold, the node itself will become active. Thresholds are selected at random because of the lack of knowledge of the tendencies of the node.\cite{Kempe} 
+In the first graph in the figure we set to vertex C to be active to start the process. After each time step/round $r$ we look to see if the weight of the edges outgoing from the activated vertices to the other vertices in its neighborhood. At round 2 vertices B and D become active. At round 3 A becomes active and the process ends when all the vertices are active. 
+\cite{Kempe} 
+
+\begin{figure}[h]
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={0.4}] (A) {$A$};
+  \node[main node,label={0.8},color={red}] (C) [below of=A] {$C$};
+  \node[main node,label={0.6}] (B) [right of=A] {$B$};
+  \node[main node,label={0.3}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge [bend left] node {$0.5$} (B)
+    	edge node {$0.4$} (C)
+    (B) edge node {$0.2$} (A)
+    	edge [bend left] node {$0.3$} (C)
+    	edge [bend left] node {$0.2$} (D)
+    (C) edge [bend left] node {$0.3$} (A)
+    	edge  node {$0.7$} (B)
+    	edge node {$0.5$} (D)
+    (D) edge [bend left] node {$0.3$} (C)
+    	edge node {$0.4$} (B)
+    ;
+		\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={0.4}] (A) {$A$};
+  \node[main node,label={0.8},color={red}] (C) [below of=A] {$C$};
+  \node[main node,label={0.6},color={red}] (B) [right of=A] {$B$};
+  \node[main node,label={0.3},color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge [bend left] node {$0.5$} (B)
+    	edge node {$0.4$} (C)
+    (B) edge node {$0.2$} (A)
+    	edge [bend left] node {$0.3$} (C)
+    	edge [bend left] node {$0.2$} (D)
+    (C) edge [bend left] node {$0.3$} (A)
+    	edge  node {$0.7$} (B)
+    	edge node {$0.5$} (D)
+    (D) edge [bend left] node {$0.3$} (C)
+    	edge node {$0.4$} (B)
+    ;
+\end{tikzpicture}
+
+
+	\end{minipage}
+	\vspace*{0.2cm}
+	\begin{minipage}{0.45\textwidth}
+	\centering
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={0.4}, color={red}] (A) {$A$};
+  \node[main node,label={0.8},color={red}] (C) [below of=A] {$C$};
+  \node[main node,label={0.6}, color={red}] (B) [right of=A] {$B$};
+  \node[main node,label={0.3}, color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge [bend left] node {$0.5$} (B)
+    	edge node {$0.4$} (C)
+    (B) edge node {$0.2$} (A)
+    	edge [bend left] node {$0.3$} (C)
+    	edge [bend left] node {$0.2$} (D)
+    (C) edge [bend left] node {$0.3$} (A)
+    	edge  node {$0.7$} (B)
+    	edge node {$0.5$} (D)
+    (D) edge [bend left] node {$0.3$} (C)
+    	edge node {$0.4$} (B)
+    ;
+\end{tikzpicture}
+	\end{minipage}
+\caption{Linear Threshold model of graph G at $r=1,2,3$ with C initially activated}
+\label{linearfig}
+\end{figure}
+
 \subsubsection{Independent Cascade Model}
-This model uses probablity instead of thresholds. Nodes have a  certain probability pertaining to how a single interaction from an active node to an inactive node can go. The active can either activate its neighbor or not. Once the inactive node is influenced, it can do the same to its neighbors with their own probabilities and the cycle continues for each time step until no more nodes can be activated.\cite{Kempe}
-\subsection{Other threshold models}
+Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this defines the probability of $y$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node agian.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
+\begin{figure}[h]
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node] (A) {$A$};
+  \node[main node,color={red}] (C) [below of=A] {$C$};
+  \node[main node] (B) [right of=A] {$B$};
+  \node[main node] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge [bend left] node {$0.5$} (B)
+    	edge node {$0.4$} (C)
+    (B) edge node {$0.2$} (A)
+    	edge [bend left] node {$0.3$} (C)
+    	edge [bend left] node {$0.2$} (D)
+    (C) edge [bend left] node {$0.3$} (A)
+    	edge  node {$0.2$} (B)
+    	edge node {$0.5$} (D)
+    (D) edge [bend left] node {$0.3$} (C)
+    	edge node {$0.4$} (B)
+    ;
+\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node] (A) {$A$};
+  \node[main node,color={red}] (C) [below of=A] {$C$};
+  \node[main node,color={gray}] (B) [right of=A] {$B$};
+  \node[main node,color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge [bend left] node {$0.5$} (B)
+    	edge node {$0.4$} (C)
+    (B) edge node {$0.2$} (A)
+    	edge [bend left] node {$0.3$} (C)
+    	edge [bend left] node {$0.2$} (D)
+    (C) edge [bend left] node {$0.3$} (A)
+    	edge  node {$0.2$} (B)
+    	edge node {$0.5$} (D)
+    (D) edge [bend left] node {$0.3$} (C)
+    	edge node {$0.4$} (B)
+    ;
+\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\centering
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={0.4}, color={red}] (A) {$A$};
+  \node[main node,label={0.8},color={red}] (C) [below of=A] {$C$};
+  \node[main node,label={0.2}, color={gray}] (B) [right of=A] {$B$};
+  \node[main node,label={0.3}, color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge [bend left] node {$0.5$} (B)
+    	edge node {$0.4$} (C)
+    (B) edge node {$0.2$} (A)
+    	edge [bend left] node {$0.3$} (C)
+    	edge [bend left] node {$0.2$} (D)
+    (C) edge [bend left] node {$0.3$} (A)
+    	edge  node {$0.2$} (B)
+    	edge node {$0.5$} (D)
+    (D) edge [bend left] node {$0.3$} (C)
+    	edge node {$0.4$} (B)
+    ;
+\end{tikzpicture}
+	\end{minipage}
+\caption{Independent Cascade model of graph G at $r=1,2,3$ with C initially activated}
+\label{Independentfig1}
+\end{figure}
+\subsection{The threshold model used in study}
 We study other threshold models since the model in this study uses thresholds as a way to gauge how easy or how hard it is to influence/activate a certain node. Learning the tendencies and limitations of other thresholds models will help in understanding the tendencies of the threshold function used in the study. This study has a threshold function that uses real numbers in the set [1,2,...,10].
 \subsubsection{General Threshold Model}
 To be able to express the notion that a node $v$'s tendency to be active can be based on an arbitrary monotone function of the set of neighbors of $v$ is a monotone threshold function $f_{v}$ that maps subsets of $v$'s neighbor set to real numbers in [0,1], with the condition that $f_{v}(\varnothing) = 0$. The diffusion process follows the general structure of the previously discussed Linear Threshold Model. However, $v$ becomes active in time step if $f_{v}(S) \geq t_{v}$, where $S$ is the set of neighbors of $v$ are active in the previous time step.\cite{Kempe}
