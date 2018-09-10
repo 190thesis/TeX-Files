@@ -746,6 +746,101 @@ Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this d
 Given a undirected connected graph $G=(V,E)$, let $d(v)$ to be the degree of $v \in V$. For each node/vertex $v \in V$, we assign a threshold value $t(v) \in \mathbb{N}$, where $1 \leq t(v) \leq d(v)$. At the start, the states of all the nodes/vertices are set to inactive. We then pick a subset of $V$, the $target\; set$, and set their states to active. At each round/time step, the states of vertices are to be updated if an inactive vertex $v$ has at least as many active neighbors as its threshold $t(v)$. The process ends when all vertices are active or no additional vertices can make the remaining nodes active. Again, the vertices can only change states from being inactive to active, not the other way around \cite{chen}.
 
 The difference of this model the two previously discussed models by Kempe et.al \cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}, is that their model focused on maximization of the vertices the target set can activate. This model on the other hand, will aim to find a target set that activates all or a fixed fraction of vertices. The previous two models were based of probabilistic thresholds where all thresholds were drawn randomly from a given distribution. \cite{Kempe}\cite{chen}
+
+\begin{figure}[h]
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$3$}] (A) {$A$};
+  \node[main node,color={red},label=below:{$3$}] (C) [below of=A] {$C$};
+  \node[main node,label={$1$}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$1$}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node {} (B)
+    	
+    (B) 
+    (C) edge[color=red] node {} (A)
+    	edge[color=red] node {} (D)
+    (D) edge node {} (B)
+    	edge node {} (A)
+    	
+    ;
+\end{tikzpicture}
+	\end{minipage}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$3$}] (A) {$A$};
+  \node[main node,color={red},label=below:{$3$}] (C) [below of=A] {$C$};
+  \node[main node,label={$1$}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$1$},color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node {} (B)
+    	
+    (B) 
+    (C) edge[color=red] node {} (A)
+    	edge[color=red] node {} (D)
+    (D) edge[color=red] node {} (B)
+    	edge[color=red] node {} (A)
+    	
+    ;
+\end{tikzpicture}
+	\end{minipage}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$3$}] (A) {$A$};
+  \node[main node,color={red},label=below:{$3$}] (C) [below of=A] {$C$};
+  \node[main node,label={$1$},color={red}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$1$},color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge[color=red] node {} (B)
+    	
+    (B) 
+    (C) edge[color=red] node {} (A)
+    	edge[color=red] node {} (D)
+    (D) edge[color=red] node {} (B)
+    	edge[color=red] node {} (A)
+    	
+    ;
+\end{tikzpicture}
+	\end{minipage}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$3$},color={red}] (A) {$A$};
+  \node[main node,color={red},label=below:{$3$},color={red}] (C) [below of=A] {$C$};
+  \node[main node,label={$1$},color={red}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$1$},color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge[color=red] node {} (B)
+    	
+    (B) 
+    (C) edge[color=red] node {} (A)
+    	edge[color=red] node {} (D)
+    (D) edge[color=red] node {} (B)
+    	edge[color=red] node {} (A)
+    	
+    ;
+\end{tikzpicture}
+	\end{minipage}
+\caption{Threshold model with C vertex as target set at round/time step = 1,2,3,4}
+\label{Thresholdfig1}
+\end{figure}
+
+In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced. This value is set depending on the network we want to find the target set of.
 \subsubsection{Majority Thresholds}
 One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems and use the majority rule.
 \subsubsection{Small Thresholds}
@@ -760,6 +855,8 @@ This case is when all the thresholds are small constants. However, this threshol
 \textbf{The Target Set Selection problem is NP-hard when the threshold $k$ for every vertex $v$ is at most 2}. \cite{chen,dreyer}
 
 For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set of all node's thresholds $k=1$. Activate any of the nodes in that graph and you will create a chain reaction of activating \textbf{every} node in that graph. So, with $k=1$ we can take any one node from that graph that is our target set.\cite{chen}
+
+This is commonly used in study of social networks where in an action of a small group of people is enough to make their neighbor pick up same behavior/principle/idealogy.
 \subsubsection{Unanimous Thresholds}
 This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen}
 \subsection{Target Set Selection Algorithms compared in this study}
