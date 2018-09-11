@@ -588,10 +588,10 @@ We represent the different vertices in the network graph as the stranger, the po
 
 We also assume that a node can only switch from inactive to active and not the other way around. A active node will remain active during the diffusion process. The process runs until no more activation occurs.\cite{Shakarian:2012:LSN:2456719.2457081}
 \subsubsection{Linear Threshold Model}
-Given a directed simple graph $G=(V,E)$, we assign a weight $w\in \mathbb{R}^{+}$ on each edge $e$ selected uniformly random in the interval $[0,1]$. We also assign a threshold $t \in \mathbb{R}$ to every vertex in $G$ selected uniformly random in the interval $[0,1]$.
+Given a directed simple graph $G=(V,E)$, we assign a weight $w\in \mathbb{R}^{+}$ on each edge $e$ selected uniformly random in the interval $[0,1]$. We also assign a threshold $t \in \mathbb{R}^{+}$ to every vertex in $G$ selected uniformly random in the interval $[0,1]$.
 We define a vertex/node as active when
 
-		$$\sum_{e \in \eta^{in}(v)} w(e)$$
+		$$\sum_{e \in \eta^{in}(v)} w(e)\geq t(v)$$
 
 In the first graph in the figure we set to vertex C to be active to start the process. After each time step/round $r$ we look to see if the weight of the edges outgoing from the activated vertices to the other vertices in its neighborhood. At round 2 vertices B and D become active. At round 3 A becomes active and the process ends when all the vertices are active. 
 \cite{Kempe} 
@@ -675,7 +675,7 @@ In the first graph in the figure we set to vertex C to be active to start the pr
 \end{figure}
 
 \subsubsection{Independent Cascade Model}
-Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this defines the probability of $y$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node again.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
+Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this defines the probability of $u$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node again.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
 \begin{figure}[h]
 	\begin{minipage}{0.45\textwidth}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
@@ -723,10 +723,10 @@ Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this d
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={0.4}, color={red}] (A) {$A$};
-  \node[main node,label={0.8},color={red}] (C) [below of=A] {$C$};
-  \node[main node,label={0.2}, color={red}] (B) [right of=A] {$B$};
-  \node[main node,label={0.3}, color={gray}] (D) [right of=C] {$D$};
+  \node[main node, color={red}] (A) {$A$};
+  \node[main node,color={red}] (C) [below of=A] {$C$};
+  \node[main node, color={red}] (B) [right of=A] {$B$};
+  \node[main node, color={gray}] (D) [right of=C] {$D$};
   
   \path[every node/.style={font=\sffamily\large}]
     (A) edge node {$0.1$} (B)
@@ -743,6 +743,9 @@ Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this d
 \label{Independentfig1}
 \end{figure}
 \subsection{The threshold model reintroduced by Chen}
+
+Now, we limit the model. Where in the vertices/nodes know each other or have some kind of connection/relationship. This means, every neighbor or friend of a certain person has the same effect as every other neighbor or friend. The threshold is only thing to be considered. How likely is that person to be influenced by their friends, some can be picky and some will immediately try to fit in. 
+
 Given a undirected connected graph $G=(V,E)$, let $d(v)$ to be the degree of $v \in V$. For each node/vertex $v \in V$, we assign a threshold value $t(v) \in \mathbb{N}$, where $1 \leq t(v) \leq d(v)$. At the start, the states of all the nodes/vertices are set to inactive. We then pick a subset of $V$, the $target\; set$, and set their states to active. At each round/time step, the states of vertices are to be updated if an inactive vertex $v$ has at least as many active neighbors as its threshold $t(v)$. The process ends when all vertices are active or no additional vertices can make the remaining nodes active. Again, the vertices can only change states from being inactive to active, not the other way around \cite{chen}.
 
 The difference of this model the two previously discussed models by Kempe et.al \cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}, is that their model focused on maximization of the vertices the target set can activate. This model on the other hand, will aim to find a target set that activates all or a fixed fraction of vertices. The previous two models were based of probabilistic thresholds where all thresholds were drawn randomly from a given distribution. \cite{Kempe}\cite{chen}
@@ -840,11 +843,13 @@ The difference of this model the two previously discussed models by Kempe et.al 
 \label{Thresholdfig1}
 \end{figure}
 
-In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced. This value is set depending on the network we want to find the target set of.
-\subsubsection{Majority Thresholds}
-One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems and use the majority rule.
-\subsubsection{Small Thresholds}
-This case is when all the thresholds are small constants. However, this threshold becomes more complex as the threshold increases from $k=1$. Past researches have studied that, for any $k \leq 2$, the Target Set Selection Problem is NP-hard.A statement constructed by Chen et.al(2009) states that the Target Set Selection problem is NP-hard when the thresholds are at most 2. Earlier before that, Dreyer(2000) proved this instance for only $k \geq 3$.\cite{dreyer} \cite{NPhardness} 
+In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced. 
+
+This value is set depending on the network we want to find the target set of.
+
+\textbf{Majority Thresholds} One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems and use the majority rule.
+
+\textbf{Small Thresholds} This case is when all the thresholds are small constants. However, this threshold becomes more complex as the threshold increases from $k=1$. Past researches have studied that, for any $k \leq 2$, the Target Set Selection Problem is NP-hard.A statement constructed by Chen et.al(2009) states that the Target Set Selection problem is NP-hard when the thresholds are at most 2. Earlier before that, Dreyer(2000) proved this instance for only $k \geq 3$.\cite{dreyer} \cite{NPhardness} 
 \begin{itemize}
 	\item Time Complexity defines the runtime of a certain algorithm. Denoted by the Big-O notation. Example: $O(n)$ is linear time, $n$ represents the size of the input.
 	\item P or Polynomial time is a set of languages that are relatively easy to get the solution and to verify it (i.e Multiplication, sorting, finding primes, etc). This determined from the time complexity of the algorithm. Being in polynomial time, the notation would be $O(n^k)$ for some $k>1$.
@@ -857,8 +862,8 @@ This case is when all the thresholds are small constants. However, this threshol
 For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set of all node's thresholds $k=1$. Activate any of the nodes in that graph and you will create a chain reaction of activating \textbf{every} node in that graph. So, with $k=1$ we can take any one node from that graph that is our target set.\cite{chen}
 
 This is commonly used in study of social networks where in an action of a small group of people is enough to make their neighbor pick up same behavior/principle/idealogy.
-\subsubsection{Unanimous Thresholds}
-This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen}
+
+\textbf{Unanimous Thresholds} This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen}
 \subsection{Target Set Selection Algorithms compared in this study}
 
 \subsubsection{TIP-DECOMP}
