@@ -588,7 +588,7 @@ We represent the different vertices in the network graph as the stranger, the po
 
 We also assume that a node can only switch from inactive to active and not the other way around. A active node will remain active during the diffusion process. The process runs until no more activation occurs.\cite{Shakarian:2012:LSN:2456719.2457081}
 \subsubsection{Linear Threshold Model}
-Given a directed simple graph $G=(V,E)$, we assign a weight $w\in \mathbb{R}^{+}$ on each edge $e$ selected uniformly random in the interval $[0,1]$. We also assign a threshold $t \in \mathbb{R}^{+}$ to every vertex in $G$ selected uniformly random in the interval $[0,1]$.
+Given a simple directed graph $G=(V,E)$, we assign a weight $w\in \mathbb{R}^{+}$ on each edge $e$ selected uniformly random in the interval $[0,1]$. We also assign a threshold $t \in \mathbb{R}^{+}$ to every vertex in $G$ selected uniformly random in the interval $[0,1]$.
 We define a vertex/node as active when
 
 		$$\sum_{e \in \eta^{in}(v)} w(e)\geq t(v)$$
@@ -619,6 +619,7 @@ In the first graph in the figure we set to vertex C to be active to start the pr
     	edge node {$0.4$} (B)
     ;
 		\end{tikzpicture}
+		\caption{r=1}
 	\end{minipage}
 	\begin{minipage}{0.45\textwidth}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
@@ -642,7 +643,7 @@ In the first graph in the figure we set to vertex C to be active to start the pr
     	edge node {$0.4$} (B)
     ;
 \end{tikzpicture}
-
+\caption{r=2}
 
 	\end{minipage}
 	\vspace*{0.2cm}
@@ -669,13 +670,14 @@ In the first graph in the figure we set to vertex C to be active to start the pr
     	edge node {$0.4$} (B)
     ;
 \end{tikzpicture}
+\caption{r=3}
 	\end{minipage}
 \caption{Linear Threshold model of graph G at $r=1,2,3$ with C initially activated}
 \label{linearfig}
 \end{figure}
 
 \subsubsection{Independent Cascade Model}
-Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this defines the probability of $u$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node again.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
+Given a simple directed graph $G(V,E)$,we assign a probability $P_{u,v}$, this defines the probability of $u$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node again.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
 \begin{figure}[h]
 	\begin{minipage}{0.45\textwidth}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
@@ -690,13 +692,15 @@ Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this d
     (A) edge node {$0.1$} (B)
     	edge node {$0.4$} (C)
     (B) edge node {$0.5$} (A)
+    	edge node {$0.6$} (C)
     (C) edge node {$0.3$} (A)
     	edge node {$0.2$} (B)
     	edge node {$0.5$} (D)
-    (D) 
+    (D) edge node {$0.2$} (C)
     	
     ;
 \end{tikzpicture}
+\caption{r=1}
 	\end{minipage}
 	\begin{minipage}{0.45\textwidth}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
@@ -711,12 +715,14 @@ Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this d
     (A) edge node {$0.1$} (B)
     	edge node {$0.4$} (C)
     (B) edge node {$0.5$} (A)
+    	edge node {$0.6$} (C)
     (C) edge node {$0.3$} (A)
     	edge node {$0.2$} (B)
     	edge node {$0.5$} (D)
-    (D) 
+    (D) edge node {$0.2$} (C)
     ;
 \end{tikzpicture}
+\caption{r=2}
 	\end{minipage}
 	\begin{minipage}{0.45\textwidth}
 		\centering
@@ -732,25 +738,29 @@ Given a directed simple graph $G(V,E)$,we assign a probability $P_{u,v}$, this d
     (A) edge node {$0.1$} (B)
     	edge node {$0.4$} (C)
     (B) edge node {$0.5$} (A)
+    	edge node {$0.6$} (C)
     (C) edge node {$0.3$} (A)
     	edge node {$0.2$} (B)
     	edge node {$0.5$} (D)
-    (D) 
+    (D) edge node {$0.2$} (C)
     ;
 \end{tikzpicture}
+\caption{r=3}
 	\end{minipage}
 \caption{Independent Cascade model of graph G at $r=1,2,3$ with C initially activated}
 \label{Independentfig1}
 \end{figure}
+
+Notice that on \ref{Independentfig1}; at round 2, vertex $C$ fails to activate vertices A and D. This means that C loses the ability to influence said vertices but this doesn't mean that that the neighbor of vertex A can't influence A. At round 3, vertex B succeeds in influencing vertex A and all of the vertices have been tried for activation and there they have no more neighbors left to activate, meaning, the process ends.
 \subsection{The threshold model reintroduced by Chen}
 
-Now, we limit the model. Where in the vertices/nodes know each other or have some kind of connection/relationship. This means, every neighbor or friend of a certain person has the same effect as every other neighbor or friend. The threshold is only thing to be considered. How likely is that person to be influenced by their friends, some can be picky and some will immediately try to fit in. 
+Now, we limit and modify the model. Where in the vertices/nodes know each other or have some kind of connection/relationship. This means, every neighbor or friend of a certain person has the same effect as every other neighbor or friend of that person. The threshold is only thing to be considered. How likely is that person to be influenced by their friends, some can be picky and some will immediately try to fit in. 
 
-Given a undirected connected graph $G=(V,E)$, let $d(v)$ to be the degree of $v \in V$. For each node/vertex $v \in V$, we assign a threshold value $t(v) \in \mathbb{N}$, where $1 \leq t(v) \leq d(v)$. At the start, the states of all the nodes/vertices are set to inactive. We then pick a subset of $V$, the $target\; set$, and set their states to active. At each round/time step, the states of vertices are to be updated if an inactive vertex $v$ has at least as many active neighbors as its threshold $t(v)$. The process ends when all vertices are active or no additional vertices can make the remaining nodes active. Again, the vertices can only change states from being inactive to active, not the other way around \cite{chen}.
+Given a simple undirected connected graph $G=(V,E)$, let $d(v)$ to be the degree of $v \in V$. For each node/vertex $v \in V$, we assign a threshold value $t(v) \in \mathbb{N}$, where $1 \leq t(v) \leq d(v)$. At the start, the states of all the nodes/vertices are set to inactive. We then pick a subset of $V$, the $target\; set$, and set their states to active. At each round/time step, the states of vertices are to be updated if an inactive vertex $v$ has at least as many active neighbors as its threshold $t(v)$. The process ends when all vertices are active or no additional vertices can make the remaining nodes active. Again, the vertices can only change states from being inactive to active, not the other way around \cite{chen}.
 
-The difference of this model the two previously discussed models by Kempe et.al \cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}, is that their model focused on maximization of the vertices the target set can activate. This model on the other hand, will aim to find a target set that activates all or a fixed fraction of vertices. The previous two models were based of probabilistic thresholds where all thresholds were drawn randomly from a given distribution. \cite{Kempe}\cite{chen}
+The difference of this model to the two previously discussed models by Kempe et.al \cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}, is that their model focused on maximization of the vertices the target set can activate. This model on the other hand, will aim to find a target set that activates all or a fixed fraction of vertices. The previous two models were based of probabilistic thresholds where all thresholds were drawn randomly from a given distribution. \cite{Kempe}\cite{chen}
 
-\begin{figure}[h]
+\begin{figure}[!ht]
 	\centering
 	\begin{minipage}{0.45\textwidth}
 		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
@@ -772,6 +782,7 @@ The difference of this model the two previously discussed models by Kempe et.al 
     	
     ;
 \end{tikzpicture}
+\caption{r=1}
 	\end{minipage}
 	\centering
 	\begin{minipage}{0.45\textwidth}
@@ -794,6 +805,7 @@ The difference of this model the two previously discussed models by Kempe et.al 
     	
     ;
 \end{tikzpicture}
+\caption{r=2}
 	\end{minipage}
 	\centering
 	\begin{minipage}{0.45\textwidth}
@@ -816,6 +828,7 @@ The difference of this model the two previously discussed models by Kempe et.al 
     	
     ;
 \end{tikzpicture}
+\caption{r=3}
 	\end{minipage}
 	\centering
 	\begin{minipage}{0.45\textwidth}
@@ -837,12 +850,15 @@ The difference of this model the two previously discussed models by Kempe et.al 
     	edge[color=red] node {} (A)
     	
     ;
+    
+
 \end{tikzpicture}
+\caption{r=4}
 	\end{minipage}
+
 \caption{Threshold model with C vertex as target set at round/time step = 1,2,3,4}
 \label{Thresholdfig1}
 \end{figure}
-
 In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced. 
 
 This value is set depending on the network we want to find the target set of.
