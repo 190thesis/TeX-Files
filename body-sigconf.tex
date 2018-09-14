@@ -483,7 +483,7 @@ N[v_4]=\{v_3,v_4\}
   \node[main node] (2) [right of=1] {$v_2$};
   \node[main node] (3) [below left of=2] {$v_3$};
   \node[main node] (4) [below of=2] {$v_4$};
-  \node[main node] (5) [below of=4] {$v_5$};
+  \node[main node] (5) [below of=3] {$v_5$};
   
   \path[every node/.style={font=\sffamily\large}]
     (1) edge node {$e_1$} (2)
@@ -495,7 +495,6 @@ N[v_4]=\{v_3,v_4\}
     ;
 \end{tikzpicture}
 \caption{An example of a directed graph.}
-
 \label{digraphfig}
 \end{figure}
 In figure \ref{digraphfig}, 
@@ -510,8 +509,84 @@ E=\{e_1,e_2,e_3,e_4,e_5\}, \\
 \eta(e_5)=(v_5,v_3), \\
 \end{array}
 \end{equation}
+\item A graph is a \textit{path digraph} on $n\leq2$ vertices, where
+\begin{enumerate}
+	\item $V=\{u_1,u_2,...,u_n\}$
+	\item $E=\{e_1,e_2,...,e_{n-1}\}$
+	\item $\eta(e_1)=(u_i,u_{i+1})$ for all $i \in \{1,...,n-1\}$
+\end{enumerate}
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [above right of=1] {$v_2$};
+  \node[main node] (3) [below right of=2] {$v_3$};
+  \node[main node] (4) [above right of=3] {$v_4$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {$e_1$} (2)
+    (2) edge node {$e_2$} (3)
+    (3) edge node {$e_3$} (4)
+    ;
+\end{tikzpicture}
+\caption{An example of a \textit{path digraph on 4 vertices}.}
+\label{pathdigraphfig}
+\end{figure}
+\item A graph is a \textit{cycle digraph} on $n\leq1$ vertices, where
+\begin{enumerate}
+	\item $V=\{u_1,u_2,...,u_n\}$
+	\item $E=\{e_1,e_2,...,e_{n-1},e_n\}$
+	\item $\eta(e_1)=(u_i,u_{i+1})$ for all $i \in \{1,...,n-1\}$
+	\item $\eta(n)=(u_n,u_1)$
+\end{enumerate}
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [above right of=1] {$v_2$};
+  \node[main node] (3) [below right of=2] {$v_3$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {$e_1$} (2)
+    (2) edge node {$e_2$} (3)
+    (3) edge node {$e_3$} (1)
+    ;
+\end{tikzpicture}
+\caption{An example of a \textit{cycle digraph on 3 vertices}.}
+\label{pathdigraphfig}
+\end{figure}
+\item A graph is a \textit{simple digraph} if it has no directed loops and no parallel edges. Figure \ref{digraphfig} is an example of a simple digraph since it has no directed loops and no parallel edges.
 \end{itemize}
-\subsection{Paths and Cycles}
+\subsection{Degrees of Digraph}
+Let $G=(V,E,\eta)$ be a digraph and vertex $u \in V$ ,
+\begin{itemize}
+	
+	\item The \textit{indegree of u} denoted by $d_G^-(u)$ or $d^-(u)$ is the number of directed edges having $u$ as a head, that is,\\
+	\begin{center}
+	$d^-(u)=|\{e \in E: \eta(e)=(x,u)$ for some $ x \in V\}|$
+	\end{center}
+	\item The \textit{outdegree of u} denoted by $d_G^+(u)$ or $d^+(u)$ is the number of directed edges having $u$ as a head, that is,\\
+	\begin{center}
+	$d^+(u)=|\{e \in E: \eta(e)=(u,y)$ for some $ y \in V\}|$
+	\end{center}
+	\item The \textit{inneighbors of u} denoted by $N_G^-$ or $N^-$ is given by,
+	\begin{center}
+	$N^-(u)=\{x \in V: \eta(e)=(x,u)$ for some $ e \in E\}$
+	\end{center}
+	\item The \textit{outneighbors of u} denoted by $N_G^+$ or $N^+$ is given by,
+	\begin{center}
+	$N^+(u)=\{x \in V: \eta(e)=(u,y)$ for some $ e \in E\}$
+	\end{center}
+	\item 
+	\begin{center}
+		$\sum\limits_{u\in V} d^-(u) = \sum\limits_{u\in V} d^+(u)=|E|$
+	\end{center}
+\end{itemize}
+\subsection{Paths, Cycles and Weights}
 Let $G=(V,E,\phi)$ be a graph with $V=\{v_1,v_2,...,v_k\}$ and $E=\{e_1,e_2,...,e_k\}$ as its vertex and edge set respectively, then,
 \begin{enumerate}
 	\item A \textbf{walk} in graph G is the alternating sequence of edges and vertices that start and stops with a vertex given by,
@@ -557,8 +632,41 @@ Let $G=(V,E,\phi)$ be a graph with $V=\{v_1,v_2,...,v_k\}$ and $E=\{e_1,e_2,...,
 \item $t=(v_1,e_1,v_2,e_5,v_4,e_8,v_6,e_9,v_5)$ \\ $t$ is a path of length 4 because there are no repeating vertices in the walk.
 \item $d=(v_1,e_1,v_2,e_5,v_4,e_8,v_6,e_9,v_5,e_3,v_1)$ \\ $d$ is a closed walk, closed trail and a cycle of length 5.
 \end{itemize}
+\item Let $G$ be a graph and $W: E \rightarrow \mathbb{R}$, the ordered tuple $(G,W)$ is called a \textit{weighted graph}. The function $W$ is called a \textit{weight/weight function} of $(G,W)$.
+\begin{figure}[h!]
+	\centering
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
 
+  \node[main node] (1) {$v_1$};
+  \node[main node] (2) [below left of=1] {$v_2$};
+  \node[main node] (3) [below right of=1] {$v_3$};
+  \node[main node] (4) [above right of=1] {$v_4$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node [right] {$1.2$} (2)
+    	edge node [left] {$0.6$} (3)
+    	edge node {$1.33$} (4)
+    (2) 
+    (3) edge node {$0.4$} (4)
+        
+    (4) 
+    ;
+\end{tikzpicture}
+		\caption{An example of a weighted simple digraph}
+		\label{wgraph}
+	\end{figure}
+\\ \\In figure \ref{wgraph},
+	\begin{equation}
+		\begin{array}{c}
+			W((v_1,v_2))=1.2\\
+			W((v_1,v_3))=0.6\\
+			W((v_1,v_4))=1.33\\
+			W((v_3,v_4))=0.4
+		\end{array}
+	\end{equation}
 \end{enumerate}
+
 %\subsection{Connectivity, Isomorphism and Homomorphism}
 %\begin{itemize}
 %	\item A graph $G=(V,E,\phi)$ is \textit{connected} if, for every unique pair vertices $u,v \in V$, $G$ has a $u,v$-path. Otherwise, $G$ is \textit{disconnected}.
