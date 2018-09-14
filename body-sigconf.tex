@@ -593,6 +593,8 @@ We define a vertex/node as active when
 
 		$$\sum_{e \in \eta^{in}(v)} w(e)\geq t(v)$$
 
+If the sum of the weight of the edges incoming to the vertex $v$ is greater than or equal to the threshold of $v$, $v$ becomes active.
+
 In the first graph in the figure we set to vertex C to be active to start the process. After each time step/round $r$ we look to see if the weight of the edges outgoing from the activated vertices to the other vertices in its neighborhood. At round 2 vertices B and D become active. At round 3 A becomes active and the process ends when all the vertices are active. 
 \cite{Kempe} 
 
@@ -754,7 +756,7 @@ Given a simple directed graph $G(V,E)$,we assign a probability $P_{u,v}$, this d
 Notice that on \ref{Independentfig1}; at round 2, vertex $C$ fails to activate vertices A and D. This means that C loses the ability to influence said vertices but this doesn't mean that that the neighbor of vertex A can't influence A. At round 3, vertex B succeeds in influencing vertex A and all of the vertices have been tried for activation and there they have no more neighbors left to activate, meaning, the process ends.
 \subsection{The threshold model reintroduced by Chen}
 
-Now, we limit and modify the model. Where in the vertices/nodes know each other or have some kind of connection/relationship. This means, every neighbor or friend of a certain person has the same effect as every other neighbor or friend of that person. The threshold is only thing to be considered. How likely is that person to be influenced by their friends, some can be picky and some will immediately try to fit in. 
+Now, we limit and modify the model. Where in the vertices/nodes know each other or have some kind of connection/relationship. This means, every neighbor or friend of a certain person has the same effect as every other neighbor or friend of that person. The threshold is only thing to be considered. When determining how likely a person is to be influence, the size of their neighbor considered.
 
 Given a simple undirected connected graph $G=(V,E)$, let $d(v)$ to be the degree of $v \in V$. For each node/vertex $v \in V$, we assign a threshold value $t(v) \in \mathbb{N}$, where $1 \leq t(v) \leq d(v)$. At the start, the states of all the nodes/vertices are set to inactive. We then pick a subset of $V$, the $target\; set$, and set their states to active. At each round/time step, the states of vertices are to be updated if an inactive vertex $v$ has at least as many active neighbors as its threshold $t(v)$. The process ends when all vertices are active or no additional vertices can make the remaining nodes active. Again, the vertices can only change states from being inactive to active, not the other way around \cite{chen}.
 
@@ -879,15 +881,12 @@ The threshold value is set depending on the network we want to find the target s
 
 For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set of all node's thresholds $k=1$. Activate any of the nodes in that graph and you will create a chain reaction of activating \textbf{every} node in that graph. So, with $k=1$ we can take any one node from that graph that is our target set.\cite{chen}
 
-This is commonly used in study of social networks where in an action of a small group of people is enough to make their neighbor pick up same behavior/principle/idealogy.
-	\item \textbf{Majority Thresholds} One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems and use the majority rule.
-	\item \textbf{Unanimous Thresholds} This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen}
+This is commonly used in study of social networks where in an action of a small group of people is enough to make their neighbor pick up same behavior/principle/ideology.
+
+	\item \textbf{Majority Thresholds t=$\frac{d(v)}{2}$} One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems and use the majority rule. It was proven by Peleg (1997) that this type of threshold value is NP-hard. \cite{majority}
+	
+	\item \textbf{Unanimous Thresholds t(v)=d(v)} This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen}
 \end{enumerate}
-
-
-
-
-
 
 \subsection{Target Set Selection Algorithms compared in this study}
 
