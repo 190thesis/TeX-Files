@@ -1,9 +1,10 @@
 \section{Review on Graph Theory  }
-The definitions stated on this section is based on the book \textit{Graph Theory: Modeling, Applications, and Algorithms} by G. Agnarsson and R. Greenlaw. Reference is on \cite{agnarsson2006graph}.
+\textcolor{red}{The definitions stated on this section is based on the book \textit{Graph Theory: Modeling, Applications, and Algorithms} by G. Agnarsson and R. Greenlaw. Reference is on \cite{agnarsson2006graph}.}
+
 \subsection{Preliminaries}
 \begin{itemize}
 \item \textbf{set} - a group of objects\\
-Ex. $A=\{1,2,3,4,5,6,7\}$,$B=\{2,4,6,8,10,12\}$ 
+\textcolor{red}{Ex. $A=\{1,2,3,4,5,6,7\}$,$B=\{2,4,6,8,10,12\}$ }
 \item \textbf{element} - an object inside a set
 \item \textbf{empty set} - null set;contains no element; denoted by $\varnothing$ or $\{\}$
 \item If n element $a$ is in set $S$, then $a \in S $.
@@ -23,7 +24,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \draw (0,0) circle (1cm) node {$A$};
 \draw (1.5,0) circle (1cm) node {$B$};
 \end{tikzpicture}
-\caption{$A \cup B$ on a Venn Diagram}
+\caption{\textcolor{red}{$A \cup B$ on a Venn Diagram}}
 	\end{figure}
 	\item $A \cap B$ or the \textit{intersection of A and B} is the set containing the element/s that are present in both $A$ and $B$.
 	\begin{figure}[h]
@@ -37,7 +38,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \draw (0,0) circle (1cm) node {$A$};
 \draw (1.5,0) circle (1cm) node {$B$};
 \end{tikzpicture}
-\caption{$A \cap B$ on a Venn Diagram}
+\caption{\textcolor{red}{$A \cap B$ on a Venn Diagram}}
 	\end{figure}
 	\item $A$ an $B$ are disjoint sets if they have no same elements. Disjoint sets can be written as $A \cap B=\varnothing$.
 	\begin{figure}[h]
@@ -47,13 +48,15 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \draw (-0.5,0) circle (1cm) node {$A$};
 \draw (2,0) circle (1cm) node {$B$};
 \end{tikzpicture}
-\caption{Disjoint sets $A$ and $B$ on a Venn Diagram}
+\caption{\textcolor{red}{Disjoint sets $A$ and $B$ on a Venn Diagram}}
 	\end{figure}
 	\item $A \setminus B$ or the \textit{set difference of A and B} is the set containing all the elements of $A$ that are not in $B$.
+	\textcolor{red}{
 	\begin{itemize}
 		\item If $A=B$, then $A \setminus B=\varnothing$.
 		\item If $A=\varnothing$, then in any $B$, $A \setminus B=\varnothing$.
 	\end{itemize}
+	}
 	\begin{figure}[h]
 	\centering
 	\begin{tikzpicture}
@@ -66,7 +69,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \draw (0,0) circle (1cm) node {$A$};
 \draw (1.5,0) circle (1cm) node {$B$};
 \end{tikzpicture}
-\caption{$A \setminus B$ on a Venn Diagram}
+\caption{\textcolor{red}{$A \setminus B$ on a Venn Diagram}}
 	\end{figure}
 	\item $A \Delta B$ or the \textit{symmetric difference of A and B} is  the set containing the elements of set $A$ that are not in set $B$ combined (union) with the set containing the elements of set $B$ that are not in set $A$. It can be written as $(A \setminus B) \cup (B \setminus A)$. 
 \end{itemize}
@@ -83,14 +86,14 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \draw (0,0) circle (1cm) node {$A$};
 \draw (1.5,0) circle (1cm) node {$B$};
 \end{tikzpicture}
-\caption{$A \Delta B$ on a Venn Diagram}
+\caption{\textcolor{red}{$A \Delta B$ on a Venn Diagram}}
 	\end{figure}
 
  \item \textbf{finite set} - a countable set; set that contains countable number elements
- \item  \textbf{cardinality of set $S$ or $|S|$} - the number of elements of set $S$
- Ex. Let $A=\{1,3,5,7,9,11,13,15\}$, then $|A|=8$
+ \item  \textbf{cardinality of set $S$ or $|S|$} - the number of elements of set $S$\\
+ \textcolor{red}{Ex. Let $A=\{1,3,5,7,9,11,13,15\}$, then $|A|=8$}
  \item \textbf{power set of $S$ or $P(S)$} - the set that all the possible subsets of S including the empty set\\
- Ex. Let $B=\{0,1\}$, then $P(B)=\{\varnothing,0,1,01\}$ and $|P(B)|=4$
+ \textcolor{red}{Ex. Let $B=\{0,1\}$, then $P(B)=\{\varnothing,0,1,01\}$ and $|P(B)|=4$}
  \item Let $k \in \mathbb{N}$ and $a_1,a_2,...,a_k$ are any k number of objects; \textit{ordered k-tuple or k-tuple} can be written as $(a_1,a_2,...,a_k)$.
  \item Some sets of numbers:
  \begin{itemize}
@@ -103,7 +106,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 
 \subsection{Graphs}
 \begin{itemize}
- \item \textbf{graph or general graph} - ordered triple $G=(V,E,\phi)$ where, $V\neq\varnothing$, $V \cap E = \varnothing$ and $\phi:E \rightarrow P(V)$ such that $|\phi(e)|={1,2}$ for every $e \in E$.
+ \item \textbf{graph or general graph} - ordered triple $G=(V,E,\phi)$ where, $V\neq\varnothing$, $V \cap E = \varnothing$ and $\phi:E \rightarrow P(V)$ such that \textcolor{red}{$|\phi(e)|={1,2}$} for every $e \in E$.
  \item Let G be a graph with $G = (V,E,\phi)$,
 	\begin{itemize}
 		\item The vertex set or $V$ is the set of vertices of G
@@ -127,14 +130,14 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
     	edge node [left] {$e_1$} (2)
     	edge node {$e_2$} (3)
     (2) edge [loop left] node {$e_6$} (2)
-    (3) edge node [bend left] {$e_4$} (5)
+    (3) edge [bend right] node  {$e_4$} (5)
         edge node [right] {$e_7$} (4)
-        edge node [bend right] {$e_8$} (5)
+        edge [bend left,pos=0.2] node  {$e_8$} (5)
     (4) edge node {$e_5$} (5)
 	(5) 
     ;
 \end{tikzpicture}
-\caption{Graph G with 6 vertices and seven edges.}
+\caption{\textcolor{red}{Graph G with 6 vertices and 7 edges.}}
 \label{graph1}
 \end{figure}
 In figure \ref{graph1}, 
@@ -152,14 +155,16 @@ E=\{e_1,e_2,e_3,e_4,e_5,e_6,e_7\} \\
 \phi(e_7)=\{v_3,v_4\}
 \end{array}
 \end{equation}
+\newpage
 Let the graph $G=(V,E,\phi)$,
 	\begin{itemize}
 \item The vertices $u$ and $v$ are in $V$ and are \textit{adjacent/neighbor} of each other , if there is some edge $e \in E$ that has $\phi(e)=\{u,v\}$ or $\{v,u\}$. In figure 1, $v_1$ and $v_2$ are neighbors.
 \item The edges $e_1$ and $e_2$ are in $E$ and are \textit{adjacent} if they contain atleast one same endvertex on their respective $\phi$, such that $\phi\{e_1\} \cap \phi\{e_2\} \neq 0$. In figure 1, $e_1$ and $e_2$ are adjacent
 \item Vertex $v$ and edge $e$ are in $V$ and $E$ respectively and are \textit{incident}, if $v$ is in $\phi(e)$. In figure 1, $v_1$ and $e_3$ are incident.
-\item \textbf{Loop} is an edge $e$ with the same endvertices given that $|\phi(e)|=2$. In the figure, $e_2$ is a loop because $\phi(e)=\{v_2,v_2\}$
-\item $E'$ is a edge set with \textit{multiple/parallel edges}, if $|E'| \leq 2$ and for any edges $e$ and $f$ in $E'$, $\phi(e)=\phi(f)$
-%%include example for parallel edges
+\textcolor{red}{
+\item \textbf{Loop} is an edge $e$ with the same endvertices given that $|\phi(e)|=1$. In the figure, $e_2$ is a loop because $\phi(e)=\{v_2\}$
+\item $E'$ is a edge set with \textit{multiple/parallel edges}, if $|E'| \leq 2$ and for any edges $e$ and $f$ in $E'$, $\phi(e)=\phi(f)$. In figure, $E'=\{e_4,e_8\}$ because $\phi(e_4)=\phi(e_8)=\{v_3,v_5\}$
+}
 \item The vertex $v$ is \textit{isolated} if $v$ is not in $\phi(e)$ for all $e$ in $E$
 	\end{itemize}
 	\item A \textbf{simple graph} is a graph without multiple/parallel edges or loops.
@@ -509,12 +514,14 @@ E=\{e_1,e_2,e_3,e_4,e_5\}, \\
 \eta(e_5)=(v_5,v_3), \\
 \end{array}
 \end{equation}
+\textcolor{red}{
 \item A graph is a \textit{path digraph} on $n\leq2$ vertices, where
 \begin{enumerate}
 	\item $V=\{u_1,u_2,...,u_n\}$
 	\item $E=\{e_1,e_2,...,e_{n-1}\}$
 	\item $\eta(e_1)=(u_i,u_{i+1})$ for all $i \in \{1,...,n-1\}$
 \end{enumerate}
+}
 \begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
@@ -531,9 +538,10 @@ E=\{e_1,e_2,e_3,e_4,e_5\}, \\
     (3) edge node {$e_3$} (4)
     ;
 \end{tikzpicture}
-\caption{An example of a \textit{path digraph on 4 vertices}.}
+\caption{\textcolor{red}{An example of a \textit{path digraph on 4 vertices}.}}
 \label{pathdigraphfig}
 \end{figure}
+\textcolor{red}{
 \item A graph is a \textit{cycle digraph} on $n\leq1$ vertices, where
 \begin{enumerate}
 	\item $V=\{u_1,u_2,...,u_n\}$
@@ -541,6 +549,7 @@ E=\{e_1,e_2,e_3,e_4,e_5\}, \\
 	\item $\eta(e_1)=(u_i,u_{i+1})$ for all $i \in \{1,...,n-1\}$
 	\item $\eta(n)=(u_n,u_1)$
 \end{enumerate}
+}
 \begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
@@ -556,19 +565,23 @@ E=\{e_1,e_2,e_3,e_4,e_5\}, \\
     (3) edge node {$e_3$} (1)
     ;
 \end{tikzpicture}
-\caption{An example of a \textit{cycle digraph on 3 vertices}.}
+\caption{\textcolor{red}{An example of a \textit{cycle digraph on 3 vertices}.}}
 \label{pathdigraphfig}
 \end{figure}
-\item A graph is a \textit{simple digraph} if it has no directed loops and no parallel edges. Figure \ref{digraphfig} is an example of a simple digraph since it has no directed loops and no parallel edges.
+\textcolor{red}{
+\item A graph is a \textit{simple digraph} if it has no directed loops and no parallel edges. Figure \ref{digraphfig} is an example of a simple digraph since it has no directed loops and no parallel edges.}
 \end{itemize}
-\subsection{Degrees of Digraph}
-Let $G=(V,E,\eta)$ be a digraph and vertex $u \in V$ ,
+
+
+\subsection{\textcolor{red}{Degrees of Digraph}}
+\textcolor{red}{
+Let $G=(V,E,\eta)$ be a digraph and vertex $u \in V$ ,}
 \begin{itemize}
-	
 	\item The \textit{indegree of u} denoted by $d_G^-(u)$ or $d^-(u)$ is the number of directed edges having $u$ as a head, that is,\\
 	\begin{center}
 	$d^-(u)=|\{e \in E: \eta(e)=(x,u)$ for some $ x \in V\}|$
 	\end{center}
+	
 	\item The \textit{outdegree of u} denoted by $d_G^+(u)$ or $d^+(u)$ is the number of directed edges having $u$ as a head, that is,\\
 	\begin{center}
 	$d^+(u)=|\{e \in E: \eta(e)=(u,y)$ for some $ y \in V\}|$
@@ -586,6 +599,7 @@ Let $G=(V,E,\eta)$ be a digraph and vertex $u \in V$ ,
 		$\sum\limits_{u\in V} d^-(u) = \sum\limits_{u\in V} d^+(u)=|E|$
 	\end{center}
 \end{itemize}
+
 \subsection{Paths, Cycles and Weights}
 Let $G=(V,E,\phi)$ be a graph with $V=\{v_1,v_2,...,v_k\}$ and $E=\{e_1,e_2,...,e_k\}$ as its vertex and edge set respectively, then,
 \begin{enumerate}
@@ -632,7 +646,7 @@ Let $G=(V,E,\phi)$ be a graph with $V=\{v_1,v_2,...,v_k\}$ and $E=\{e_1,e_2,...,
 \item $t=(v_1,e_1,v_2,e_5,v_4,e_8,v_6,e_9,v_5)$ \\ $t$ is a path of length 4 because there are no repeating vertices in the walk.
 \item $d=(v_1,e_1,v_2,e_5,v_4,e_8,v_6,e_9,v_5,e_3,v_1)$ \\ $d$ is a closed walk, closed trail and a cycle of length 5.
 \end{itemize}
-\item Let $G$ be a graph and $W: E \rightarrow \mathbb{R}$, the ordered tuple $(G,W)$ is called a \textit{weighted graph}. The function $W$ is called a \textit{weight/weight function} of $(G,W)$.
+\item \textcolor{red}{Let $G$ be a graph and $W: E \rightarrow \mathbb{R}$, the ordered tuple $(G,W)$ is called a \textit{weighted graph}. The function $W$ is called a \textit{weight/weight function} of $(G,W)$.}
 \begin{figure}[h!]
 	\centering
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
@@ -690,11 +704,14 @@ Two basic diffusion models have been introduced in 2003 by Kempe, Kleinberd and 
 
 In the following models, as information spreads through the network nodes will be referred to as either $active$ or $inactive$. The chance of the node to be active increases as more of its neighbor become active. Inactive nodes can become active nodes but the other way around is not to be considered. 
 
-Imagine yourself walking down the street. A stranger approaches you and hands you a brochure showing you how amazing a new product is, but still, it's not enough to convince you to buy said product. As you walk home, you see a poster with your favorite celebrity advertising the same product. You think: \textit{"That seems nice, I'll consider buying it"}. You arrive to see your parents using the same product. So you quickly leave your house to buy the product. The next day, you tell your friends about the product you just bought and try to make them buy and use it.
+\textcolor{red}{
+Imagine yourself walking down the street. A stranger approaches you and hands you a brochure showing you how amazing a new product is, but still, it's not enough to convince you to buy said product. As you walk home, you see a poster with your favorite celebrity advertising the same product. You think: \textit{"That seems nice, I'll consider buying it"}. You arrive to see your parents using the same product. So you quickly leave your house to buy the product. The next day, you tell your friends about the product you just bought and try to make them buy and use it.}
 
-We represent the different vertices in the network graph as the stranger, the poster of the celebrity or your parents, each having individual weights on your decision to buy the product. You start off as unconvinced(inactive) that the product is worth buying, but as time goes by and as the influence of other people pile up on you, you reach your threshold and finally buy the product, making you active. Making you eligible to influence other inactive nodes/vertices.
+\textcolor{red}{
+We represent the different vertices in the network graph as the stranger, the poster of the celebrity or your parents, each having individual weights on your decision to buy the product. You start off as unconvinced(inactive) that the product is worth buying, but as time goes by and as the influence of other people pile up on you, you reach your threshold and finally buy the product, making you active. Making you eligible to influence other inactive nodes/vertices.}
 
-We also assume that a node can only switch from inactive to active and not the other way around. A active node will remain active during the diffusion process. The process runs until no more activation occurs.\cite{Shakarian:2012:LSN:2456719.2457081}
+\textcolor{red}{
+We also assume that a node can only switch from inactive to active and not the other way around. A active node will remain active during the diffusion process. The process runs until no more activation occurs.\cite{Shakarian:2012:LSN:2456719.2457081} }
 \subsubsection{Linear Threshold Model}
 Given a simple directed graph $G=(V,E)$, we assign a weight $w\in \mathbb{R}^{+}$ on each edge $e$ selected uniformly random in the interval $[0,1]$. We also assign a threshold $t \in \mathbb{R}^{+}$ to every vertex in $G$ selected uniformly random in the interval $[0,1]$.
 We define a vertex/node as active when
@@ -703,10 +720,11 @@ We define a vertex/node as active when
 
 If the sum of the weight of the edges incoming to the vertex $v$ is greater than or equal to the threshold of $v$, $v$ becomes active.
 
-In the first graph in the figure we set to vertex C to be active to start the process. After each time step/round $r$ we look to see if the weight of the edges outgoing from the activated vertices to the other vertices in its neighborhood. At round 2 vertices B and D become active. At round 3 A becomes active and the process ends when all the vertices are active. 
+\textcolor{red}{
+In the first graph in the figure \ref{linearfig} we set to vertex C to be active to start the process. After each time step/round $r$ we look to see if the weight of the edges outgoing from the activated vertices to the other vertices in its neighborhood. At round 2 vertices B and D become active. At round 3 A becomes active and the process ends when all the vertices are active. 
 \cite{Kempe} 
-
-\begin{figure}[h]
+}
+\begin{figure}[h!]
 	\begin{minipage}{0.45\textwidth}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
@@ -788,7 +806,7 @@ In the first graph in the figure we set to vertex C to be active to start the pr
 
 \subsubsection{Independent Cascade Model}
 Given a simple directed graph $G(V,E)$,we assign a probability $P_{u,v}$, this defines the probability of $u$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node again.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
-\begin{figure}[h]
+\begin{figure}[h!]
 	\begin{minipage}{0.45\textwidth}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
@@ -861,7 +879,8 @@ Given a simple directed graph $G(V,E)$,we assign a probability $P_{u,v}$, this d
 \label{Independentfig1}
 \end{figure}
 
-Notice that on \ref{Independentfig1}; at round 2, vertex $C$ fails to activate vertices A and D. This means that C loses the ability to influence said vertices but this doesn't mean that that the neighbor of vertex A can't influence A. At round 3, vertex B succeeds in influencing vertex A and all of the vertices have been tried for activation and there they have no more neighbors left to activate, meaning, the process ends.
+\textcolor{red}{
+Notice that on figure \ref{Independentfig1}; at round 2, vertex $C$ fails to activate vertices A and D. This means that C loses the ability to influence said vertices but this doesn't mean that that the neighbor of vertex A can't influence A. At round 3, vertex B succeeds in influencing vertex A and all of the vertices have been tried for activation and there they have no more neighbors left to activate, meaning, the process ends.}
 \subsection{The threshold model reintroduced by Chen}
 
 Now, we limit and modify the model. Where in the vertices/nodes know each other or have some kind of connection/relationship. This means, every neighbor or friend of a certain person has the same effect as every other neighbor or friend of that person. The threshold is only thing to be considered. When determining how likely a person is to be influence, the size of their neighbor considered.
@@ -870,7 +889,7 @@ Given a simple undirected connected graph $G=(V,E)$, let $d(v)$ to be the degree
 
 The difference of this model to the two previously discussed models by Kempe et.al \cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}, is that their model focused on maximization of the vertices the target set can activate. This model on the other hand, will aim to find a target set that activates all or a fixed fraction of vertices. The previous two models were based of probabilistic thresholds where all thresholds were drawn randomly from a given distribution. \cite{Kempe}\cite{chen}
 
-\begin{figure}[!ht]
+\begin{figure}[h!]
 	\centering
 	\begin{minipage}{0.45\textwidth}
 		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
@@ -970,7 +989,8 @@ The difference of this model to the two previously discussed models by Kempe et.
 \label{Thresholdfig1}
 \end{figure}
 
-In the example figure \ref{Thresholdfig1}, we pick C as the target set. We activate C at round 1. At round 2 we check the neighbors of C which is A and D, but only D is eligible for activation since the threshold of A is 3 and it does not have enough active neighbors. D, however is eligible for activation and activates at round 2. In the next round, B, with threshold 1, activates since D is active and is a neighbor of B. Finally at round 4, A has enough active neighbors to reach its threshold 3.
+\textcolor{red}{
+In the example figure \ref{Thresholdfig1}, we pick C as the target set. We activate C at round 1. At round 2 we check the neighbors of C which is A and D, but only D is eligible for activation since the threshold of A is 3 and it does not have enough active neighbors. D, however is eligible for activation and activates at round 2. In the next round, B, with threshold 1, activates since D is active and is a neighbor of B. Finally at round 4, A has enough active neighbors to reach its threshold 3.}
 
 In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced. 
 
@@ -990,10 +1010,11 @@ The threshold value is set depending on the network we want to find the target s
 For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set of all node's thresholds $k=1$. Activate any of the nodes in that graph and you will create a chain reaction of activating \textbf{every} node in that graph. So, with $k=1$ we can take any one node from that graph that is our target set.\cite{chen}
 
 This is commonly used in study of social networks where in an action of a small group of people is enough to make their neighbor pick up same behavior/principle/ideology.
-
-	\item \textbf{Majority Thresholds t=$\frac{d(v)}{2}$} One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems and use the majority rule. It was proven by Peleg (1997) that this type of threshold value is NP-hard. \cite{majority}
+	\textcolor{red}{
+	\item \textbf{Majority Thresholds t=$\frac{d(v)}{2}$} One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems and use the majority rule. It was proven by Peleg (1997) that this type of threshold value is NP-hard. \cite{majority} }
 	
-	\item \textbf{Unanimous Thresholds t(v)=d(v)} This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen}
+	\textcolor{red}{
+	\item \textbf{Unanimous Thresholds t(v)=d(v)} This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen} }
 \end{enumerate}
 
 \subsection{Target Set Selection Algorithms compared in this study}
