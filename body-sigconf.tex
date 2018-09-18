@@ -15,7 +15,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \item Let $A$ and $B$ be sets,
 \begin{itemize}
 	\item $A \cup B$ or the \textit{union of A and B} is the set that contains elements or objects that belong to either $A$ or to $B$ or to both.
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 \draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
@@ -27,7 +27,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \caption{\textcolor{red}{$A \cup B$ on a Venn Diagram}}
 	\end{figure}
 	\item $A \cap B$ or the \textit{intersection of A and B} is the set containing the element/s that are present in both $A$ and $B$.
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 \draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
@@ -41,7 +41,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 \caption{\textcolor{red}{$A \cap B$ on a Venn Diagram}}
 	\end{figure}
 	\item $A$ an $B$ are disjoint sets if they have no same elements. Disjoint sets can be written as $A \cap B=\varnothing$.
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 \draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
@@ -57,7 +57,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 		\item If $A=\varnothing$, then in any $B$, $A \setminus B=\varnothing$.
 	\end{itemize}
 	}
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 \draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
@@ -73,7 +73,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 	\end{figure}
 	\item $A \Delta B$ or the \textit{symmetric difference of A and B} is  the set containing the elements of set $A$ that are not in set $B$ combined (union) with the set containing the elements of set $B$ that are not in set $A$. It can be written as $(A \setminus B) \cup (B \setminus A)$. 
 \end{itemize}
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 \draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$U$};
@@ -113,7 +113,7 @@ Ex. If $A=\{1,2,3,4\}$ and $t=\{1,2,3,4\}$ then $t=S$
 		\item The edge set or $E$ is the set of edges
 		\item $\phi(e)$ contains the endvertex/endvertices of each $e$ which are the elements of the vertex set. 
 	\end{itemize}	 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -174,7 +174,7 @@ Let the graph $G=(V,E,\phi)$,
 		\item $E=\varnothing$
 		\item $E=\{\{v_1,v_2\}:v_1,v_2 \in V, v_1 \neq v_2\}$
 	\end{enumerate}
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -202,7 +202,7 @@ Let the graph $G=(V,E,\phi)$,
 			\item $V=\{v_1,v_2,...,v_n\}$
 			\item $E=\varnothing$
 		\end{enumerate}
-		\begin{figure}[h]
+		\begin{figure}[h!]
 			\centering
 			\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -223,7 +223,7 @@ Let the graph $G=(V,E,\phi)$,
 			\item $E=\{\{u_1,u_2\},\{u_2,u_3\},...,\{u_{n-1},u_{n}\}\}$
 		\end{enumerate}
 		
-		\begin{figure}[h]
+		\begin{figure}[h!]
 		\centering
 		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -247,7 +247,7 @@ Let the graph $G=(V,E,\phi)$,
 		\item $V=\{v_1,v_2,...,v_n\}$
 		\item $E=\{\{v_1,v_2\},\{v_2,v_3\},...,\{v_{n-1},v_{n}\},\{v_n,v_1\}\}$
 	\end{enumerate}
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -276,7 +276,7 @@ Let the graph $G=(V,E,\phi)$,
 		\item $V=\{v_1,v_2,...,v_n\}$
 		\item $E=\{\{v_i,v_j\}:1\leq i \leq j \leq n\}$
 	\end{enumerate}
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -315,7 +315,7 @@ Let the graph $G=(V,E,\phi)$,
 		\item $V=\{s_1,s_2,...,s_m\} \cup \{v_1,v_2,...,v_n\}$
 		\item $E=\{\{s_i,v_j\}:1\leq i \leq m, 1 \leq j \leq n\}$
 	\end{enumerate}	
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -375,7 +375,7 @@ Let $G=(V,E,\phi)$ be a graph with vertex $v\in V$,
 	\item Additionally, the \textit{closed neighborhood of v}  denoted by $N[v]$  is the set of all the elements in the open neighbor with the vertex $v$ itself. 
 	$$N[v]=N(v) \cup v$$
 	
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -421,7 +421,7 @@ N[v_4]=\{v_3,v_4\}
 		\item $\phi'(e) = \phi(e) \forall e \in E'$	
 	\end{enumerate}	 
 	The subgraph relationship is denoted by $\subseteq$. So that, we can say $F \subseteq G$
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -479,7 +479,7 @@ N[v_4]=\{v_3,v_4\}
 		\item $E$ is the set of directed edges
 		\item If $u,v \in V$,$e \in E$ and $\eta(e)=(u,v)$, then $u$ is the tail of $e$ and $v$ is the head of $e$.
 	\end{itemize}
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -522,7 +522,7 @@ E=\{e_1,e_2,e_3,e_4,e_5\}, \\
 	\item $\eta(e_1)=(u_i,u_{i+1})$ for all $i \in \{1,...,n-1\}$
 \end{enumerate}
 }
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -550,7 +550,7 @@ E=\{e_1,e_2,e_3,e_4,e_5\}, \\
 	\item $\eta(n)=(u_n,u_1)$
 \end{enumerate}
 }
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -610,7 +610,7 @@ Let $G=(V,E,\phi)$ be a graph with $V=\{v_1,v_2,...,v_k\}$ and $E=\{e_1,e_2,...,
 	\item A $u-v$ walk/trail/path is a walk starting from  the vertex $u$ and ends on the vertex $v$ with their respective characteristics.
 	\item A $v-v$ walk/trail is a circuit (or closed walk/trail).
 	\item A $v-v$ path is a cycle.\\
-	\begin{figure}[h]
+	\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -996,17 +996,9 @@ The difference of this model to the two previously discussed models by Kempe et.
 \end{figure}
 
 \textcolor{red}{
-<<<<<<< HEAD
 In the example figure \ref{Thresholdfig1}, we pick C as the target set. We activate C at round 1. At round 2 we check the neighbors of C which is A and D, but only D is eligible for activation since the threshold of A is 3 and it does not have enough active neighbors. D, however is eligible for activation and activates at round 2. In the next round, B, with threshold 1, activates since D is active and is a neighbor of B. Finally at round 4, A has enough active neighbors to reach its threshold 3.}
 
 \textcolor{red}{In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced.}
-=======
-In the example figure \ref{Thresholdfig1}, we pick C as the target set. We activate C at round 1. At round 2 we check the neighbors of C which is A and D, but only D is eligible for activation since the threshold of A is 3 and it does not have enough active neighbors. D, however is eligible for activation and activates at round 2. In the next round, B, with threshold 1, activates since D is active and is a neighbor of B. Finally at round 4, A has enough active neighbors to reach its threshold 3.
-}
-
-\textcolor{red}{
-In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced. }
->>>>>>> a856107b0fc8a52e6b48752f8d9c48f26425089f
 
 The threshold value is set depending on the network we want to find the target set of.
 
@@ -1346,6 +1338,200 @@ Only $\infty \; dist$ values are left thus, stopping the process. The nodes left
 VirAds selects in each step the vertex $u$ with the highest effectiveness which is defined as $n^{(e)}_{u}+n^{(e)}_{(a)}$. Which is basically the vertex $v$ which can activate the most number of $edges$. It also considers the vertex with the most active neighbors. After that, the algorithm updates the measures for all the remaining vertices. VirAds will make the selection based on the information within $d$-hop neighbor around the considered vertices rather than only one-hop neighbor as in the degree-based heuristic. When a vertex $u$ is selected, it causes a chain-reaction and activate a sequence of vertices or lower the rounds in which vertices are activated.\cite{virads}
 
 The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagine, a line at any commercial establishment where the first who came is the first who's served. 
+\subsubsection{Step by Step Example}
+\begin{figure}[h!]
+\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$2$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$2$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$2$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$2$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    (2) edge node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{figure}
+The value of the parameters of the algorithm are $\rho=0.60284$ and $d=3$, making the output a small 3-seeding target set. The table \ref{viradstable} contains the initial values needed in the algorithm.
+\begin{table}[ht]
+\centering
+    \begin{tabular}{c c c c c}
+		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
+		$v_{1}$ & 2 & 2 & 2 & $\{v_2,v_8\}$ \\
+		$v_{2}$ & 5 & 5 & 4 & $\{v_1,v_3,v_4,v_5,v_6\}$\\
+		$v_{3}$ & 1 & 1 & 1 & $\{v_2\}$\\
+		$v_{4}$ & 2 & 2 & 2 & $\{v_2,v_{10}\}$\\
+		$v_{5}$ & 2 & 2 & 2 & $\{v_2,v_9\}$\\
+		$v_{6}$ & 2 & 2 & 2 & $\{v_2,v_7\}$\\
+		$v_{7}$ & 3 & 3 & 2 & $\{v_6,v_8,v_9\}$\\
+		$v_{8}$ & 2 & 2 & 2 & $\{v_1,v_7\}$\\
+		$v_{9}$ & 3 & 3 & 2 & $\{v_5,v_7,v_{10}\}$\\
+		$v_{10}$ & 2 & 2 & 2 & $\{v_4,v_9\}$\\
+	\end{tabular}
+	\label{viradstable}
+\end{table}
+\newpage
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$2$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$2$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$2$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$2$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) 
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    ;
+\end{tikzpicture}
+\\
+    \begin{tabular}{c c c c c}
+		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
+		$v_{1}$ & 1 & 2 & 1 & $\{v_8\}$ \\
+		$v_{4}$ & 1 & 2 & 1 & $\{v_{10}\}$\\
+		$v_{5}$ & 1 & 2 & 1 & $\{v_9\}$\\
+		$v_{6}$ & 1 & 2 & 1 & $\{v_7\}$\\
+		$v_{7}$ & 3 & 3 & 1 & $\{v_6,v_8,v_9\}$\\
+		$v_{8}$ & 2 & 2 & 1 & $\{v_1,v_7\}$\\
+		$v_{9}$ & 3 & 3 & 1 & $\{v_5,v_7,v_{10}\}$\\
+		$v_{10}$ & 2 & 2 & 1 & $\{v_4,v_9\}$\\
+	\end{tabular}
+	\caption{1st Iteration of Virads Example,$v_2$ has the highest $\{n_v^{(e)}+n_v^{(a)}\}$ and $P=\{v_2\}$}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$2$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$2$};
+  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$2$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$2$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) 
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (9) edge node {} (8)
+    	edge node {} (9)
+    (10) 
+    ;
+\end{tikzpicture}
+\\
+    \begin{tabular}{c c c c c}
+		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
+		$v_{1}$ & 0 & 2 & 1 & $\{\}$ \\
+		$v_{4}$ & 1 & 2 & 1 & $\{v_{10}\}$\\
+		$v_{5}$ & 0 & 2 & 1 & $\{\}$\\
+		$v_{10}$ & 1 & 2 & 1 & $\{v_4\}$\\
+	\end{tabular}
+	\caption{2nd Iteration of Virads Example, $v_7$ has the highest $\{n_v^{(e)}+n_v^{(a)}\}$ and $P=\{v_2,v_7\}$}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
+  \node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$2$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$2$};
+  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$2$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$2$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+
+    ;
+\end{tikzpicture}
+\\
+    \begin{tabular}{c c c c c}
+		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
+		$v_{1}$ & 0 & 0 & 1 & $\{\}$ \\
+		$v_{4}$ & 1 & 1 & 1 & $\{\}$\\
+		$v_{5}$ & 0 & 0 & 1 & $\{\}$\\
+	\end{tabular}
+	\caption{3rd Iteration of Virads Example, $v_4$ has the highest $\{n_v^{(e)}+n_v^{(a)}\}$ and $P=\{v_2,v_7,v_4\}$}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+  \node[main node,label={right:$v_1$},fill=blue] (1) {$2$};
+  \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
+  \node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$2$};
+  \node[main node,label={right:$v_5$}, below right of=2,fill=blue] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$2$};
+  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$2$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$2$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+   
+    ;
+\end{tikzpicture}
+\\
+    \begin{tabular}{c c c c c}
+		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
+		$v_{1}$ & 0 & 0 & 1 & $\{\}$ \\
+		$v_{5}$ & 0 & 0 & 1 & $\{\}$\\
+	\end{tabular}
+	\caption{4th and 5th Iteration of Virads Example, vertex $v_1$ and $v_5$ are chosen  and $P=\{v_2,v_7,v_4,v_1,v_5\}$}
+\end{figure}
+\newpage
 \section{Main algortihm developed in the study}
 \subsection{Preliminaries}
 	Let $G = (V,E)$ be a graph modeling a network. $\Gamma$ is the neighborhood of current vertex $v$ and $d_{g}(v)$ or $|\Gamma_{g}(v)|$ as the degree of current vertex $v$.
@@ -1426,7 +1612,7 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
 			\end{algorithmic}
 		\end{algorithm}
 \newpage
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
