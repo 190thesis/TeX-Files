@@ -699,6 +699,8 @@ Recently, the video game company Epic Games, used this tactic to advertise their
 With this in mind, finding the set of people to target would be ideal. \textbf{Target Set Selection} is basically finding the smallest set of people in a social network to influence all of the people in said network.\cite{Kempe,chen,Shakarian:2012:LSN:2456719.2457081} This network can be represented with a graph $G$ with each person as a node/vertex $V$. Connecting each node/vertex $V$ is an edge $E$. Connected vertices are considered neighbors $n$. The degree $d(v)$ of each node is how many neighbors a node has. The threshold $k(v)$ of each node is a factor to gauge the suceptability of a node from being influenced. The neighbor $N(v)$ is the set of neighbors of the node. 
 
 \subsection{Two Basic Diffusion Models}
+\textcolor{red}{A diffusion model is a set mathematical formulas that attempt to model the spread of information or a disease through a network or population}
+
 Two basic diffusion models have been introduced in 2003 by Kempe, Kleinberd and Tardos.\cite{Kempe} These models are improved upon by works proceeding it. These two models are considered in order to further understand the basics and foundations of the models the algorithm is based/taken from.
 
 
@@ -713,12 +715,14 @@ We represent the different vertices in the network graph as the stranger, the po
 \textcolor{red}{
 We also assume that a node can only switch from inactive to active and not the other way around. A active node will remain active during the diffusion process. The process runs until no more activation occurs.\cite{Shakarian:2012:LSN:2456719.2457081} }
 \subsubsection{Linear Threshold Model}
+\textcolor{red}{Different people have different weights to their words. If a family member or a famous person gives you a recommendation, we assume that their statement will have a large weight attributed to it and if a random stranger you do not know and have no affiliation with tell you to buy their product, we know that it will have tiny to average effect on you the consumer.}
+
 Given a simple directed graph $G=(V,E)$, we assign a weight $w\in \mathbb{R}^{+}$ on each edge $e$ selected uniformly random in the interval $[0,1]$. We also assign a threshold $t \in \mathbb{R}^{+}$ to every vertex in $G$ selected uniformly random in the interval $[0,1]$.
 We define a vertex/node as active when
 
 		$$\sum_{e \in \eta^{in}(v)} w(e)\geq t(v)$$
 
-If the sum of the weight of the edges incoming to the vertex $v$ is greater than or equal to the threshold of $v$, $v$ becomes active.
+If the sum of the weight of the edges incoming to the vertex $v$ is greater than or equal to the threshold of $v$, $v$ becomes active. \textcolor{red}{The process ends when all nodes are active.}
 
 \textcolor{red}{
 In the first graph in the figure \ref{linearfig} we set to vertex C to be active to start the process. After each time step/round $r$ we look to see if the weight of the edges outgoing from the activated vertices to the other vertices in its neighborhood. At round 2 vertices B and D become active. At round 3 A becomes active and the process ends when all the vertices are active. 
@@ -805,6 +809,8 @@ In the first graph in the figure \ref{linearfig} we set to vertex C to be active
 \end{figure}
 
 \subsubsection{Independent Cascade Model}
+\textcolor{red}{Now, in this model, we assume that when a person tries you influence you, they only have that one chance to do so. After that, they lose their chance of doing it again. We still have the knowledge that different people have different weights assigned to their words. In this model, however, we assign a percentage that determines how likely is that person to influence you. Say, your mother has a 90\% chance to recommend you a product but, on the contrary, the known scam artist has a 15\% chance of influencing you.}
+
 Given a simple directed graph $G(V,E)$,we assign a probability $P_{u,v}$, this defines the probability of $u$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node again.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
 \begin{figure}[h!]
 	\begin{minipage}{0.45\textwidth}
@@ -990,9 +996,9 @@ The difference of this model to the two previously discussed models by Kempe et.
 \end{figure}
 
 \textcolor{red}{
-In the example figure \ref{Thresholdfig1}, we pick C as the target set. We activate C at round 1. At round 2 we check the neighbors of C which is A and D, but only D is eligible for activation since the threshold of A is 3 and it does not have enough active neighbors. D, however is eligible for activation and activates at round 2. In the next round, B, with threshold 1, activates since D is active and is a neighbor of B. Finally at round 4, A has enough active neighbors to reach its threshold 3.}
+In the example figure \ref{Thresholdfig1}, we pick C as the target set. We activate C at round 1. At round 2 we check the neighbors of C which is A and D, but only D is eligible for activation since the threshold of A is 3 and it does not have enough active neighbors. D, however is eligible for activation and activates at round 2. In the next round, B, with threshold 1, activates since D is active and is a neighbor of B. Finally at round 4, A has enough active neighbors to reach its threshold 3.
 
-In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced. 
+In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced. }
 
 The threshold value is set depending on the network we want to find the target set of.
 
@@ -1011,7 +1017,7 @@ For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set
 
 This is commonly used in study of social networks where in an action of a small group of people is enough to make their neighbor pick up same behavior/principle/ideology.
 	\textcolor{red}{
-	\item \textbf{Majority Thresholds t=$\frac{d(v)}{2}$} One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems and use the majority rule. It was proven by Peleg (1997) that this type of threshold value is NP-hard. \cite{majority} }
+	\item \textbf{Majority Thresholds t=$\frac{d(v)}{2}$} One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems, dynamic monopolies, distributed computing and use the majority rule. It was proven by Peleg (1997) that this type of threshold value is NP-hard. \cite{majority} }
 	
 	\textcolor{red}{
 	\item \textbf{Unanimous Thresholds t(v)=d(v)} This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen} }
@@ -1126,7 +1132,10 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 \end{table}
    
  \begin{figure}
+ 
+ We first choose the vertex with minimum $dist$ which in this case is $v_{9}$, we remove $v_{9}$ from the graph and update the $dist$ of their neighbors. We set the $dist$ of the vertices with 0 or negative $dist$ values as $\infty$, meaning they are the maximum or not considered in the selection of current $v$.
  \begin{minipage}{0.45\textwidth}
+ 	
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
@@ -1203,7 +1212,7 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 \end{tikzpicture}
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
-
+	
     \begin{tabular}{c c c c c}
 		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$& $k_{i}$ & $dist_{i}$\\
 		$v_{1}$ & 2 & 2 & 4 & $\infty$ \\
@@ -1218,6 +1227,8 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 \end{minipage}
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
 \vspace*{0.5cm}  
+
+Only $\infty \; dist$ values are left thus, stopping the process. The nodes left in the graph the target set according to the algorithm.
 \begin{minipage}{0.45\textwidth}
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
@@ -1459,11 +1470,7 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node,label={right:$v_1$}] (1) {$2$};
-<<<<<<< HEAD
   \node[main node,label={above right:$v_2$}, below of=1] (2) {$1$};
-=======
-  \node[main node,label={above  right:$v_2$}, below of=1] (2) {$4$};
->>>>>>> 70379955234745dfe7467269aff421a27e11ceee
   \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
   \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
   \node[main node,label={right:$v_5$}, below right of=2] (5) {$3$};
