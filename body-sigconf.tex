@@ -996,9 +996,9 @@ The difference of this model to the two previously discussed models by Kempe et.
 \end{figure}
 
 \textcolor{red}{
-In the example figure \ref{Thresholdfig1}, we pick C as the target set. We activate C at round 1. At round 2 we check the neighbors of C which is A and D, but only D is eligible for activation since the threshold of A is 3 and it does not have enough active neighbors. D, however is eligible for activation and activates at round 2. In the next round, B, with threshold 1, activates since D is active and is a neighbor of B. Finally at round 4, A has enough active neighbors to reach its threshold 3.
+In the example figure \ref{Thresholdfig1}, we pick C as the target set. We activate C at round 1. At round 2 we check the neighbors of C which is A and D, but only D is eligible for activation since the threshold of A is 3 and it does not have enough active neighbors. D, however is eligible for activation and activates at round 2. In the next round, B, with threshold 1, activates since D is active and is a neighbor of B. Finally at round 4, A has enough active neighbors to reach its threshold 3.}
 
-In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced. }
+\textcolor{red}{In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced.}
 
 The threshold value is set depending on the network we want to find the target set of.
 
@@ -1119,7 +1119,7 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
     \begin{tabular}{c c c c c}
 		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$& $k_{i}$ & $dist_{i}$\\
 		$v_{1}$ & 2 & 2 & 4 & -2 \\
-		$v_{2}$ & 4 & 4 & 8 & -4\\
+		$v_{2}$ & 5 & 4 & 20 & -15\\
 		$v_{3}$ & 1 & 1 & 1 & 0\\
 		$v_{4}$ & 2 & 1 & 2 & 0\\
 		$v_{5}$ & 2 & 2 & 4 & -2\\
@@ -1133,35 +1133,33 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
    
  \begin{figure}
  
- We first choose the vertex with minimum $dist$ which in this case is $v_{9}$, we remove $v_{9}$ from the graph and update the $dist$ of their neighbors. We set the $dist$ of the vertices with 0 or negative $dist$ values as $\infty$, meaning they are the maximum or not considered in the selection of current $v$.
+ We first choose the vertex with minimum $dist$ which in this case is $v_{2}$, we remove $v_{2}$ from the graph and update the $dist$ of their neighbors. We set the $dist$ of the vertices with 0 or negative $dist$ values as $\infty$, meaning they are the maximum or not considered in the selection of current $v$.
  \begin{minipage}{0.45\textwidth}
  	
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node,label={right:$v_1$}] (1) {$2$};
-  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
   \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
   \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
   \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
   \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
   \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
   \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
   \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
   
   
   \path[every node/.style={font=\sffamily\large}]
-    (1) edge node {} (2)
-    (2) edge node {} (3)
-    	edge node {} (4)
-    	edge node {} (5)
-    	edge node {} (6)
+    (1)
     (3) 
     (4) edge node {} (10)
-    (5)
+    (5) edge node {} (9)
     (6) edge node {} (7)
     (7) edge node {} (8)
+    	edge node {} (9)
     (8)	edge node {} (1)
+    (9) edge node {} (10)
     (10) 
     
     ;
@@ -1170,21 +1168,22 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 \begin{minipage}{0.45\textwidth}
     \begin{tabular}{c c c c c}
 		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$& $k_{i}$ & $dist_{i}$\\
-		$v_{1}$ & 2 & 2 & 4 & -2 \\
-		$v_{2}$ & 4 & 4 & 8 & -4\\
-		$v_{3}$ & 1 & 1 & 1 & 0\\
-		$v_{4}$ & 2 & 1 & 2 & 0\\
+		$v_{1}$ & 2 & 2 & 4 & $\infty$ \\
+		$v_{3}$ & 1 & 1 & 1 & $\infty$\\
+		$v_{4}$ & 2 & 1 & 2 & $\infty$\\
 		$v_{5}$ & 2 & 2 & 4 & $\infty$\\
-		$v_{6}$ & 2 & 1 & 2 & 0\\
-		$v_{7}$ & 3 & 2 & 6 & $\infty$\\
+		$v_{6}$ & 2 & 1 & 2 & $\infty$\\
+		$v_{7}$ & 3 & 2 & 6 & -3\\
 		$v_{8}$ & 2 & 1 & 2 & 0\\
-		$v_{10}$ & 2 & 1 & 2 & $\infty$\\
+		$v_{9}$ & 3 & 3 & 9 & -6\\
+		$v_{10}$ & 2 & 1 & 2 & 0\\
 	\end{tabular}
 
 \end{minipage}
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
 \vspace*{0.5cm}  
 \begin{minipage}{0.45\textwidth}
+ 	
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
@@ -1199,10 +1198,10 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
   
   
   \path[every node/.style={font=\sffamily\large}]
-    (1) 
+    (1)
     (3) 
     (4) edge node {} (10)
-    (5)
+    (5) 
     (6) edge node {} (7)
     (7) edge node {} (8)
     (8)	edge node {} (1)
@@ -1212,7 +1211,6 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 \end{tikzpicture}
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
-	
     \begin{tabular}{c c c c c}
 		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$& $k_{i}$ & $dist_{i}$\\
 		$v_{1}$ & 2 & 2 & 4 & $\infty$ \\
@@ -1224,12 +1222,14 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 		$v_{8}$ & 2 & 1 & 2 & 0\\
 		$v_{10}$ & 2 & 1 & 2 & $\infty$\\
 	\end{tabular}
+
 \end{minipage}
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
-\vspace*{0.5cm}  
+\vspace*{0.5cm} 
 
 Only $\infty \; dist$ values are left thus, stopping the process. The nodes left in the graph the target set according to the algorithm.
 \begin{minipage}{0.45\textwidth}
+ 	
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
@@ -1243,19 +1243,18 @@ Only $\infty \; dist$ values are left thus, stopping the process. The nodes left
   
   
   \path[every node/.style={font=\sffamily\large}]
-    (1) 
+    (1)
     (3) 
     (4) edge node {} (10)
-    (5)
+    (5) 
     (6) edge node {} (7)
-    (7) 
+    (7)
     (10) 
     
     ;
 \end{tikzpicture}
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
-
     \begin{tabular}{c c c c c}
 		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$& $k_{i}$ & $dist_{i}$\\
 		$v_{1}$ & 2 & 2 & 4 & $\infty$ \\
@@ -1266,6 +1265,7 @@ Only $\infty \; dist$ values are left thus, stopping the process. The nodes left
 		$v_{7}$ & 3 & 2 & 6 & $\infty$\\
 		$v_{10}$ & 2 & 1 & 2 & $\infty$\\
 	\end{tabular}
+
 \end{minipage}
 \end{figure}
 
@@ -1465,18 +1465,20 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
 \end{array}
 \end{equation}
 \subsubsection{Step by step example}
-\begin{figure}[h!]
+\begin{figure}[!h]
+	\begin{minipage}{0.45\textwidth}
+
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node,label={right:$v_1$}] (1) {$2$};
-  \node[main node,label={above right:$v_2$}, below of=1] (2) {$1$};
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
   \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
   \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$3$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
   \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
   \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
-  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
   \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
   \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
   
@@ -1499,7 +1501,371 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
     
     ;
 \end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{1}$ & 2 & 2  \\
+	   $v_{2}$ & 5 & 4  \\
+	   $v_{3}$ & 1 & 1  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{6}$ & 2 & 1   \\
+	   $v_{7}$ & 3 & 2  \\
+	   $v_{8}$ & 2 & 1  \\
+	   $v_{9}$ & 3 & 3   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+	\begin{minipage}{0.45\textwidth}
+
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    (2) edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{1}$ & 2 & 2  \\
+	   $v_{2}$ & 4 & 3  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{6}$ & 2 & 1   \\
+	   $v_{7}$ & 3 & 2  \\
+	   $v_{8}$ & 2 & 1  \\
+	   $v_{9}$ & 3 & 3   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (2) edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{2}$ & 3 & 2  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{6}$ & 2 & 1   \\
+	   $v_{7}$ & 2 & 1  \\
+	   $v_{8}$ & 1 & 0  \\
+	   $v_{9}$ & 3 & 3   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (2) edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (9)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{2}$ & 3 & 2  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{6}$ & 2 & 1   \\
+	   $v_{7}$ & 1 & 0  \\
+	   $v_{9}$ & 3 & 3   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8},v_{7}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (2) edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) 
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{2}$ & 3 & 2  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{6}$ & 1 & 0   \\
+	   $v_{9}$ & 2 & 2   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8},v_{7},v_{6}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (2) edge node {} (4)
+    	edge node {} (5)
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{2}$ & 2 & 1  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{9}$ & 2 & 2   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (2) edge node {} (4)
+    (4) edge node {} (10)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{2}$ & 1 & 0  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{9}$ & 1 & 1   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\end{figure}
+\begin{figure}[h!]
+
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8},v_{7},v_{6},v_{2}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (4) edge node {} (10)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{4}$ & 1 & 0  \\
+	   $v_{9}$ & 1 & 1   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8},v_{7},v_{6},v_{2},v_{4}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{9}$ & 1 & 1   \\
+	   $v_{10}$ & 1 & 0   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8},v_{7},v_{6},v_{2},v_{4},v_{10}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (9) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{9}$ & 0 & 0   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (9) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{9}$ & 0 & 0   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
 \end{figure}
 	
+
 	
 	
