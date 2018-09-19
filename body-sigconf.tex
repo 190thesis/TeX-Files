@@ -1398,20 +1398,25 @@ The value of the parameters of the algorithm are $\rho=0.60284$ and $d=3$, makin
 \centering
 \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={right:$v_1$}] (1) {$1$};
   \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
-  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$2$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
-  \node[main node,label={right:$v_6$},right of=2] (6) {$2$};
-  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
-  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$2$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$2$};
+  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$1$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$1$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
   
   
   \path[every node/.style={font=\sffamily\large}]
-    (1) 
+    (1) edge node {} (2)
+    (2) edge [color=blue] node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
     (4) edge node {} (10)
     (5) edge node {} (9)
     (6) edge node {} (7)
@@ -1420,6 +1425,7 @@ The value of the parameters of the algorithm are $\rho=0.60284$ and $d=3$, makin
     (8)	edge node {} (1)
     (9) edge node {} (10)
     (10) 
+    
     ;
 \end{tikzpicture}
 \\
@@ -1441,25 +1447,34 @@ The value of the parameters of the algorithm are $\rho=0.60284$ and $d=3$, makin
 \centering
 \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={right:$v_1$}] (1) {$1$};
   \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
-  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$2$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
-  \node[main node,label={right:$v_6$},right of=2] (6) {$2$};
-  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$2$};
-  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$2$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$2$};
+  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$1$};
+  \node[main node,label={right:$v_6$},right of=2,fill=yellow] (6) {$0$};
+  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$1$};
+  \node[main node,label={right:$v_8$},above left of=7,fill=yellow] (8) {$0$};
+  \node[main node,label={right:$v_9$},below of=7,fill=yellow] (9) {$0$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
   
   
   \path[every node/.style={font=\sffamily\large}]
-    (1) 
+    (1) edge node {} (2)
+    (2) edge [color=blue] node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
     (4) edge node {} (10)
     (5) edge node {} (9)
-    (9) edge node {} (8)
-    	edge node {} (9)
+    (6) edge [color=blue] node {} (7)
+    (7) edge [color=blue] node {} (8)
+    	edge [color=blue] node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
     (10) 
+    
     ;
 \end{tikzpicture}
 \\
@@ -1477,20 +1492,34 @@ The value of the parameters of the algorithm are $\rho=0.60284$ and $d=3$, makin
 \centering
 \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={right:$v_1$}] (1) {$1$};
   \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
-  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
-  \node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$2$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
-  \node[main node,label={right:$v_6$},right of=2] (6) {$2$};
-  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$2$};
-  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$2$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$2$};
+  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
+  \node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$1$};
+  \node[main node,label={right:$v_6$},right of=2,fill=yellow] (6) {$0$};
+  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$1$};
+  \node[main node,label={right:$v_8$},above left of=7,fill=yellow] (8) {$0$};
+  \node[main node,label={right:$v_9$},below of=7,fill=yellow] (9) {$0$};
+  \node[main node,label={right:$v_{10}$},below of=9,fill=yellow] (10) {$0$};
   
   
   \path[every node/.style={font=\sffamily\large}]
-
+    (1) edge node {} (2)
+    (2) edge [color=blue] node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
+    (4) edge [color=blue] node {} (10)
+    (5) edge node {} (9)
+    (6) edge [color=blue] node {} (7)
+    (7) edge [color=blue] node {} (8)
+    	edge [color=blue] node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
     ;
 \end{tikzpicture}
 \\
@@ -1507,20 +1536,34 @@ The value of the parameters of the algorithm are $\rho=0.60284$ and $d=3$, makin
 \centering
 \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-  \node[main node,label={right:$v_1$},fill=blue] (1) {$2$};
+  \node[main node,label={right:$v_1$},fill=blue] (1) {$1$};
   \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
-  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
-  \node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$2$};
-  \node[main node,label={right:$v_5$}, below right of=2,fill=blue] (5) {$2$};
-  \node[main node,label={right:$v_6$},right of=2] (6) {$2$};
-  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$2$};
-  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$2$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$2$};
+  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
+  \node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2,fill=blue] (5) {$1$};
+  \node[main node,label={right:$v_6$},right of=2,fill=yellow] (6) {$0$};
+  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$1$};
+  \node[main node,label={right:$v_8$},above left of=7,fill=yellow] (8) {$0$};
+  \node[main node,label={right:$v_9$},below of=7,fill=yellow] (9) {$0$};
+  \node[main node,label={right:$v_{10}$},below of=9,fill=yellow] (10) {$0$};
   
   
   \path[every node/.style={font=\sffamily\large}]
-   
+    (1) edge node {} (2)
+    (2) edge [color=blue] node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
+    (4) edge [color=blue] node {} (10)
+    (5) edge node {} (9)
+    (6) edge [color=blue] node {} (7)
+    (7) edge [color=blue] node {} (8)
+    	edge [color=blue] node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
     ;
 \end{tikzpicture}
 \\
@@ -1529,7 +1572,7 @@ The value of the parameters of the algorithm are $\rho=0.60284$ and $d=3$, makin
 		$v_{1}$ & 0 & 0 & 1 & $\{\}$ \\
 		$v_{5}$ & 0 & 0 & 1 & $\{\}$\\
 	\end{tabular}
-	\caption{4th and 5th Iteration of Virads Example, vertex $v_1$ and $v_5$ are chosen  and $P=\{v_2,v_7,v_4,v_1,v_5\}$}
+	\caption{4th and 5th Iteration of Virads Example, vertex $v_1$ and $v_5$ were chosen  and $P=\{v_2,v_7,v_4,v_1,v_5\}$}
 \end{figure}
 \newpage
 \section{Main algortihm developed in the study}
