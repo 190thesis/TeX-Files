@@ -1375,7 +1375,7 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
     ;
 \end{tikzpicture}
 \end{figure}
-The value of the parameters of the algorithm are $\rho=0.60284$ and $d=3$, making the output a small 3-seeding target set. The table \ref{viradstable} contains the initial values needed in the algorithm.
+The value of the parameters for the algorithm are $\rho=0.60284$ and $d=3$, making the output a small 3-seeding target set. The ceiling value of $n_v^{(a)}$ which is equal to $\rho \cdot d(v)$ was used to avoid 0 $n_v^{(a)}$ at the start of the iteration. The table \ref{viradstable} contains the initial values needed in the algorithm. The iterations will show what are added into the target set $P$ denoted by the blue color node while the activated nodes are yellow nodes.
 \begin{table}[ht]
 \centering
     \begin{tabular}{c c c c c}
@@ -1615,7 +1615,7 @@ The value of the parameters of the algorithm are $\rho=0.60284$ and $d=3$, makin
 			\item $S$: target Set
 			\item $d(v)$: degree of vertex $v$
  			\item $t(v)$: threshold of vertex $v$
- 			\item $Gamma(v)$: neighbor set of vertex $v$
+ 			\item $\Gamma(v)$: neighbor set of vertex $v$
 		\end{itemize}
 		\begin{algorithm}
 			\caption{TSS Algorithm}
