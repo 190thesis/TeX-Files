@@ -3,7 +3,6 @@ function G = constructGraph(filename,threshold)
 myValues=csvread(filename,0,0);  %Reading the edges file
 myValues = unique(sort(myValues,2),'rows');
 G=graph(myValues(:,1),myValues(:,2));
-G=graph(a,b); %Constructing the graph
 
 n=size(G.Nodes);
 nodeNames=[];
