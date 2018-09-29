@@ -8,9 +8,11 @@ n=size(G.Nodes);
 nodeNames=[];
 status=[];
 thresholds=zeros(n);
+degrees=[];
 for i=1:n
     status(i)=0;
     nodeNames(i)=i;
+    degrees(i)=degree(G,i);
     if(degree(G,i)<threshold)
         thresholds(i)=degree(G,i);
     else
@@ -18,6 +20,7 @@ for i=1:n
     end
 end
 G.Nodes.Status=status';
+G.Nodes.Degree=degrees';
 nodeNames=string(nodeNames);
 G.Nodes.Label=nodeNames';
 G.Nodes.Thresholds=thresholds';
