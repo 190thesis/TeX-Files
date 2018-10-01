@@ -8,9 +8,9 @@ for i=1:n
     [maxV argmax]=max(G.Nodes.TSSMax);
     
     if G.Nodes.Thresholds(argmax)==0 && G.Nodes.Status(argmax)==0%Case 1
-        N=neighbor(G,argmax);
-        size(N);
-        for j=1:N
+        N=neighbors(G,argmax);
+        sizeN=size(N,1);
+        for j=1:sizeN
             G.Nodes.Thresholds(N(j))=max(G.Nodes.Thresholds(N(j))-1,0);
         end
     else
