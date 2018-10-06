@@ -1278,12 +1278,12 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 	
 	\node[main node,label={above right:$v_2$}] (2) {$4$};
-	\node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
+	\node[main node,label={right:$v_3$}, below left of=2,fill=blue] (3) {$1$};
 	\node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
 	\node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
 	\node[main node,label={right:$v_6$},right of=2] (6) {$1$};
 	\node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
-	\node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+	\node[main node,label={right:$v_8$},above left of=7, fill=blue] (8) {$1$};
 	\node[main node,label={right:$v_9$},below of=7] (9) {$3$};
 	\node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
 	
@@ -1328,9 +1328,9 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
 	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 	
-	\node[main node,label={right:$v_3$}] (3) {$1$};
-	\node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-	\node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+	\node[main node,label={right:$v_3$},fill=blue] (3) {$1$};
+	\node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$1$};
+	\node[main node,label={right:$v_5$}, below right of=2,fill=blue] (5) {$2$};
 	\node[main node,label={right:$v_6$},right of=2] (6) {$1$};
 	\node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
 	\node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
@@ -1380,7 +1380,7 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 	\node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
 	\node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
 	\node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-	\node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+	\node[main node,label={right:$v_{10}$},below of=9,fill=blue] (10) {$1$};
 	
 	
 	\path[every node/.style={font=\sffamily\large}]
@@ -1420,7 +1420,7 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 	
 	\node[main node,label={right:$v_3$}] (3) {$1$};
 	\node[main node,label={right:$v_5$},left of=3] (5) {$2$};
-	\node[main node,label={right:$v_7$},right of=3] (7) {$2$};
+	\node[main node,label={right:$v_7$},right of=3,fill=blue] (7) {$2$};
 	\node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
 	\node[main node,label={right:$v_9$},below of=7] (9) {$3$};
 	\node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
@@ -1459,8 +1459,8 @@ The algorithm above inputs a threshold function $t$ and the social network $G$ a
 	
 	\node[main node,label={right:$v_3$}] (3) {$1$};
 	\node[main node,label={right:$v_5$},below left of=3] (5) {$2$};
-	\node[main node,label={right:$v_8$},below right of=5] (8) {$1$};
-	\node[main node,label={right:$v_9$},above of=8] (9) {$3$};
+	\node[main node,label={right:$v_8$},below right of=5, fill=blue] (8) {$1$};
+	\node[main node,label={right:$v_9$},above of=8, fill=blue] (9) {$3$};
 	\node[main node,label={right:$v_{10}$},above right of=9] (10) {$1$};
 	
 	
