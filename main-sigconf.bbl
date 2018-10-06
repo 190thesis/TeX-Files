@@ -73,6 +73,14 @@ P.~A. Dreyer, ``Applications and variations of domination in graphs,'' Ph.D.
 \bibitem{NPhardness}
 O.~Chartrand, \emph{Applied and Algorithmic Graph Theory}, 1993.
 
+\bibitem{majority}
+\BIBentryALTinterwordspacing
+D.~Peleg, ``Local majorities, coalitions and monopolies in graphs: a review,''
+  \emph{Theoretical Computer Science}, vol. 282, no.~2, pp. 231 -- 257, 2002,
+  fUN with Algorithms. [Online]. Available:
+  \url{http://www.sciencedirect.com/science/article/pii/S030439750100055X}
+\BIBentrySTDinterwordspacing
+
 \bibitem{tipdecomp}
 P.~Shakarian and D.~Paulo, ``Large social networks can be targeted for viral
   marketing with small seed sets,'' in \emph{Proceedings of the 2012
