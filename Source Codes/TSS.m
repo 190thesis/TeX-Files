@@ -1,5 +1,5 @@
 function S = TSS(G)
-S=0;
+S=[];
 [n m]=size(G.Nodes);
 start=tic;
 for i=1:n
@@ -15,7 +15,7 @@ for i=1:n
         end
     else
         if G.Nodes.Degree(argmax)<G.Nodes.Thresholds(argmax) && G.Nodes.Status(argmax)==0%Case 2
-            S=S+1;
+            S=[S G.Nodes.Label(argmax)];
             N=neighbors(G,argmax);
             sizeN=size(N,1);
             for j=1:sizeN

@@ -1,13 +1,12 @@
 function S = GreedyTSS(G)
-
+S=[];
 start=tic;
 [n m]=size(G.Nodes);
-S=0;
 for i=1:n
     [currV v]=min(G.Nodes.Thresholds);
     if G.Nodes.Thresholds(v)>0 && G.Nodes.Status(v)==0
         [currV v]=max(G.Nodes.Degree);
-        S=S+1;
+        S=[S G.Nodes.Label(v)];
     end
     
     neighborsV=neighbors(G,v);

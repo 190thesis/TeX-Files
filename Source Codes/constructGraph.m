@@ -7,7 +7,6 @@ G=graph(myValues(:,1),myValues(:,2));
 n=size(G.Nodes);
 nodeNames=[];
 status=[];
-thresholds=zeros(n);
 degrees=[];
 for i=1:n
     status(i)=0;
