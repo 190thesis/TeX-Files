@@ -1,4 +1,4 @@
-function S = GreedyTSS(G)
+function [S Time] = GreedyTSS(G)
 S=[];
 start=tic;
 [n m]=size(G.Nodes);
@@ -21,9 +21,9 @@ for i=1:n
         end
     end
     toc(start1)
-    fprintf("S: %g, i %g, Neighbors: %g\n",S,i,m);
+    fprintf("S: %g, i %g, Neighbors: %g\n",length(S),i,m);
     G.Nodes.Status(v)=1;
     G.Nodes.Degree(v)=-inf;
     G.Nodes.Thresholds(v)=inf;
 end
-toc(start)
+Time=toc(start);

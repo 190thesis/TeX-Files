@@ -1,4 +1,4 @@
-function [S Time]=TIPDecomp(G)
+function [S Time]=TIPDecompRandom(G)
 start=tic;
 n=size(G.Nodes,1);
 dist=zeros(n,1);
@@ -11,7 +11,8 @@ flag=true;
 while flag==true
     vi=min(G.Nodes.dist);
     currV=find(G.Nodes.dist==vi);
-    currVid=find(G.Nodes.Label==string(currV(1)));
+    randIndex=randperm(length(currV)); %Randomize current v selection
+    currVid=find(G.Nodes.Label==string(currV(randIndex)));
     fprintf('V_i: %g, Threshold of V_i: %g, Graph Size: %g\n',currVid,G.Nodes.Thresholds(currVid),size(find(G.Nodes.Status==0),1));
     if G.Nodes.dist(currVid)==inf
         return

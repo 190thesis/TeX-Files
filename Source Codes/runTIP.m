@@ -1,12 +1,10 @@
-function result = runTIP
-filename="LiveMocha.csv";
-tipOutput=fopen('TIPOutput.txt','w');
-thresholds=[10,9,8,7,6,5,4,3,2,1];
-result=[];
+function runTIP(filename)
+
 for i=1:10
-    G=constructGraph(filename,thresholds(i));
-    resultG=TIPDecomp(G);
-    result=[result,size(find(resultG.Nodes.Status==0),1)];
-    fprintf(tipOutput,"%g\n",size(find(resultG.Nodes.Status==0),1));
+    resultFile=fopen('ResultTIP.txt','a');
+    G=constructGraph(filename,i);
+    [resultG, Time]=TIPDecomp(G);
+    [resultRandom, TimeRandom]=TIPDecompRandom(G);
+    fprintf(resultFile,'%g, %f, %g, %f\n',length(resultG),Time, length(resultRandom),TimeRandom);
+    fclose(resultFile);
 end
-fclose(tipOutput);
