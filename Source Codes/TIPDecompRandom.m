@@ -12,9 +12,10 @@ while flag==true
     vi=min(G.Nodes.dist);
     currV=find(G.Nodes.dist==vi);
     randIndex=randperm(length(currV)); %Randomize current v selection
-    currVid=find(G.Nodes.Label==string(currV(randIndex)));
+    currVid=find(G.Nodes.Label==string(currV(randIndex(1))));
     fprintf('V_i: %g, Threshold of V_i: %g, Graph Size: %g\n',currVid,G.Nodes.Thresholds(currVid),size(find(G.Nodes.Status==0),1));
     if G.Nodes.dist(currVid)==inf
+        Time=toc(start);
         return
     else
         neighborsV=neighbors(G,currVid);
@@ -32,4 +33,3 @@ while flag==true
     G.Nodes.dist(currVid)=inf;
     G.Nodes.Status(currVid)=1;
 end
-Time=toc(start);
