@@ -10,7 +10,7 @@ for i=1:n
         currrandomIndex=min(G.Nodes.Degree);
         argmax=find(G.Nodes.Degree==currrandomIndex);
         randomIndex=randperm(length(argmax));
-        S=[S G.Nodes.Label(argmin(randomIndex(1)))];
+        S=[S G.Nodes.Label(argmax(randomIndex(1)))];
     end
     neighborsrandomIndex=neighbors(G,argmin(randomIndex(1)));
     m=size(neighborsrandomIndex,1);
