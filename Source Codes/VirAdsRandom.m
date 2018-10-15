@@ -1,4 +1,4 @@
-function [P,Time]=VirAds(G,d)
+function [P,Time]=VirAdsRandom(G,d)
 start=tic;
 [n,~]=size(G.Nodes);
 nve=zeros(n,1);
@@ -17,9 +17,10 @@ G.Nodes.rv=rv;
 [gsize,~]=size(G.Nodes);
 inactive=gsize;
 while inactive ~= 0
-    fprintf("Inactive:%d\n",inactive);
+    fprintf("Inactive:%d",inactive);
     u=find(G.Nodes.nve+G.Nodes.nva==max(G.Nodes.nve+G.Nodes.nva));
-    uid=find(G.Nodes.Label==string(u(1)));
+    randIndex=randperm(length(u));
+    uid=find(G.Nodes.Label==string(u(randIndex(1))));
     %recompute for nve
     back2back=false;
     while back2back==false
