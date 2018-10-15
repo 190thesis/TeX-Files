@@ -1,4 +1,4 @@
-function [S Time]=TIPDecomp(G)
+function [S, Time]=TIPDecomp(G)
 start=tic;
 n=size(G.Nodes,1);
 dist=zeros(n,1);
@@ -14,6 +14,7 @@ while flag==true
     currVid=find(G.Nodes.Label==string(currV(1)));
     fprintf('V_i: %g, Threshold of V_i: %g, Graph Size: %g\n',currVid,G.Nodes.Thresholds(currVid),size(find(G.Nodes.Status==0),1));
     if G.Nodes.dist(currVid)==inf
+        S=str2double(S);
         Time=toc(start);
         return
     else

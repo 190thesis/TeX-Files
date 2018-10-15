@@ -1,7 +1,7 @@
-function [S Time] = GreedyTSSRandom(G)
+function [S, Time] = GreedyTSSRandom(G)
 S=[];
 start=tic;
-[n m]=size(G.Nodes);
+[n , ~]=size(G.Nodes);
 for i=1:n
     currrandomIndex=min(G.Nodes.Thresholds);
     argmin=find(G.Nodes.Thresholds==currrandomIndex);
@@ -12,11 +12,8 @@ for i=1:n
         randomIndex=randperm(length(argmax));
         S=[S G.Nodes.Label(argmin(randomIndex(1)))];
     end
-    
     neighborsrandomIndex=neighbors(G,argmin(randomIndex(1)));
     m=size(neighborsrandomIndex,1);
-    disp(m);
-    start1=tic;
     for j=1:m
         currN=neighborsrandomIndex(j);
         if G.Nodes.Status(currN)==0
@@ -24,10 +21,10 @@ for i=1:n
             G.Nodes.Degree(currN)=G.Nodes.Degree(currN)-1;
         end
     end
-    toc(start1)
     fprintf("S: %g, i %g, Neighbors: %g\n",length(S),i,m);
     G.Nodes.Status(argmin(randomIndex(1)))=1;
     G.Nodes.Degree(argmin(randomIndex(1)))=-inf;
     G.Nodes.Thresholds(argmin(randomIndex(1)))=inf;
 end
 Time=toc(start);
+S=str2double(S);
