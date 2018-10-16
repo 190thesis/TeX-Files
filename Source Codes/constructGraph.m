@@ -24,9 +24,4 @@ nodeNames=string(nodeNames);
 G.Nodes.Label=nodeNames';
 G.Nodes.Thresholds=thresholds';
 
-[n m]=size(G.Nodes);
-maxes=[];
-for i=1:n
-    maxes(i)=G.Nodes.Thresholds(i)/(G.Nodes.Degree(i)*(G.Nodes.Degree(i)+1));
-end
-G.Nodes.TSSMax=maxes';
+

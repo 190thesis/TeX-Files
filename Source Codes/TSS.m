@@ -1,4 +1,10 @@
 function [S, Time] = TSS(G)
+[n m]=size(G.Nodes);
+maxes=[];
+for i=1:n
+    maxes(i)=G.Nodes.Thresholds(i)/(G.Nodes.Degree(i)*(G.Nodes.Degree(i)+1));
+end
+G.Nodes.TSSMax=maxes';
 S=[];
 [n , ~]=size(G.Nodes);
 start=tic;
