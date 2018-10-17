@@ -5,7 +5,7 @@ algo = ["TSS" "TSSRandom" "GreedyTSS" "GreedyTSSRandom" "TIPDecomp" "TIPDecompRa
 dmax=10;
 for i=1:length(algo)
     A=[];
-    for t=1:5
+    for t=6:10
        G = constructGraph(strcat(filename,".csv"),t);
        if algo(i)=="VirAds" || algo(i)=="VirAdsRandom"
            for d=1:dmax
