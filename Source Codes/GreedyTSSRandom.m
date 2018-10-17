@@ -1,30 +1,31 @@
 function [S, Time] = GreedyTSSRandom(G)
 S=[];
 start=tic;
-[n , ~]=size(G.Nodes);
-for i=1:n
-    currrandomIndex=min(G.Nodes.Thresholds);
-    argmin=find(G.Nodes.Thresholds==currrandomIndex);
-    randomIndex=randperm(length(argmin));
-    if G.Nodes.Thresholds(argmin(randomIndex(1)))>0 && G.Nodes.Status(argmin(randomIndex(1)))==0
-        currrandomIndex=min(G.Nodes.Degree);
-        argmax=find(G.Nodes.Degree==currrandomIndex);
-        randomIndex=randperm(length(argmax));
-        S=[S G.Nodes.Label(argmax(randomIndex(1)))];
+ctr=0;
+[gsize,~]=size(G.Nodes);
+while prod(G.Nodes.Status)==0
+    v=find(G.Nodes.Thresholds==max(G.Nodes.Thresholds));
+    v=v(G.Nodes.Status(v)==0);
+    vrand=randperm(length(v));
+    currv=v(vrand(1));
+    if G.Nodes.Thresholds(currv)>0
+        v=find(G.Nodes.Degree==max(G.Nodes.Degree));
+        v=v(G.Nodes.Status(v)==0);
+        vrand=randperm(length(v));
+        currv=v(vrand(1));
+        S=[S currv];
     end
-    neighborsrandomIndex=neighbors(G,argmin(randomIndex(1)));
-    m=size(neighborsrandomIndex,1);
-    for j=1:m
-        currN=neighborsrandomIndex(j);
-        if G.Nodes.Status(currN)==0
-            G.Nodes.Thresholds(currN)=max(G.Nodes.Thresholds(currN)-1,0);
-            G.Nodes.Degree(currN)=G.Nodes.Degree(currN)-1;
-        end
+    
+    neighborsV=neighbors(G,currv);
+    neighborsV=neighborsV(G.Nodes.Status(neighborsV)==0);
+    for u=1:length(neighborsV)
+       G.Nodes.Thresholds(neighborsV(u))=max( G.Nodes.Thresholds(neighborsV(u))-1,0);
+       G.Nodes.Degree(neighborsV(u))=G.Nodes.Degree(neighborsV(u))-1;
     end
-    fprintf("S: %g, i %g, Neighbors: %g\n",length(S),i,m);
-    G.Nodes.Status(argmin(randomIndex(1)))=1;
-    G.Nodes.Degree(argmin(randomIndex(1)))=-inf;
-    G.Nodes.Thresholds(argmin(randomIndex(1)))=inf;
+    G.Nodes.Status(currv)=1;
+    G.Nodes.Thresholds(currv)=-inf;
+    G.Nodes.Degree(currv)=-inf;
+    ctr=ctr+1;
+    fprintf("Inactive:%d\n",gsize-ctr);
 end
 Time=toc(start);
-S=str2double(S);
