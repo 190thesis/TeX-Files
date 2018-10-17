@@ -13,13 +13,12 @@ G.Nodes.nva=nva;
 [gsize,~]=size(G.Nodes);
 inactive=gsize;
 while inactive ~= 0
-    fprintf("Inactive:%d\n",inactive);
     u=find(G.Nodes.nve+G.Nodes.nva==max(G.Nodes.nve+G.Nodes.nva));
-    uid=find(G.Nodes.Label==string(u(1)));
+    curru=u(1);
     %recompute for nve
     back2back=false;
     while back2back==false
-        neighborsU=neighbors(G,uid);
+        neighborsU=neighbors(G,curru);
         [nusize,~]=size(neighborsU);
         rnve=0;
         for i=1:nusize
@@ -27,28 +26,27 @@ while inactive ~= 0
                 rnve=rnve+1;
             end
         end
-        G.Nodes.nve(uid)=rnve;
+        G.Nodes.nve(curru)=rnve;
         nu=find(G.Nodes.nve+G.Nodes.nva==max(G.Nodes.nve+G.Nodes.nva));
-        nuid=find(G.Nodes.Label==string(nu(1)));
-        if nuid==uid
+        currn=nu(1);
+        if currn==curru
             back2back=true;
         else
-            uid=nuid;
+            curru=currn;
         end
     end
-    P=[P uid];
-    G.Nodes.nva(uid)=0;
-    G.Nodes.nve(uid)=0;
-    G.Nodes.Status(uid)=1;
+    P=[P curru];
+    G.Nodes.nva(curru)=0;
+    G.Nodes.nve(curru)=0;
+    G.Nodes.Status(curru)=1;
     %initialize a queue
     Q=[];
     %queue implementation 
 %    Q=[Q ;1 2]; adding element
-%     Q=Q(2:size(Q),:); removing element
-     Q=[Q ;uid];
-%     G.Nodes.rv(uid)=0;
+%    Q=Q(2:size(Q),:); removing element
+     Q=[Q ;curru];
     
-    neighborsU=neighbors(G,uid);
+    neighborsU=neighbors(G,curru);
     [nusize,~]=size(neighborsU);
 
     %reduce neighbors' nva
@@ -57,7 +55,6 @@ while inactive ~= 0
     end
     
     %while loop
-    
     while ~isempty(Q)
        T=Q(1);
        Q=Q(2:size(Q));
@@ -83,12 +80,7 @@ while inactive ~= 0
     end
     
     %check if all are active already
-    inactive=0;
-    for i=1:n
-        if G.Nodes.Status(i)==0
-            inactive=inactive+1;
-        end
-    end
-    
+    inactive=gsize-sum(G.Nodes.Status);
+    fprintf("VirAds1 Inactive:%d\n",inactive);
 end
 Time=toc(start);

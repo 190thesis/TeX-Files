@@ -17,7 +17,6 @@ G.Nodes.rv=rv;
 [gsize,~]=size(G.Nodes);
 inactive=gsize;
 while inactive ~= 0
-    fprintf("Inactive:%d\n",inactive);
     u=find(G.Nodes.nve+G.Nodes.nva==max(G.Nodes.nve+G.Nodes.nva));
     uid=find(G.Nodes.Label==string(u(1)));
     %recompute for nve
@@ -58,6 +57,9 @@ while inactive ~= 0
     %reduce neighbors' nva
     for i=1:nusize
        G.Nodes.nva(neighborsU(i))=max(G.Nodes.nva(neighborsU(i))-1,0);
+       if G.Nodes.nva(neighborsU(i))==0
+          G.Nodes.Status(neighborsU(i))=1; 
+       end
     end
     
     %while loop
@@ -79,6 +81,9 @@ while inactive ~= 0
                       for x=1:xusize
                           if neighborsW(x)~=uid
                               G.Nodes.nva(neighborsW(x))=max(G.Nodes.nva(neighborsW(x))-1,0);
+                              if G.Nodes.nva(neighborsW(x))==0
+                                  G.Nodes.Status(neighborsW(x))=1;
+                              end
                           end
                       end
                    end
@@ -102,11 +107,7 @@ while inactive ~= 0
         end
     end
     %check if all are active already
-    inactive=0;
-    for i=1:n
-        if G.Nodes.nva(i)>0
-            inactive=inactive+1;
-        end
-    end
+    inactive=gsize-sum(G.Nodes.Status);
+    fprintf("VirAds Inactive:%d\n",inactive);
 end
 Time=toc(start);

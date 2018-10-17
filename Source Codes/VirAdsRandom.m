@@ -17,10 +17,9 @@ G.Nodes.rv=rv;
 [gsize,~]=size(G.Nodes);
 inactive=gsize;
 while inactive ~= 0
-    fprintf("Inactive:%d",inactive);
     u=find(G.Nodes.nve+G.Nodes.nva==max(G.Nodes.nve+G.Nodes.nva));
-    randIndex=randperm(length(u));
-    uid=find(G.Nodes.Label==string(u(randIndex(1))));
+    urand=randperm(length(u));
+    uid=find(G.Nodes.Label==string(u(urand(1))));
     %recompute for nve
     back2back=false;
     while back2back==false
@@ -34,7 +33,8 @@ while inactive ~= 0
         end
         G.Nodes.nve(uid)=rnve;
         nu=find(G.Nodes.nve+G.Nodes.nva==max(G.Nodes.nve+G.Nodes.nva));
-        nuid=find(G.Nodes.Label==string(nu(1)));
+        nurand=randperm(length(nu));
+        nuid=find(G.Nodes.Label==string(nu(nurand(1))));
         if nuid==uid
             back2back=true;
         else
@@ -59,13 +59,17 @@ while inactive ~= 0
     %reduce neighbors' nva
     for i=1:nusize
        G.Nodes.nva(neighborsU(i))=max(G.Nodes.nva(neighborsU(i))-1,0);
+       if G.Nodes.nva(neighborsU(i))==0
+          G.Nodes.Status(neighborsU(i))=1; 
+       end
     end
     
     %while loop
     while ~isempty(Q)
        tid=Q(1,1);
        trv=Q(1,2);
-       Q=Q(2:size(Q),:); %removing element
+       [qsize,~]=size(Q);
+       Q=Q(2:qsize,:); %removing element
        %for loop neigbors
        neighborsT=neighbors(G,tid);
        [ntsize,~]=size(neighborsT);
@@ -80,6 +84,9 @@ while inactive ~= 0
                       for x=1:xusize
                           if neighborsW(x)~=uid
                               G.Nodes.nva(neighborsW(x))=max(G.Nodes.nva(neighborsW(x))-1,0);
+                              if G.Nodes.nva(neighborsW(x))==0
+                                  G.Nodes.Status(neighborsW(x))=1;
+                              end
                           end
                       end
                    end
@@ -103,11 +110,7 @@ while inactive ~= 0
         end
     end
     %check if all are active already
-    inactive=0;
-    for i=1:n
-        if G.Nodes.nva(i)>0
-            inactive=inactive+1;
-        end
-    end
+    inactive=gsize-sum(G.Nodes.Status);
+    fprintf("VirAdsRandom Inactive:%d\n",inactive);
 end
 Time=toc(start);
