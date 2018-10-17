@@ -7,25 +7,15 @@ for i=1:size(P)
 end
 while ~isempty(Q)
    T=Q(1);
-   Q=Q(2:size(Q));
+   Q=Q(Q~=T);
    tid=T;
    G.Nodes.Status(tid)=1;
-%    disp(Q);
-   disp(T);
     neighborsT=neighbors(G,tid);
     [ntsize,~]=size(neighborsT);
     for i=1:ntsize
        G.Nodes.Thresholds(neighborsT(i))=max(0, G.Nodes.Thresholds(neighborsT(i))-1);
        if G.Nodes.Thresholds(neighborsT(i))==0 && G.Nodes.Status(neighborsT(i))==0
-           qcontains=false;
-           for k=1:size(Q)-1
-               if Q(k)==neighborsT(i)
-                   qcontains=true;
-               end
-           end
-           if qcontains==false
-               Q=[Q ;neighborsT(i)];
-           end
+           Q=[Q;neighborsT(i)];
        end
     end
     
