@@ -8,7 +8,10 @@ G.Nodes.TSSMax=maxes';
 S=[];
 [n , ~]=size(G.Nodes);
 start=tic;
+ctr=1;
 for i=1:n
+    disp(ctr)
+    ctr=ctr+1;
     [a, b]=size(G.Nodes);
     maxV=max(G.Nodes.TSSMax);
     
@@ -35,7 +38,6 @@ for i=1:n
     
     N=neighbors(G,argmax(1));
     sizeN=size(N,1);
-    fprintf("S: %g, i %g, Neighbors: %g, TSSMax: %g\n",length(S),i,sizeN,G.Nodes.TSSMax(argmax(1)));
     for j=1:sizeN
         G.Nodes.Degree(N(j))=G.Nodes.Degree(N(j))-1;
         if G.Nodes.Degree(N(j))~=0 && G.Nodes.TSSMax(N(j))~=0

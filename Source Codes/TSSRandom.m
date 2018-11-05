@@ -33,7 +33,6 @@ for i=1:n
     end
     %Case 3
     G.Nodes.Status(argmax(randIndex(1)))=1;
-    
     N=neighbors(G,argmax(randIndex(1)));
     sizeN=size(N,1);
     fprintf("S: %g, i %g, Neighbors: %g, TSSMax: %g\n",length(S),i,sizeN,G.Nodes.TSSMax(argmax(randIndex(1))));
