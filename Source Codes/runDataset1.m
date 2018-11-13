@@ -5,26 +5,16 @@ algo = ["TSS" "TSSRandom" "GreedyTSS" "GreedyTSSRandom" "TIPDecomp" "TIPDecompRa
 dmax=10;
 for i=1:length(algo)
     A=[];
-    for t=6:10
+    parfor t=1:10
        G = constructGraph(strcat(filename,".csv"),t);
        if algo(i)=="VirAds" || algo(i)=="VirAdsRandom"
            for d=1:dmax
                [S,Time]=feval(algo(i),G,d);
-               if Propagate(S,G)
-                    A=[A ; length(S) Time d];
-               else
-                   fprintf("%s at t=%d cannot activate all the nodes. \n",algo(i),t);
-                   return;
-               end
+               A=[A ; length(S) Time d];
            end
        else
            [S,Time]=feval(algo(i),G);
-             if Propagate(S,G)
-               A=[A ; length(S) Time];
-             else
-               fprintf("%s at t=%d cannot activate all the nodes. \n",algo(i),t);
-               return;
-             end
+           A=[A ; length(S) Time];
        end
      
     end

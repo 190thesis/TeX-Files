@@ -26,6 +26,5 @@ while prod(G.Nodes.Status)==0
     G.Nodes.Thresholds(currv)=-inf;
     G.Nodes.Degree(currv)=-inf;
     ctr=ctr+1;
-    fprintf("GreedyTSSRandom Inactive:%d\n",gsize-ctr);
 end
 Time=toc(start);

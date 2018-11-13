@@ -8,8 +8,11 @@ G.Nodes.TSSMax=maxes';
 S=[];
 [n , ~]=size(G.Nodes);
 start=tic;;
+ctr=1;
 while prod(G.Nodes.Status)==0
     [a, b]=size(G.Nodes);
+    disp(ctr);
+    ctr=ctr+1;
     if isempty(find(G.Nodes.Thresholds==0 & G.Nodes.Status==0,1))==0%Case 1
         %Case 1
         vCandidates=find(G.Nodes.Thresholds==0 & G.Nodes.Status==0,1);

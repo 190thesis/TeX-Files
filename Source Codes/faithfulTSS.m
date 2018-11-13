@@ -17,7 +17,7 @@ while prod(G.Nodes.Status)==0
         caseof=1;
         vCandidates=find(G.Nodes.Thresholds==0 & G.Nodes.Status==0,1);
         currV=vCandidates;
-        N=neighbors(G, vCandidates);
+        N=successors(G, vCandidates);
         sizeN=length(N);
         for j=1:sizeN
             G.Nodes.Thresholds(N(j))=max(G.Nodes.Thresholds(N(j))-1,0);
@@ -29,7 +29,7 @@ while prod(G.Nodes.Status)==0
             caseof=2;
             currV=case2val;
             S=[S G.Nodes.Label(currV)];
-            N=neighbors(G,currV);
+            N=successors(G,currV);
             sizeN=length(N);
             for j=1:sizeN
                 G.Nodes.Thresholds(N(j))=G.Nodes.Thresholds(N(j))-1; 
@@ -42,7 +42,7 @@ while prod(G.Nodes.Status)==0
         end
     end
     %Case 3
-    N=neighbors(G,currV);
+    N=successors(G,currV);
     sizeN=length(N);
     for j=1:sizeN
         G.Nodes.Degree(N(j))=G.Nodes.Degree(N(j))-1;

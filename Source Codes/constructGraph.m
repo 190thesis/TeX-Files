@@ -9,12 +9,12 @@ nodeNames=[];
 status=[];
 degrees=[];
 start=tic;
-parfor i=1:n
+for i=1:n
     status(i)=0;
     nodeNames(i)=i;
     degrees(i)=degree(G,i);
-    if(degree(G,i)<threshold)
-        thresholds(i)=degree(G,i);
+    if(degrees(i)<threshold)
+        thresholds(i)=degrees(i);
     else
         thresholds(i)=threshold;
     end
