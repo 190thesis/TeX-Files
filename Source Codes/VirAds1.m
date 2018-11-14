@@ -3,17 +3,21 @@ start=tic;
 [n,~]=size(G.Nodes);
 nve=zeros(n,1);
 nva=zeros(n,1);
+argmax=zeros(n,1);
 P=[];
 for i=1:n
    nve(i)=degree(G,i);
    nva(i)=G.Nodes.Thresholds(i);
+   argmax(i)=nve(i)+nva(i);
 end
 G.Nodes.nve=nve;
 G.Nodes.nva=nva;
-[gsize,~]=size(G.Nodes);
+G.Nodes.argmax=argmax;
 inactive=gsize;
 while inactive ~= 0
-    u=find(G.Nodes.nve+G.Nodes.nva==max(G.Nodes.nve+G.Nodes.nva));
+    u=G.Nodes.Status==0;
+    u=find(G.Nodes.argmax==max(G.Nodes.argmax(u)));
+    u=u(G.Nodes.Status(u)==0);
     curru=u(1);
     %recompute for nve
     back2back=false;
@@ -27,7 +31,9 @@ while inactive ~= 0
             end
         end
         G.Nodes.nve(curru)=rnve;
-        nu=find(G.Nodes.nve+G.Nodes.nva==max(G.Nodes.nve+G.Nodes.nva));
+        nu=G.Nodes.Status==0;
+        nu=find(G.Nodes.argmax==max(G.Nodes.argmax(nu)));
+        nu=nu(G.Nodes.Status(nu)==0);
         currn=nu(1);
         if currn==curru
             back2back=true;
@@ -65,6 +71,7 @@ while inactive ~= 0
         for i=1:ntsize
            G.Nodes.Thresholds(neighborsT(i))=max(0, G.Nodes.Thresholds(neighborsT(i))-1);
            if G.Nodes.Thresholds(neighborsT(i))==0 && G.Nodes.Status(neighborsT(i))==0
+               G.Nodes.Status(neighborsT(i))=1
                qcontains=false;
                for k=1:size(Q)-1
                    if Q(k)==neighborsT(i)

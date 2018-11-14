@@ -1,25 +1,22 @@
-function [P,Time]=VirAdsRandom(G,d)
+function [P,Time]=VirAds(G,d)
 start=tic;
 [n,~]=size(G.Nodes);
-nve=zeros(n,1);
-nva=zeros(n,1);
+nve=G.Nodes.Degree;
+nva=G.Nodes.Thresholds;
 rv=zeros(n,1);
-rvi=zeros(n,d);
+rvi=zeros(n,d+1);
 P=[];
 for i=1:n
-   nve(i)=degree(G,i);
-   nva(i)=G.Nodes.Thresholds(i);
    rv(i)=d+1;
 end
 G.Nodes.nve=nve;
 G.Nodes.nva=nva;
 G.Nodes.rv=rv;
-[gsize,~]=size(G.Nodes);
-inactive=gsize;
-while inactive ~= 0
-    u=find(G.Nodes.nve+G.Nodes.nva==max(G.Nodes.nve+G.Nodes.nva));
+G.Nodes.argmax=G.Nodes.nva+G.Nodes.nve;
+while sum(G.Nodes.nva)~=0
+    u=find(G.Nodes.argmax==max(G.Nodes.argmax(G.Nodes.Status==0)));
     urand=randperm(length(u));
-    uid=find(G.Nodes.Label==string(u(urand(1))));
+    uid=u(urand(1));
     %recompute for nve
     back2back=false;
     while back2back==false
@@ -27,14 +24,15 @@ while inactive ~= 0
         [nusize,~]=size(neighborsU);
         rnve=0;
         for i=1:nusize
-            if G.Nodes.nva(neighborsU(i))-1==0
+            if G.Nodes.nva(neighborsU(i))==1
                 rnve=rnve+1;
             end
         end
         G.Nodes.nve(uid)=rnve;
-        nu=find(G.Nodes.nve+G.Nodes.nva==max(G.Nodes.nve+G.Nodes.nva));
+        G.Nodes.argmax=G.Nodes.nva+G.Nodes.nve;
+        nu=find(G.Nodes.argmax==max(G.Nodes.argmax(G.Nodes.Status==0)));
         nurand=randperm(length(nu));
-        nuid=find(G.Nodes.Label==string(nu(nurand(1))));
+        nuid=u(nurand(1));
         if nuid==uid
             back2back=true;
         else
@@ -43,74 +41,78 @@ while inactive ~= 0
     end
     P=[P uid];
     G.Nodes.nva(uid)=0;
-    G.Nodes.nve(uid)=0;
+%     G.Nodes.nve(uid)=0;
     G.Nodes.Status(uid)=1;
     %initialize a queue
-    Q=[];
+    Qid=[];
+    Qrv=[];
     %queue implementation 
-%    Q=[Q ;1 2]; adding element
+%    Q=[Q ;1 2]; aQdding element
 %     Q=Q(2:size(Q),:); removing element
-     Q=[Q ;uid G.Nodes.rv(uid)];
-%     G.Nodes.rv(uid)=0;
-    
+     Qid=[Qid;uid];
+     Qrv=[Qrv;G.Nodes.rv(uid)];
+    G.Nodes.rv(uid)=0;
     neighborsU=neighbors(G,uid);
     [nusize,~]=size(neighborsU);
 
     %reduce neighbors' nva
     for i=1:nusize
        G.Nodes.nva(neighborsU(i))=max(G.Nodes.nva(neighborsU(i))-1,0);
-       if G.Nodes.nva(neighborsU(i))==0
-          G.Nodes.Status(neighborsU(i))=1; 
-       end
+%        if G.Nodes.nva(neighborsU(i))==0
+%           G.Nodes.Status(neighborsU(i))=1; 
+%           G.Nodes.nve(neighborsU(i))=0;
+%        end
     end
     
     %while loop
-    while ~isempty(Q)
-       tid=Q(1,1);
-       trv=Q(1,2);
-       [qsize,~]=size(Q);
-       Q=Q(2:qsize,:); %removing element
+    while ~isempty(Qid)
+       tid=Qid(1);
+       trv=Qrv(1);
+       Qid=Qid(2:length(Qid)); %removing element
+       Qrv=Qrv(2:length(Qrv));
        %for loop neigbors
+       G.Nodes.Status(tid)=1;
        neighborsT=neighbors(G,tid);
+       neighborsT=neighborsT(G.Nodes.Status(neighborsT)==0);
        [ntsize,~]=size(neighborsT);
         for w=1:ntsize
             upperlimit=min(trv-1,G.Nodes.rv(neighborsT(w))-2);
-            for i=G.Nodes.rv(tid):upperlimit
+            from=G.Nodes.rv(tid);
+            to=upperlimit;
+            if upperlimit<G.Nodes.rv(tid) && upperlimit>=0
+               from=upperlimit; 
+               to=G.Nodes.rv(tid);
+            end
+
+            for i=from:to
                 rvi(neighborsT(w),i+1)=rvi(neighborsT(w),i+1)+1;
                 if rvi(neighborsT(w),i+1) >= G.Nodes.Thresholds(neighborsT(w))
                    if G.Nodes.rv(neighborsT(w))>=d && i+1<d
                       neighborsW=neighbors(G,neighborsT(w));
+                      neighborsW=neighborsW(G.Nodes.Status(neighborsW)==0);
                       [xusize,~]=size(neighborsW);
                       for x=1:xusize
-                          if neighborsW(x)~=uid
                               G.Nodes.nva(neighborsW(x))=max(G.Nodes.nva(neighborsW(x))-1,0);
-                              if G.Nodes.nva(neighborsW(x))==0
-                                  G.Nodes.Status(neighborsW(x))=1;
-                              end
-                          end
+%                               if G.Nodes.nva(neighborsW(x))==0
+%                                   G.Nodes.Status(neighborsW(x))=1;
+%                               end
                       end
-                   end
-                   G.Nodes.rv(neighborsT(w))=i+1;
-                   if G.Nodes.rv(neighborsT(w))<d
-                       % check if w is in Q
-                       [qrow , ~]=size(Q);
-                       qcontains=false;
-                       for k=1:qrow
-                           if Q(k,1)==neighborsT(w)
-                               qcontains=true;
-                           end
+                       G.Nodes.rv(neighborsT(w))=i+1;
+                       if G.Nodes.rv(neighborsT(w))<d
+                            if isempty(Qid(Qid==neighborsT(w)))
+                                Qid=[Qid;neighborsT(w)];
+                                Qrv=[Qrv;G.Nodes.rv(neighborsT(w))];
+                                G.Nodes.Status(neighborsT(w))=1;
+                            end
                        end
-                       if qcontains==false
-                           Q=[Q ;neighborsT(w) G.Nodes.rv(neighborsT(w))];
-                       end
-                       
                    end
+                  
                 end
             end
         end
     end
+    G.Nodes.argmax=G.Nodes.nva+G.Nodes.nve;
     %check if all are active already
-    inactive=gsize-sum(G.Nodes.Status);
-    fprintf("VirAdsRandom Inactive:%d\n",inactive);
+    fprintf("VirAds Inactive:%d, P:%d\n",length(find(G.Nodes.Status==0)),length(P));
 end
 Time=toc(start);

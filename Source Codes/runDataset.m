@@ -1,32 +1,27 @@
 function runDataset(filename)
 % .csv must not be included in filename
-
-algo = ["TSS" "TSSRandom" "GreedyTSS" "GreedyTSSRandom" "TIPDecomp" "TIPDecompRandom" "VirAds" "VirAdsRandom" "VirAds1" "VirAds1Random"];
-dmax=10;
+mkdir(char(filename));
+%list of algos to be run
+algo = ["TSS" "TSSRandom" "TSSRandom" "TSSRandom" "TSSRandom" "TSSRandom" "GreedyTSS" "GreedyTSSRandom" "GreedyTSSRandom" "GreedyTSSRandom" "GreedyTSSRandom" "GreedyTSSRandom" "TIPDecomp" "TIPDecompRandom" "TIPDecompRandom" "TIPDecompRandom" "TIPDecompRandom" "TIPDecompRandom" "VirAds" "VirAdsRandom" "VirAdsRandom" "VirAdsRandom" "VirAdsRandom" "VirAdsRandom"];
+dmax=100;
+ctr=1;
 for i=1:length(algo)
     A=[];
-    for t=1:5
+    for t=1:10
        G = constructGraph(strcat(filename,".csv"),t);
        if algo(i)=="VirAds" || algo(i)=="VirAdsRandom"
-           for d=1:dmax
+           for d=1:10:dmax
                [S,Time]=feval(algo(i),G,d);
-               if Propagate(S,G)
-                    A=[A ; length(S) Time d];
-               else
-                   fprintf("%s at t=%d cannot activate all the nodes. \n",algo(i),t);
-                   return;
-               end
+               A=[A ; length(S) Time d];
+               dlmwrite(strcat(strcat(filename,"/"),strcat(strcat(algo(i),strcat("_RAW_",int2str(t))),".csv")),S,'delimiter',',','-append');
            end
        else
            [S,Time]=feval(algo(i),G);
-             if Propagate(S,G)
-               A=[A ; length(S) Time];
-             else
-               fprintf("%s at t=%d cannot activate all the nodes. \n",algo(i),t);
-               return;
-             end
+           A=[A ;t length(S) Time];
+           dlmwrite(strcat(strcat(filename,"/"),strcat(strcat(algo(i),strcat("_RAW_",int2str(t))),".csv")),S,'delimiter',',','-append');
+           ctr=ctr+1;
        end
      
     end
-    csvwrite(strcat(strcat(filename,"_"),strcat(algo(i),".csv")),A);
+    dlmwrite(strcat(strcat(filename,"/"),strcat(algo(i),".csv")),A,'delimiter',',','-append');
 end

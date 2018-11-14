@@ -1,7 +1,7 @@
 function runDataset(filename)
 % .csv must not be included in filename
 
-algo = ["TSS" "TSSRandom" "GreedyTSS" "GreedyTSSRandom" "TIPDecomp" "TIPDecompRandom" "VirAds" "VirAdsRandom" "VirAds1" "VirAds1Random"];
+algo = ["GreedyTSS" "GreedyTSSRandom"];
 dmax=10;
 for i=1:length(algo)
     A=[];

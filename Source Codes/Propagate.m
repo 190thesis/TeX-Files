@@ -1,9 +1,11 @@
-function active = Propagate(P,G)
+function [active,Time] = Propagate(P,G)
+start=tic;
 Q=[];
 Q=[Q ;P'];
+active=false;
 [n,~]=size(G.Nodes);
 for i=1:size(P)
-    G.Nodes.Threshold(P(1))=0;
+    G.Nodes.Threshold(P(i))=0;
 end
 while ~isempty(Q)
    T=Q(1);
@@ -18,11 +20,10 @@ while ~isempty(Q)
            Q=[Q;neighborsT(i)];
        end
     end
-    
+    fprintf("Propagating... Inactive:%.2f \n",length(find(G.Nodes.Status==0))/n*100);
 end
-active = true;
-    for i=1:n
-        if G.Nodes.Status(i)==0
-            active=false;
-        end
-    end
+if isempty(find(G.Nodes.Status==0, 1))
+   active=true; 
+end
+
+Time=toc(start);
