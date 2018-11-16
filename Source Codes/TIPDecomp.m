@@ -26,12 +26,11 @@ while flag==true
                 G.Nodes.dist(currN(i))=G.Nodes.dist(currN(i))-1;
             else
                 G.Nodes.dist(currN(i))=inf;
-                S=[S currN(i)];
             end
         end
     end
     G.Nodes.dist(currVid)=inf;
     G.Nodes.Status(currVid)=1;
 end
- S=str2double(S);
+S=find(G.Nodes.Status==0);
 Time=toc(start);

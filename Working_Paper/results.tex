@@ -1,5 +1,11 @@
-
+\clearpage
 \section{Results}
+\subsection{Random Graphs}
+
+We compare the output of the algorithm versus the exact solution obtained by formulating the target set selection problem as an 0-1 Integer Linear Programming problem. This is to show that the algorithm works on moderate sized graphs. 
+
+
+
 \subsection{TSS applied to real-life networks}
 
 We apply the TSS algorithm to real-life networks and compare it to the previously developed algorithm and a greedy version of TSS. The threshold of the nodes are set as $t(v)\in(1,2,...,10)$ for each iteration. For the random version of algorithms if more than one node meets the condition of cases we randomly selected a node from the set of nodes that satisfy the condition in each algorithm. The selection of nodes in case 3 of TSS can be randomized. We test if randomness of selection of nodes affect the cardinality of the target set and the runtime of the algorithm.
@@ -26,17 +32,23 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \end{figure}
 
-\begin{figure}
-	\centering	
-	\includegraphics[scale=0.5]{images/bc3resultrandom.jpg}
-	\caption{BlogCatalog3 Random}
+\begin{figure}[h!]
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/bc3resultrandom.jpg}
+\caption{Time vs Threshold}
+
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/bc3time1.jpg}
+\caption{Time vs Threshold}
+\end{minipage}
 \end{figure}
 
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/bc3time.jpg}
 \caption{Time vs Threshold}
-\label{fase1}
+
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/bc3timerandom.jpg}
@@ -47,7 +59,7 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-astrophpaper.jpg}
 \caption{Cardinality vs Threshold}
-\label{fase1}
+
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-astrophresult.jpg}
@@ -55,17 +67,23 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \end{figure}
 
-\begin{figure}
-	\centering	
-	\includegraphics[scale=0.5]{images/ca-astrophresultrandom.jpg}
-	\caption{BlogCatalog3 Random}
+\begin{figure}[h!]
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-astrophresultrandom.jpg}
+\caption{Time vs Threshold}
+
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/astrophtime.jpg}
+\caption{Time vs Threshold}
+\end{minipage}
 \end{figure}
 
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-astrophtime.jpg}
 \caption{Time vs Threshold}
-\label{fase1}
+
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-astrophtimerandom.jpg}
@@ -77,7 +95,7 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-condmatpaper.jpg}
 \caption{Cardinality vs Threshold}
-\label{fase1}
+
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-condmatresult.jpg}
@@ -85,17 +103,23 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \end{figure}
 
-\begin{figure}
-	\centering	
-	\includegraphics[scale=0.5]{images/ca-condmatresultrandom.jpg}
-	\caption{BlogCatalog3 Random}
+\begin{figure}[h!]
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-condmatresultrandom.jpg}
+\caption{Time vs Threshold}
+
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/condmattime.jpg}
+\caption{Time vs Threshold}
+\end{minipage}
 \end{figure}
 
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-condmattime.jpg}
 \caption{Time vs Threshold}
-\label{fase1}
+
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-condmatrandomtime.jpg}
@@ -107,7 +131,7 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepphpaper.jpg}
 \caption{Cardinality vs Threshold}
-\label{fase1}
+
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepphresult.jpg}
@@ -115,17 +139,23 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \end{figure}
 
-\begin{figure}
-	\centering	
-	\includegraphics[scale=0.5]{images/ca-hepphresultrandom.jpg}
-	\caption{BlogCatalog3 Random}
+\begin{figure}[h!]
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepphresultrandom.jpg}
+\caption{Time vs Threshold}
+
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/hepphtime.jpg}
+\caption{Time vs Threshold}
+\end{minipage}
 \end{figure}
 
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepphtime.jpg}
 \caption{Time vs Threshold}
-\label{fase1}
+
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepphrandomtime.jpg}
@@ -137,7 +167,7 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepthpaper.jpg}
 \caption{Cardinality vs Threshold}
-\label{fase1}
+
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepthresult.jpg}
@@ -145,17 +175,23 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \end{figure}
 
-\begin{figure}
-	\centering	
-	\includegraphics[scale=0.5]{images/ca-hepthresultrandom.jpg}
-	\caption{BlogCatalog3 Random}
+\begin{figure}[h!]
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepthresultrandom.jpg}
+\caption{Time vs Threshold}
+
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/hepthtime.jpg}
+\caption{Time vs Threshold}
+\end{minipage}
 \end{figure}
 
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepthtime.jpg}
 \caption{Time vs Threshold}
-\label{fase1}
+
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepthrandomtime.jpg}
@@ -167,7 +203,7 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-grqcpaper.jpg}
 \caption{Cardinality vs Threshold}
-\label{fase1}
+
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-grqcresult.jpg}
@@ -175,17 +211,23 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \end{figure}
 
-\begin{figure}
-	\centering	
-	\includegraphics[scale=0.5]{images/ca-grqcresultrandom.jpg}
-	\caption{BlogCatalog3 Random}
+\begin{figure}[h!]
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-grqcresultrandom.jpg}
+\caption{Time vs Threshold}
+
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/grqctime.jpg}
+\caption{Time vs Threshold}
+\end{minipage}
 \end{figure}
 
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-grqctime.jpg}
 \caption{Time vs Threshold}
-\label{fase1}
+
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-grqcrandomtime.jpg}

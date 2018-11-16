@@ -10,10 +10,11 @@ time=[time  sum(A(:,3))/(length(A)/10) sum(B(:,3))/(length(B)/10)];
 A=csvread(strcat(dataset,'/TIPDecomp.csv'),0,0);
 B=csvread(strcat(dataset,'/TIPDecompRandom.csv'),0,0);
 time=[time  sum(A(:,3))/(length(A)/10) sum(B(:,3))/(length(B)/10)];
-%A=csvread(strcat(dataset,'/VirAds.csv'),0,0);
-%B=csvread(strcat(dataset,'/VirAdsRandom.csv'),0,0);
-%time=[time  sum(A(:,3))/(length(A)/10) sum(B(:,3))/(length(B)/10)];
-c = categorical({'TSS','TSSRandom','Greedy','GreedyRandom','TIPDecomp','TIPDecompRandom'});
+A=csvread(strcat(dataset,'/VirAds.csv'),0,0);
+B=csvread(strcat(dataset,'/VirAdsRandom.csv'),0,0);
+time=[time  sum(A(:,3))/(length(A)/10) sum(B(:,3))/(length(B)/10)];
+c = categorical({'TSS','TSSRandom','Greedy','GreedyRandom','TIPDecomp','TIPDecompRandom','VirAds','VirAdsRandom'});
 
 bar(c,time);
 title(titleData);
+ylabel('Time (Seconds)');
