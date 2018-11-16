@@ -2,9 +2,25 @@
 \section{Results}
 \subsection{Random Graphs}
 
-We compare the output of the algorithm versus the exact solution obtained by formulating the target set selection problem as an 0-1 Integer Linear Programming problem. This is to show that the algorithm works on moderate sized graphs. 
+We compare the output of the algorithm versus the exact solution obtained by formulating the target set selection problem as an 0-1 Integer Linear Programming problem. This is to show that the algorithm also works on moderate sized graphs. 
 
+The graphs used for this experiment are random graphs. We create a $random graph (N,p)$, $N$ as the number of vertices and $p$ as the probability of how an edge between vertices appear. This experiment was done on graphs with 30 nodes and 50 nodes each done with incrementing probabilities: $p\in(10/100,20/100,...,90/100)$.
 
+The formulation of the ILP is based of an existing model by \cite{}. Their model is for the $Weighted$ Target Set Selection problem. We can tweak the formulation by setting the weight variables as $w_{i}=1$ to fit our problem.
+
+Integer Linear Programming is a technique for optimizing a linear objective function, subject to linear constraints. We either want to maximize or minimize an objective function based off our problem.
+
+\begin{figure}[h!]
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/rand30result.png}
+\caption{30 nodes}
+
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+\includegraphics[width=\linewidth,keepaspectratio=true]{images/rand50result.png}
+\caption{50 nodes}
+\end{minipage}
+\end{figure}
 
 \subsection{TSS applied to real-life networks}
 
