@@ -1059,6 +1059,8 @@ The threshold value is set depending on the network we want to find the target s
 
 We can visualize this by increasing the thresholds from 2. Using the previous threshold model example, let's set the all the thesholds of the vertex to 2. We can pick out that the size of the target set is atleast 2. Incrementing the threshold to four will show that we need atleast 4 nodes to activate all the vertices in the graph since the number of edges do not meet the theshold of the vertex. Increasing the threshold further, we need to add more vertices to suffice the condition that the threshold should always be less than or equal to the degree of the node. Checking the threshold 2 again for the new graph where we added a new node, it gets progressively harder. In real-life online social network data, which will be used for this algorithm, graphs have at least tens of thousands of nodes and hundreds of thousands of edges with the degrees in thousands.
 
+For an exhaustive way of getting the target set of a graph is to have the obtain the power set of the vertices which is takes $O(|V|^2)$. Then we check if each node can activate all of the nodes left in the graph, this process itself is non-deterministic. 
+
 \begin{minipage}{0.45\textwidth}
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
 	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
@@ -2360,9 +2362,12 @@ $S=\{v_{8},v_{7},v_{6},v_{2},v_{4},v_{10}\}$
 	
 \clearpage
 \section{Results}
+
 \subsection{TSS applied to real-life networks}
 
 We apply the TSS algorithm to real-life networks and compare it to the previously developed algorithm and a greedy version of TSS. The threshold of the nodes are set as $t(v)\in(1,2,...,10)$ for each iteration. For the random version of algorithms if more than one node meets the condition of cases we randomly selected a node from the set of nodes that satisfy the condition in each algorithm. The selection of nodes in case 3 of TSS can be randomized. We test if randomness of selection of nodes affect the cardinality of the target set and the runtime of the algorithm.
+
+In comparison of runtime, we do not compare the runtime between algorithms. We try to compare the normal versus random eligible vertex selection variations of the algorithms. 
 
 We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The following datasets are used:
 \begin{enumerate}
@@ -2455,4 +2460,6 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 	\caption{Runtime for Ca-Hepth (seconds)}
 \end{figure}
 	
-	
+	\subsection{Random Graphs}
+We try the TSS algorithm to random graphs. We construct the random graphs by specifying the number of nodes we want $n$ and the probability that an edge occurs $p$. To get the exact number of nodes in the target set we attempt to formulate the problem into a 0-1 Linear Integer Programming problem from both \cite{}\cite{virads}. We apply the ILP and the TSS to relatively small networks compared to real-life social networks $n=30\ and\ n=50$ since solving ILP problems for huge networks would take days to weeks\cite{virads}. Using the add-in solver in Excel, we obtain these results:
+

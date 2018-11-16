@@ -11,9 +11,8 @@ start=tic;;
 ctr=1;
 while prod(G.Nodes.Status)==0
     [a, b]=size(G.Nodes);
-    disp(ctr);
-    ctr=ctr+1;
     if isempty(find(G.Nodes.Thresholds==0 & G.Nodes.Status==0,1))==0%Case 1
+        caseof=1;
         %Case 1
         vCandidates=find(G.Nodes.Thresholds==0 & G.Nodes.Status==0,1);
         currV=vCandidates;
@@ -26,6 +25,7 @@ while prod(G.Nodes.Status)==0
         case2val=find(G.Nodes.Degree<G.Nodes.Thresholds & G.Nodes.Status ==0,1);
         if isempty(case2val)==0
             %Case 2
+            caseof=2;
             currV=case2val;
             S=[S G.Nodes.Label(currV)];
             N=neighbors(G,currV);
@@ -35,12 +35,14 @@ while prod(G.Nodes.Status)==0
             end
         else 
             %Case 3
+            caseof=3;
             maxV=max(G.Nodes.TSSMax);
             argmax=find(G.Nodes.TSSMax==maxV,1);
             currV=argmax;
         end
     end
-    
+    fprintf("Case: %g, CurrV: %g\n",caseof,currV);
+    ctr=ctr+1;
     N=neighbors(G,currV);
     sizeN=length(N);
     for j=1:sizeN
