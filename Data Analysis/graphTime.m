@@ -1,9 +1,8 @@
-function readData(filename,i,titleName)
+function graphTime(filename,i,titleName)
 
 data=csvread(strcat(filename,".csv"),0,0);
 threshold=data(:,1);
-result=data(:,2);
-time=data(:,3);
+result=data(:,3);
 if length(result)==50
     for a=1:10
         thresholdTemp(a)=a;
