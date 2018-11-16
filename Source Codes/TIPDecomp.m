@@ -8,28 +8,30 @@ for i=1:n
 end
 G.Nodes.dist=dist;
 flag=true;
+ctr=1;
 while flag==true
+    disp(ctr);
+    ctr=ctr+1;
     vi=min(G.Nodes.dist);
-    currV=find(G.Nodes.dist==vi);
-    currVid=find(G.Nodes.Label==string(currV(1)));
+    currV=find(G.Nodes.dist==vi,1);
+    currVid=currV;
     if G.Nodes.dist(currVid)==inf
-        S=str2double(S);
-        Time=toc(start);
-        return
+       flag=false;
     else
         neighborsV=neighbors(G,currVid);
         m=size(neighborsV,1);
         for i=1:m
-            currN=find(G.Nodes.Label==string(neighborsV(i)));
-            if G.Nodes.dist(currN)>0 && G.Nodes.Status(currN)==0
-                G.Nodes.dist(currN)=G.Nodes.dist(currN)-1;
-            elseif G.Nodes.dist(currN)<=0 && G.Nodes.Status(currN)==0
-                G.Nodes.dist(currN)=inf;
-                S=[S G.Nodes.Label(currN)];
+            currN=neighborsV;
+            if G.Nodes.dist(currN(i))>0 && G.Nodes.Status(currN(i))==0
+                G.Nodes.dist(currN(i))=G.Nodes.dist(currN(i))-1;
+            else
+                G.Nodes.dist(currN(i))=inf;
+                S=[S currN(i)];
             end
         end
     end
     G.Nodes.dist(currVid)=inf;
     G.Nodes.Status(currVid)=1;
 end
-
+ S=str2double(S);
+Time=toc(start);
