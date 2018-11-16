@@ -1,0 +1,7 @@
+*.log
+*.aux
+*.gz
+*.pdf
+*.synctex
+*.dvi
+Source Codes/getGraph.asv
