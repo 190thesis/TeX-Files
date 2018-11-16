@@ -1,0 +1,527 @@
+\section{Main algortihm developed in the study}
+\subsection{Preliminaries}
+	Let $G = (V,E)$ be a graph modelling a network. $\Gamma$ is the neighborhood of current vertex $v$ and $d_{g}(v)$ or $|\Gamma_{g}(v)|$ as the degree of current vertex $v$.
+	Let $t: V \rightarrow N_{0}={0,1,...}$ be the threshold function assigned to the vertices of $G$. For each node $v \in V$, the threshold $t(v)$ indicates how hard or how easy it is to influence vertex $v$. Low thresholds means easier to influence and high thresholds are hard to influence.
+	
+	The activation process in $G$ starting at $S$ is a sequence of vertex subsets $Active_{G}[S,0] \subseteq Active_{G}[S,1] \subseteq ... \subseteq Active_{G}[S,\ell] \subseteq ... \subseteq V$ of vertex subsets, with $Active_{G}[S,0]=S$ and 
+	
+	$Active_{G}[S,\ell]=Active_{G}[S,\ell-1] \cup \{u:|\Gamma_{G}(u)\cap Active_{G}[S,\l-1]|\geq t(u)\}, for \; \ell \geq 1$
+	
+	A target set for $G$ is set $S \subseteq V$ such that $Active_{G}[S,\lambda]=V$ for some $\lambda \geq 0$
+	
+	This means at each round $\ell$ the set of active nodes is augmented by the set of nodes $u$ that have a number of already activated neighbors greater or equal to $u$'s threshold $t(u)$. The vertex $v$ is said to be activated at round $\ell \ge 0$ if $v \in Active_{G}[S,\ell]\setminus Active_{G}[S,\ell-1]$.
+	
+	\subsection{The TSS Algorithm}
+	
+	Given the input graph $G$, at each round/iteration if the vertex has already been considered it will be removed from the graph. When the current vertex $v$ is deleted in the graph its neighbors degree is updated and the current $v$ is removed from the neighbor set of the neighbors of $v$.
+	
+	If the vertex $v$ is deemed applicable to be in the target set, the thresholds of their neighbors are decreased by one since the deleted node is able to activate them.
+	
+	In this algorithm 3 cases are considered:
+	\begin{itemize}
+		\item Case 1: The threshold $k$ of the current vertex $v$ is 0.\\
+		The vertex $v$ is activated by the influence of its neighbors in $V - U$ only; it can then influence its neighbors in U.\\
+		So, for each neighbor of vertex $v$ denoted by $u$, reduce the threshold of $u$ by 1.
+		\item Case 2: The degree of $v$ is less than the its threshold.\\
+		The vertex v is added to S, since no sufficient neighbors remain in $U$ to activate it; v can then influence its neighbors in $U$.\\
+		Add the current $v$ to S
+		For each neighbor of vertex $v$ denoted by $u$, reduce the threshold of $u$ by 1.
+		\item Case 3: The other conditions are not met.\\
+		The vertex $v$ will be influence by some of its neighbors in $U$.\\
+		Set the vertex $v$ as the vertex in which this equation $\frac{k(u)}{\delta(u)(\delta(u)+1)}$.\\ Note: the maximum value that this equation bears when $k(u)=\delta(u)=1$. When 1 is substituted to the equation $\frac{1}{2}$ is obtained. With the threshold and degree of a vertex = 1, the node is a leaf. This implies that for every change of v, the ones with low degrees and threshold are considered first.
+		
+	\end{itemize}
+	
+	\subsubsection{Pseudocode of TSS Algorithm}
+		\paragraph{Definition of Variables} 
+		\begin{itemize}
+			\item $S$: target Set
+			\item $d(v)$: degree of vertex $v$
+ 			\item $t(v)$: threshold of vertex $v$
+ 			\item $\Gamma(v)$: neighbor set of vertex $v$
+		\end{itemize}
+		\begin{algorithm}
+			\caption{TSS Algorithm}
+			\begin{algorithmic}[1]
+				\Require $G=(V,E),$ Thresholds $ t(v)$ for $v\in V$
+				\Ensure Target Set $S$
+				\State $S=\varnothing$
+				\State 
+				$U=V$
+				\ForAll{$v \in v$}
+					\State $\delta(v)=d(v)$
+					\State $k(v)=t(v)$
+					\State	$N(v)=\Gamma(v)$
+				\EndFor
+				\While{$U \not = \varnothing$}
+					\If{there exists $v\in U \; s.t \; k(v)=0$}
+					
+					\ForAll{$u \in N{v}$}
+						\State$k(u)=max(k(u)-1,0)$
+						\State $S=S\cup \{v\}$
+					\EndFor
+					\Else 
+						\If{ there exists $v \in U\; s.t\; \delta(v) \le k(v)$}
+						\ForAll{$u \in N(v)$}
+						\State $k(u)=k(u)-1$
+						\EndFor
+						\Else 
+							\State $v=argmax_{u\in U}\{\frac{k(u)}{\delta(u)(\delta(u)+1)}\}$
+						\EndIf
+					\EndIf
+					\ForAll{$u \in N(v)$}
+						\State $\delta(u)=\delta(u)-1$
+						\State $N(u)=N(u)-{v}$
+					\EndFor
+					\State $U=U-{v}$
+				\EndWhile
+			\end{algorithmic}
+		\end{algorithm}
+\newpage
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$}] (1) {$3$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$1$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
+  
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\caption{A tree with 10 vertices where the number inside the circle is the vertex threshold.}
+\label{degreefig}
+\end{figure}
+\begin{equation}
+\begin{array}{l c c c c c c c c c c}
+	Iteration & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+	vertex & v_{10} & v_9 & v_8 & v_7 & v_6 & v_5 & v_4 & v_3 & v_2 & v_1 \\
+	Case & 3 & 3 & 3 & 2 & 3 & 2 & 1 & 3 & 3 & 2\\
+\end{array}
+\end{equation}
+\subsubsection{Step by step example}
+\begin{figure}[!h]
+	\begin{minipage}{0.45\textwidth}
+
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    (2) edge node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{1}$ & 2 & 2  \\
+	   $v_{2}$ & 5 & 4  \\
+	   $v_{3}$ & 1 & 1  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{6}$ & 2 & 1   \\
+	   $v_{7}$ & 3 & 2  \\
+	   $v_{8}$ & 2 & 1  \\
+	   $v_{9}$ & 3 & 3   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+	\begin{minipage}{0.45\textwidth}
+
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    (2) edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{1}$ & 2 & 2  \\
+	   $v_{2}$ & 4 & 3  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{6}$ & 2 & 1   \\
+	   $v_{7}$ & 3 & 2  \\
+	   $v_{8}$ & 2 & 1  \\
+	   $v_{9}$ & 3 & 3   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (2) edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{2}$ & 3 & 2  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{6}$ & 2 & 1   \\
+	   $v_{7}$ & 2 & 1  \\
+	   $v_{8}$ & 1 & 0  \\
+	   $v_{9}$ & 3 & 3   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (2) edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (9)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{2}$ & 3 & 2  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{6}$ & 2 & 1   \\
+	   $v_{7}$ & 1 & 0  \\
+	   $v_{9}$ & 3 & 3   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8},v_{7}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (2) edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) 
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{2}$ & 3 & 2  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{6}$ & 1 & 0   \\
+	   $v_{9}$ & 2 & 2   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8},v_{7},v_{6}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (2) edge node {} (4)
+    	edge node {} (5)
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{2}$ & 2 & 1  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{5}$ & 2 & 2  \\
+	   $v_{9}$ & 2 & 2   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (2) edge node {} (4)
+    (4) edge node {} (10)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{2}$ & 1 & 0  \\
+	   $v_{4}$ & 2 & 1  \\
+	   $v_{9}$ & 1 & 1   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\end{figure}
+\begin{figure}[h!]
+
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8},v_{7},v_{6},v_{2}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (4) edge node {} (10)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{4}$ & 1 & 0  \\
+	   $v_{9}$ & 1 & 1   \\
+	   $v_{10}$ & 2 & 1   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8},v_{7},v_{6},v_{2},v_{4}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{9}$ & 1 & 1   \\
+	   $v_{10}$ & 1 & 0   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+$S=\{v_{8},v_{7},v_{6},v_{2},v_{4},v_{10}\}$
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (9) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{9}$ & 0 & 0   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\begin{minipage}{0.45\textwidth}
+
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (9) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c c}
+	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
+	   $v_{9}$ & 0 & 0   \\
+	\end{tabular}
+\end{minipage}
+\vspace{0.2cm}
+
+\end{figure}
