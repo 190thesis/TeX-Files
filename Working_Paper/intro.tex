@@ -53,7 +53,7 @@ t(C)=0.8 & t(D)=0.3\\
 \end{equation}
 \begin{figure}[h!]
 	\begin{minipage}{0.45\textwidth}
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node,label={t(A)=0.4}] (A) {$A$};
@@ -61,42 +61,41 @@ t(C)=0.8 & t(D)=0.3\\
   \node[main node,label={t(B)=0.6}] (B) [right of=A] {$B$};
   \node[main node,label=below:{t(D)=0.3}] (D) [right of=C] {$D$};
   
-  \path[every node/.style={font=\sffamily\large}]
-    (A) edge node [pos=0.8] {$0.5$} (B)
-    	edge node [pos=0.8] {$0.4$} (C)
-    (B) edge node [pos=0.8]{$0.2$} (A)
-    	edge node [pos=0.8]{$0.3$} (C)
-    	edge node [pos=0.8]{$0.2$} (D)
-    (C) edge node [pos=0.8]{$0.3$} (A)
-    	edge node [pos=0.8]{$0.7$} (B)
-    	edge node [pos=0.8]{$0.5$} (D)
-    (D) edge node [pos=0.8]{$0.3$} (C)
-    	edge node [pos=0.8]{$0.4$} (B)
+  \path[every node/.style={font=\sffamily}]
+    (A) edge node [pos=0.8] {$e_1=0.5$} (B)
+    	edge node [pos=0.8] {$e_7=0.4$} (C)
+    (B) edge node [pos=0.8]{$e_2=0.2$} (A)
+    	edge node [pos=0.8]{$e_3=0.3$} (C)
+    	edge node [pos=0.8]{$e_5=0.2$} (D)
+    (C) edge node [pos=0.8]{$e_8=0.3$} (A)
+    	edge node [pos=0.8]{$e_4=0.7$} (B)
+    	edge node [pos=0.8]{$e_9=0.5$} (D)
+    (D) edge node [pos=0.8]{$e_{10}=0.3$} (C)
+    	edge node [pos=0.8]{$e_6=0.4$} (B)
     ;
 		\end{tikzpicture}
 		\caption{r=1}
 	\end{minipage}
 	\begin{minipage}{0.45\textwidth}
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
-                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 		
 		  \node[main node,label={t(A)=0.4}] (A) {$A$};
 		  \node[main node,label=below:{t(C)=0.8},color={red}] (C) [below of=A] {$C$};
 		  \node[main node,label={t(B)=0.6},color={red}] (B) [right of=A] {$B$};
 		  \node[main node,label=below:{t(D)=0.3},color={red}] (D) [right of=C] {$D$};
 		  
-		  \path[every node/.style={font=\sffamily\large}]
-		    (A) edge node [pos=0.8] {$0.5$} (B)
-		    	edge node [pos=0.8] {$0.4$} (C)
-		    (B) edge node [pos=0.8] {$0.2$} (A)
-		    	edge node [pos=0.8] {$0.3$} (C)
-		    	edge node [pos=0.8] {$0.2$} (D)
-		    (C) edge node [pos=0.8] {$0.3$} (A)
-		    	edge node [pos=0.8] {$0.7$} (B)
-		    	edge node [pos=0.8] {$0.5$} (D)
-		    (D) edge node [pos=0.8] {$0.3$} (C)
-		    	edge node [pos=0.8] {$0.4$} (B)
-		    ;
+		    \path[every node/.style={font=\sffamily}]
+    (A) edge node [pos=0.8] {$e_1=0.5$} (B)
+    	edge node [pos=0.8] {$e_7=0.4$} (C)
+    (B) edge node [pos=0.8]{$e_2=0.2$} (A)
+    	edge node [pos=0.8]{$e_3=0.3$} (C)
+    	edge node [pos=0.8]{$e_5=0.2$} (D)
+    (C) edge node [pos=0.8]{$e_8=0.3$} (A)
+    	edge node [pos=0.8]{$e_4=0.7$} (B)
+    	edge node [pos=0.8]{$e_9=0.5$} (D)
+    (D) edge node [pos=0.8]{$e_{10}=0.3$} (C)
+    	edge node [pos=0.8]{$e_6=0.4$} (B)
+    ;
 	\end{tikzpicture}
 	\caption{r=2}
 
@@ -104,26 +103,25 @@ t(C)=0.8 & t(D)=0.3\\
 	\vspace*{0.2cm}
 	\begin{minipage}{0.45\textwidth}
 	\centering
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
-                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
 	  \node[main node,label={t(A)=0.4}, color={red}] (A) {$A$};
 	  \node[main node,label=below:{t(C)=0.8},color={red}] (C) [below of=A] {$C$};
 	  \node[main node,label={t(B)=0.6}, color={red}] (B) [right of=A] {$B$};
 	  \node[main node,label=below:{t(D)=0.3}, color={red}] (D) [right of=C] {$D$};
 	  
-	  \path[every node/.style={font=\sffamily\large}]
-	    (A) edge node [pos=0.8] {$0.5$} (B)
-	    	edge node [pos=0.8] {$0.4$} (C)
-	    (B) edge node [pos=0.8] {$0.2$} (A)
-	    	edge node [pos=0.8] {$0.3$} (C)
-	    	edge node [pos=0.8] {$0.2$} (D)
-	    (C) edge node [pos=0.8] {$0.3$} (A)
-	    	edge node [pos=0.8] {$0.7$} (B)
-	    	edge node [pos=0.8] {$0.5$} (D)
-	    (D) edge node [pos=0.8] {$0.3$} (C)
-	    	edge node [pos=0.8] {$0.4$} (B)
-	    ;
+	   \path[every node/.style={font=\sffamily}]
+    (A) edge node [pos=0.8] {$e_1=0.5$} (B)
+    	edge node [pos=0.8] {$e_7=0.4$} (C)
+    (B) edge node [pos=0.8]{$e_2=0.2$} (A)
+    	edge node [pos=0.8]{$e_3=0.3$} (C)
+    	edge node [pos=0.8]{$e_5=0.2$} (D)
+    (C) edge node [pos=0.8]{$e_8=0.3$} (A)
+    	edge node [pos=0.8]{$e_4=0.7$} (B)
+    	edge node [pos=0.8]{$e_9=0.5$} (D)
+    (D) edge node [pos=0.8]{$e_{10}=0.3$} (C)
+    	edge node [pos=0.8]{$e_6=0.4$} (B)
+    ;
 	\end{tikzpicture}
 	\caption{r=3}
 	\end{minipage}
@@ -134,9 +132,7 @@ t(C)=0.8 & t(D)=0.3\\
 \subsubsection{Independent Cascade Model}
 Now, in this model, we assume that when a person tries you influence you, they only have that one chance to do so. After that, they lose their chance of doing it again. We still have the knowledge that different people have different weights assigned to their words. In this model, however, we assign a percentage that determines how likely is that person to influence you. Say, your mother has a 90\% chance to recommend you a product but, on the contrary, the known scam artist has a 15\% chance of influencing you.
 
-Given a simple directed graph $G(V,E)$,we assign a random probability $P_{u,v}(e)$, this defines the probability of $u$ infecting $v$. Say, $P_{u,v}(e) \geq 0.5$ if that node has a relationship to its neighbors, $\leq 0.5 /otherwise$. 
-
-Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node again.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
+Given a simple directed graph $G(V,E)$,we assign a probability $P_{u,v}(e)$, this defines the probability of $u$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node again.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
 
 We define a simple directed graph
 \begin{equation}
