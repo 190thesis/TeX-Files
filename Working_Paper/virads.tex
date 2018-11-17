@@ -62,240 +62,233 @@
 VirAds selects in each step the vertex $u$ with the highest effectiveness which is defined as $n^{(e)}_{u}+n^{(e)}_{(a)}$. Which is basically the vertex $v$ which can activate the most number of $edges$. It also considers the vertex with the most active neighbors. After that, the algorithm updates the measures for all the remaining vertices. VirAds will make the selection based on the information within $d$-hop neighbor around the considered vertices rather than only one-hop neighbor as in the degree-based heuristic. When a vertex $u$ is selected, it causes a chain-reaction and activate a sequence of vertices or lower the rounds in which vertices are activated.\cite{virads}
 
 The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagine, a line at any commercial establishment where the first who came is the first who's served. 
-\subsubsection{Step by Step Example}
-\begin{figure}[h!]
-\centering
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
-                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-
-  \node[main node,label={right:$v_1$}] (1) {$2$};
-  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
-  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$2$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
-  \node[main node,label={right:$v_6$},right of=2] (6) {$2$};
-  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
-  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$2$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$2$};
-  
-  
-  \path[every node/.style={font=\sffamily\large}]
-    (1) edge node {} (2)
-    (2) edge node {} (3)
-    	edge node {} (4)
-    	edge node {} (5)
-    	edge node {} (6)
-    (3) 
-    (4) edge node {} (10)
-    (5) edge node {} (9)
-    (6) edge node {} (7)
-    (7) edge node {} (8)
-    	edge node {} (9)
-    (8)	edge node {} (1)
-    (9) edge node {} (10)
-    (10) 
-    
-    ;
-\end{tikzpicture}
-\end{figure}
-The value of the parameter for the algorithm is $d=5$, making the output a small 5-seeding target set. The ceiling value of $n_v^{(a)}$ which is equal to $\rho \cdot d(v)$ or as known as $t(v)$ was used to avoid 0 $n_v^{(a)}$ at the start of the iteration. The table \ref{viradstable} contains the initial values needed in the algorithm. The iterations will show what are added into the target set $P$ denoted by the orange color node while the activated nodes are yellow nodes.
-\begin{table}[ht]
-\centering
-    \begin{tabular}{c c c c c}
-		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
-		$v_{1}$ & 2 & 2 & 2 & $\{v_2,v_8\}$ \\
-		\rowcolor{Orange}
-		$v_{2}$ & 5 & 5 & 4 & $\{v_1,v_3,v_4,v_5,v_6\}$\\
-		$v_{3}$ & 1 & 1 & 1 & $\{v_2\}$\\
-		$v_{4}$ & 2 & 2 & 2 & $\{v_2,v_{10}\}$\\
-		$v_{5}$ & 2 & 2 & 2 & $\{v_2,v_9\}$\\
-		$v_{6}$ & 2 & 2 & 2 & $\{v_2,v_7\}$\\
-		$v_{7}$ & 3 & 3 & 2 & $\{v_6,v_8,v_9\}$\\
-		$v_{8}$ & 2 & 2 & 2 & $\{v_1,v_7\}$\\
-		$v_{9}$ & 3 & 3 & 2 & $\{v_5,v_7,v_{10}\}$\\
-		$v_{10}$ & 2 & 2 & 2 & $\{v_4,v_9\}$\\
-	\end{tabular}
-	\label{viradstable}
-\end{table}
 \newpage
-\begin{figure}[p]
-\centering
-\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+\subsubsection{VirAds Step by Step Example}
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-  \node[main node,label={right:$v_1$}] (1) {$1$};
-  \node[main node,label={above right:$v_2$}, below of=1,fill=orange] (2) {$4$};
-  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$1$};
-  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
-  \node[main node,label={right:$v_7$},above right of=6] (7) {$1$};
-  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$1$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
-  
-  
+
+  \node[main node,label={right:$v_1$}] (1) {$3$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$1$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
+
   \path[every node/.style={font=\sffamily\large}]
-    (1) edge node {} (2)
-    (2) edge [color=blue] node {} (3)
-    	edge node {} (4)
-    	edge node {} (5)
-    	edge node {} (6)
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
     (3) 
-    (4) edge node {} (10)
-    (5) edge node {} (9)
-    (6) edge node {} (7)
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
     (7) edge node {} (8)
     	edge node {} (9)
-    (8)	edge node {} (1)
-    (9) edge node {} (10)
+    (8)
+    (9)
     (10) 
     
     ;
 \end{tikzpicture}
-\\
-    \begin{tabular}{c c c c c}
-		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
-		$v_{1}$ & 1 & 2 & 1 & $\{v_8\}$ \\
-		$v_{4}$ & 1 & 2 & 1 & $\{v_{10}\}$\\
-		$v_{5}$ & 1 & 2 & 1 & $\{v_9\}$\\
-		$v_{6}$ & 1 & 2 & 1 & $\{v_7\}$\\
-		$v_{7}$ & 3 & 3 & 1 & $\{v_6,v_8,v_9\}$\\
-		$v_{8}$ & 2 & 2 & 1 & $\{v_1,v_7\}$\\
-		$v_{9}$ & 3 & 3 & 1 & $\{v_5,v_7,v_{10}\}$\\
-		$v_{10}$ & 2 & 2 & 1 & $\{v_4,v_9\}$\\
+\caption{A tree with 10 vertices where the number inside the circle is the vertex threshold ($t(v)$).}
+\label{viradsexample}
+
+\centering
+    \begin{tabular}{c c c c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $n^{(e)}_i$ & $n^{(a)}_i$& $r^v$& $argmax$\\
+		$v_{1}$ & 4 & 3 & 3 & 3 & 2 & 6 \\
+		$v_{2}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{3}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{4}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
+		$v_{5}$ & 2 & 2 & 2 & 2 & 2 & 4 \\
+		$v_{6}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
+		$v_{7}$ & 3 & 2 & 3 & 2 & 2 & 5 \\
+		$v_{8}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{9}$ &  1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{10}$ & 1 & 1 & 1 & 1 & 2 & 2\\
 	\end{tabular}
-	\caption{1st Iteration of Virads Example,$v_2$ has the highest $\{n_v^{(e)}+n_v^{(a)}\}$ and $P=\{v_2\}$}
+
+
 \end{figure}
 
-\begin{figure}[p]
-\centering
-\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+\begin{figure}
+
+VirAds has two main parameters, a graph with threshold for each vertex which is defined by $G=(V,E,T)$, as indicated on the algorithm and a positive natural number $d$ that indicates which $d-seeding$ is the algorithm will output. For this example we will use and compare $d=1$ and $d=2$.\\
+We start with $d=1$, using the graph in the figure \ref{viradsexample}. The algorithm selects the first vertex $v$ in the set of vertices that has maximum($n^{(e)}_v+n^{(a)}_v$), then it recomputes its $n^{(e)}_v$ as the number of new nodes it activates when it is activated. If the vertex $v$ does not maintain its position as the first vertex of the said set, then it selects the new first vertex, recomputes again its $n^{(e)}_v$ until the first vertex will be the same after re-computation. In this case, we select $v_1$ as the first vertex in the said set.\\
+ %iteration 1 d=1
+ \textbf{Iteration 1}
+ \begin{minipage}{\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-  \node[main node,label={right:$v_1$}] (1) {$1$};
-  \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
-  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$1$};
-  \node[main node,label={right:$v_6$},right of=2,fill=yellow] (6) {$0$};
-  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$1$};
-  \node[main node,label={right:$v_8$},above left of=7,fill=yellow] (8) {$0$};
-  \node[main node,label={right:$v_9$},below of=7,fill=yellow] (9) {$0$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
-  
+
+  \node[main node,label={right:$v_1$},fill=orange] (1) {$3$};
+  \node[main node,label={right:$v_2$},below of=1,fill=yellow] (2) {$1$};
+  \node[main node,label={right:$v_3$}, below right of=1,fill=yellow] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1,fill=yellow] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (1) edge node {} (2)
-    (2) edge [color=blue] node {} (3)
-    	edge node {} (4)
-    	edge node {} (5)
-    	edge node {} (6)
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
     (3) 
-    (4) edge node {} (10)
-    (5) edge node {} (9)
-    (6) edge [color=blue] node {} (7)
-    (7) edge [color=blue] node {} (8)
-    	edge [color=blue] node {} (9)
-    (8)	edge node {} (1)
-    (9) edge node {} (10)
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
     (10) 
-    
     ;
 \end{tikzpicture}
-\\
-    \begin{tabular}{c c c c c}
-		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
-		$v_{1}$ & 0 & 2 & 1 & $\{\}$ \\
-		$v_{4}$ & 1 & 2 & 1 & $\{v_{10}\}$\\
-		$v_{5}$ & 0 & 2 & 1 & $\{\}$\\
-		$v_{10}$ & 1 & 2 & 1 & $\{v_4\}$\\
+\end{minipage}
+\begin{minipage}{\textwidth}
+    \begin{tabular}{c c c c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $n^{(e)}_i$ & $n^{(a)}_i$& $r^v$& $argmax$\\
+		$v_{1}$ & 4 & 3 & 3 & 3 & 2 & 6 \\
+		$v_{2}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{3}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{4}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
+		$v_{5}$ & 2 & 2 & 2 & 2 & 2 & 4 \\
+		$v_{6}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
+		$v_{7}$ & 3 & 2 & 3 & 2 & 2 & 5 \\
+		$v_{8}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{9}$ &  1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{10}$ & 1 & 1 & 1 & 1 & 2 & 2\\
 	\end{tabular}
-	\caption{2nd Iteration of Virads Example, $v_7$ has the highest $\{n_v^{(e)}+n_v^{(a)}\}$ and $P=\{v_2,v_7\}$}
+
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
 \end{figure}
 
-\begin{figure}[p]
-\centering
-\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
-                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-  \node[main node,label={right:$v_1$}] (1) {$1$};
-  \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
-  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
-  \node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$1$};
-  \node[main node,label={right:$v_6$},right of=2,fill=yellow] (6) {$0$};
-  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$1$};
-  \node[main node,label={right:$v_8$},above left of=7,fill=yellow] (8) {$0$};
-  \node[main node,label={right:$v_9$},below of=7,fill=yellow] (9) {$0$};
-  \node[main node,label={right:$v_{10}$},below of=9,fill=yellow] (10) {$0$};
-  
-  
-  \path[every node/.style={font=\sffamily\large}]
-    (1) edge node {} (2)
-    (2) edge [color=blue] node {} (3)
-    	edge node {} (4)
-    	edge node {} (5)
-    	edge node {} (6)
-    (3) 
-    (4) edge [color=blue] node {} (10)
-    (5) edge node {} (9)
-    (6) edge [color=blue] node {} (7)
-    (7) edge [color=blue] node {} (8)
-    	edge [color=blue] node {} (9)
-    (8)	edge node {} (1)
-    (9) edge node {} (10)
-    (10) 
-    
-    ;
-\end{tikzpicture}
-\\
-    \begin{tabular}{c c c c c}
-		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
-		$v_{1}$ & 0 & 0 & 1 & $\{\}$ \\
-		$v_{4}$ & 1 & 1 & 1 & $\{\}$\\
-		$v_{5}$ & 0 & 0 & 1 & $\{\}$\\
-	\end{tabular}
-	\caption{3rd Iteration of Virads Example, $v_4$ has the highest $\{n_v^{(e)}+n_v^{(a)}\}$ and $P=\{v_2,v_7,v_4\}$}
-\end{figure}
+\begin{figure}
 
-\begin{figure}[p]
-\centering
-\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+ %iteration 2 d=1
+ \textbf{Iteration 2}
+ \begin{minipage}{\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-  \node[main node,label={right:$v_1$},fill=blue] (1) {$1$};
-  \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
-  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
-  \node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=2,fill=blue] (5) {$1$};
-  \node[main node,label={right:$v_6$},right of=2,fill=yellow] (6) {$0$};
-  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$1$};
-  \node[main node,label={right:$v_8$},above left of=7,fill=yellow] (8) {$0$};
-  \node[main node,label={right:$v_9$},below of=7,fill=yellow] (9) {$0$};
-  \node[main node,label={right:$v_{10}$},below of=9,fill=yellow] (10) {$0$};
-  
+
+  \node[main node,label={right:$v_1$},fill=orange] (1) {$3$};
+  \node[main node,label={right:$v_2$},below of=1,fill=yellow] (2) {$1$};
+  \node[main node,label={right:$v_3$}, below right of=1,fill=yellow] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1,fill=yellow] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (1) edge node {} (2)
-    (2) edge [color=blue] node {} (3)
-    	edge node {} (4)
-    	edge node {} (5)
-    	edge node {} (6)
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
     (3) 
-    (4) edge [color=blue] node {} (10)
-    (5) edge node {} (9)
-    (6) edge [color=blue] node {} (7)
-    (7) edge [color=blue] node {} (8)
-    	edge [color=blue] node {} (9)
-    (8)	edge node {} (1)
-    (9) edge node {} (10)
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
     (10) 
-    
     ;
 \end{tikzpicture}
-\\
-    \begin{tabular}{c c c c c}
-		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
-		$v_{1}$ & 0 & 0 & 1 & $\{\}$ \\
-		$v_{5}$ & 0 & 0 & 1 & $\{\}$\\
+\end{minipage}
+\begin{minipage}{\textwidth}
+    \begin{tabular}{c c c c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $n^{(e)}_i$ & $n^{(a)}_i$& $r^v$& $argmax$\\
+		$v_{1}$ & 4 & 3 & 3 & 3 & 2 & 6 \\
+		$v_{2}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{3}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{4}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
+		$v_{5}$ & 2 & 2 & 2 & 2 & 2 & 4 \\
+		$v_{6}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
+		$v_{7}$ & 3 & 2 & 3 & 2 & 2 & 5 \\
+		$v_{8}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{9}$ &  1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{10}$ & 1 & 1 & 1 & 1 & 2 & 2\\
 	\end{tabular}
-	\caption{4th and 5th Iteration of Virads Example, vertex $v_1$ and $v_5$ were chosen  and $P=\{v_2,v_7,v_4,v_1,v_5\}$}
+
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
+
+%iteration 2 d=1
+ \textbf{Iteration 2}
+ \begin{minipage}{\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$},fill=orange] (1) {$3$};
+  \node[main node,label={right:$v_2$},below of=1,fill=yellow] (2) {$1$};
+  \node[main node,label={right:$v_3$}, below right of=1,fill=yellow] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1,fill=yellow] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{\textwidth}
+    \begin{tabular}{c c c c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $n^{(e)}_i$ & $n^{(a)}_i$& $r^v$& $argmax$\\
+		$v_{1}$ & 4 & 3 & 3 & 3 & 2 & 6 \\
+		$v_{2}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{3}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{4}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
+		$v_{5}$ & 2 & 2 & 2 & 2 & 2 & 4 \\
+		$v_{6}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
+		$v_{7}$ & 3 & 2 & 3 & 2 & 2 & 5 \\
+		$v_{8}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{9}$ &  1 & 1 & 1 & 1 & 2 & 2 \\
+		$v_{10}$ & 1 & 1 & 1 & 1 & 2 & 2\\
+	\end{tabular}
+
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
 \end{figure}
