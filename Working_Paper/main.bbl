@@ -94,4 +94,34 @@ T.~N. Dinh, H.~Zhang, D.~T. Nguyen, and M.~T. Thai, ``Cost-effective viral
   \emph{IEEE/ACM Transactions on Networking (ToN)}, vol.~22, no.~6, pp.
   2001--2011, 2014.
 
+\bibitem{wtss}
+S.~Raghavan and R.~Zhang, ``Weighted target set selection on social networks,''
+  in \emph{The Robert H. smith school of business and institute for systems
+  research}.\hskip 1em plus 0.5em minus 0.4em\relax University of Maryland
+  Maryland, USA, Tech. Rep., 2015.
+
+\bibitem{combi}
+E.~Ackerman, O.~Ben-Zwi, and G.~Wolfovitz, ``Combinatorial model and bounds for
+  target set selection,'' \emph{Theoretical Computer Science}, vol. 411, no.
+  44-46, pp. 4017--4022, 2010.
+
+\bibitem{lpsolve}
+\BIBentryALTinterwordspacing
+p.~keikland, ``Mixed integer linear(milp) solver: lpsolve,'' September 2016.
+  [Online]. Available: \url{https://sourceforge.net/projects/lpsolve/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{datasets1}
+\BIBentryALTinterwordspacing
+R.~Zafarani and H.~Liu, ``Social computing data repository at {ASU},'' 2009.
+  [Online]. Available: \url{http://socialcomputing.asu.edu}
+\BIBentrySTDinterwordspacing
+
+\bibitem{datasets2}
+\BIBentryALTinterwordspacing
+J.~Leskovec and A.~Krevl, ``Snap datasets: Stanford large network dataset
+  collection,'' Jun 2014. [Online]. Available:
+  \url{http://snap.stanford.edu/data}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

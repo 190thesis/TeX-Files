@@ -18,6 +18,13 @@ elseif length(result)==30
     end
     threshold=thresholdTemp';
     result=averageResult';
+elseif length(result)==40
+    for a=1:10
+        thresholdTemp(a)=a;
+        averageResult(a)=mean([result(a+10*0) result(a+10*1) result(a+10*2) result(a+10*3)]);
+    end
+    threshold=thresholdTemp';
+    result=averageResult';
 end
 if i==1
     plot(threshold,result,'-x','Color','k');
