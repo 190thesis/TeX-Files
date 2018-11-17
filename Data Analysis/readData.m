@@ -27,18 +27,18 @@ elseif length(result)==40
     result=averageResult';
 end
 if i==1
-    plot(threshold,result,'-x','Color','k');
+    plot(threshold,result,'-*','Color','r');
     legend('TSS','Location','northwest');
 elseif i==2
-    plot(threshold,result,'-s','Color','r');
+    plot(threshold,result,'-d','Color','b');
     newLeg={'TSS','Greedy'};
     legend(newLeg,'Location','northwest');
 elseif i==3
-    plot(threshold,result,'-*','Color','g');
+    plot(threshold,result,'-s','Color','k');
     newLeg={'TSS','Greedy','TIP-Decomp'};
     legend(newLeg,'Location','northwest');
 elseif i==4
-    plot(threshold,result,'-o','Color','b');
+    plot(threshold,result,'-o','Color','m');
     newLeg={'TSS','Greedy','TIP-Decomp','VirAds'};
     legend(newLeg,'Location','northwest');
 end

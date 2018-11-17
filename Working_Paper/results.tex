@@ -77,6 +77,8 @@ The data shows that the TSS algorithm produces a result that is near the exact s
 
 We apply the TSS algorithm to real-life networks and compare it to the previously developed algorithm and a greedy version of TSS. The threshold of the nodes are set as $t(v)\in(1,2,...,10)$ for each iteration. For the random version of algorithms if more than one node meets the condition of cases we randomly selected a node from the set of nodes that satisfy the condition in each algorithm. The selection of nodes in case 3 of TSS can be randomized. We test if randomness of selection of nodes affect the cardinality of the target set and the runtime of the algorithm.
 
+In this experiment we run each algorithm once for each threshold for the normal version of the algorithm and 5 times for the random version of the algorithm. That makes 10 runs per dataset. For the VirAds algorithm we experiment the amount of $d$ hops needed to output an ideal solution. This is why we run the algorithm 10 times per threshold starting with $d=1$ upto $d=10$. That makes 100 runs per dataset for the VirAds algorithm. In analyzing the data, we plot the cardinality and runtime of the network versus the thresholds that was used in obtaining them. For the data in the random runs, we average the cardinality and time then plot it against the thresholds. We then compare the normal and random amongst each other using a bar plot.
+
 We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The following datasets are used:
 \begin{enumerate}
 	\item BlogCatalog3 (10,312 nodes, 333,983 edges): a social blog directory which manages the bloggers and their blogs. Both the contact network and selected group membership information are included.
@@ -341,3 +343,7 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{figure}
 
 From the graphs we can observe that for the majority of our graphs, the TSS algorithm obtains the least cardinality for every thresholds.
+
+The time versus thresholds graphs show that in TSS we obtain fastest result when all the vertices' thresholds is 1. Note that with $t=1$, most of the time we go to case 1($t=0$) of the algorithm just after the first removal of the first node. This implies a fast computation of the equation in case 3($\frac{t(v)}{d(v)(d(v)+1}$). At the end there remains a single node (for some datasets it is more than 1) that has its degree to be less than its threshold, meaning we need to include it to the target set. VirAds seems to be the only algorithm to show that as the threshold increases, so does the time it takes to obtain the target set. The other algorithms seem to show that the time it takes per threshold is somewhat \textit{constant} through out the thresholds.
+
+The bar plots comparing the algorithms shows that the TSS took the longest time in finding the target set. This maybe due to the fact that in our code we update a property of a node every iteration to keep track of the selection of nodes in case 3. In the paper, Cordasco did not report the run times of the experiment, stating that this experiment is very machine and implementation dependent.

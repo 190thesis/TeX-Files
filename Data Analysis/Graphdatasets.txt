@@ -1,0 +1,137 @@
+readData("bc3/TSS",1,"BlogCatalog3")
+readData("bc3/GreedyTSS",2,"BlogCatalog3")
+readData("bc3TIPDecomp",3,"BlogCatalog3")
+readData("bc3/VirAds",4,"BlogCatalog3")
+
+readData("bc3/TSSRandom",1,"BlogCatalog3 (Random)")
+readData("bc3/GreedyTSSRandom",2,"BlogCatalog3(Random)")
+readData("bc3/TIPDecompRandom",3,"BlogCatalog3 (Random)")
+readData("bc3/ViradsRandom",4,"BlogCatalog3 (Random)")
+
+readData("ca-astroph/TSS",1,"Ca-AstroPh")
+readData("ca-astroph/GreedyTSS",2,"Ca-AstroPh")
+readData("ca-astroph/TIPDecomp",3,"Ca-AstroPh")
+readData("ca-astroph/VirAds",4,"Ca-AstroPh")
+
+readData("ca-astroph/TSSRandom",1,"Ca-AstroPh (Random)")
+readData("ca-astroph/GreedyTSSRandom",2,"Ca-AstroPh (Random)")
+readData("ca-astroph/TIPDecompRandom",3,"Ca-AstroPh (Random)")
+readData("ca-astroph/ViradsRandom",4,"Ca-AstroPh (Random)")
+
+readData("ca-condmath/TSS",1,"Ca-CondMat")
+readData("ca-condmath/GreedyTSS",2,"Ca-CondMat")
+readData("ca-condmath/TIPDecomp",3,"Ca-CondMat")
+readData("ca-condmath/VirAds",4,"Ca-CondMat")
+
+readData("ca-condmath/TSSRandom",1,"Ca-CondMat (Random)")
+readData("ca-condmath/GreedyTSSRandom",2,"Ca-CondMat (Random)")
+readData("ca-condmath/TIPDecompRandom",3,"Ca-CondMat (Random)")
+readData("ca-condmath/ViradsRandom",4,"Ca-CondMat (Random)")
+
+readData("ca-hepph/TSS",1,"Ca-HepPh")
+readData("ca-hepph/GreedyTSS",2,"Ca-HepPh")
+readData("ca-hepph/TIPDecomp",3,"Ca-HepPh")
+readData("ca-hepph/VirAds",4,"Ca-HepPh")
+
+readData("ca-hepph/TSSRandom",1,"Ca-HepPh (Random)")
+readData("ca-hepph/GreedyTSSRandom",2,"Ca-HepPh (Random)")
+readData("ca-hepph/TIPDecompRandom",3,"Ca-HepPh (Random)")
+readData("ca-hepph/ViradsRandom",4,"Ca-HepPh (Random)")
+
+readData("ca-hepth/TSS",1,"Ca-HepTh")
+readData("ca-hepth/GreedyTSS",2,"Ca-HepTh")
+readData("ca-hepth/TIPDecomp",3,"Ca-HepTh")
+readData("ca-hepph/VirAds",4,"Ca-HepTh")
+
+readData("ca-hepth/TSSRandom",1,"Ca-HepTh (Random)")
+readData("ca-hepth/GreedyTSSRandom",2,"Ca-HepTh (Random)")
+readData("ca-hepth/TIPDecompRandom",3,"Ca-HepTh (Random)")
+readData("ca-hepth/ViradsRandom",4,"Ca-HepTh (Random)")
+
+readData("ca-grqc/TSS",1,"Ca-GrQc")
+readData("ca-grqc/GreedyTSS",2,"Ca-GrQc")
+readData("ca-grqc/TIPDecomp",3,"Ca-GrQc")
+readData("ca-grqc/VirAds",4,"Ca-GrQc")
+
+readData("ca-grqc/TSSRandom",1,"Ca-GrQc (Random)")
+readData("ca-grqc/GreedyTSSRandom",2,"Ca-GrQc (Random)")
+readData("ca-grqc/TIPDecompRandom",3,"Ca-GrQc (Random)")
+readData("ca-grqc/ViradsRandom",4,"Ca-GrQc (Random)")
+
+readData("douban/TSS",1,"Douban")
+readData("douban/GreedyTSS",2,"Douban")
+readData("douban/TIPDecomp",3,"Douban")
+
+readData("douban/TSSRandom",1,"Douban (Random)")
+readData("douban/GreedyTSSRandom",2,"Douban (Random)")
+readData("douban/TIPDecompRandom",3,"Douban (Random)")
+readData("douban/ViradsRandom",4,"Douban (Random)")
+
+graphTime("bc3/TSS",1,"BlogCatalog3")
+graphTime("bc3/GreedyTSS",2,"BlogCatalog3")
+graphTime("bc3/TIPDecomp",3,"BlogCatalog3")
+graphTime("bc3/VirAds",4,"BlogCatalog3")
+
+graphTime("bc3/TSSRandom",1,"BlogCatalog3 (Random)")
+graphTime("bc3/GreedyTSSRandom",2,"BlogCatalog3(Random)")
+graphTime("bc3/TIPDecompRandom",3,"BlogCatalog3 (Random)")
+graphTime("bc3/ViradsRandom",4,"BlogCatalog3 (Random)")
+
+graphTime("ca-astroph/TSS",1,"Ca-AstroPh")
+graphTime("ca-astroph/GreedyTSS",2,"Ca-AstroPh")
+graphTime("ca-astroph/TIPDecomp",3,"Ca-AstroPh")
+graphTime("ca-astroph/VirAds",4,"Ca-AstroPh")
+
+graphTime("ca-astroph/TSSRandom",1,"Ca-AstroPh (Random)")
+graphTime("ca-astroph/GreedyTSSRandom",2,"Ca-AstroPh (Random)")
+graphTime("ca-astroph/TIPDecompRandom",3,"Ca-AstroPh (Random)")
+graphTime("ca-astroph/ViradsRandom",4,"Ca-AstroPh (Random)")
+
+graphTime("ca-condmath/TSS",1,"Ca-CondMat")
+graphTime("ca-condmath/GreedyTSS",2,"Ca-CondMat")
+graphTime("ca-condmath/TIPDecomp",3,"Ca-CondMat")
+graphTime("ca-condmath/VirAds",4,"Ca-CondMat")
+
+graphTime("ca-condmath/TSSRandom",1,"Ca-CondMat (Random)")
+graphTime("ca-condmath/GreedyTSSRandom",2,"Ca-CondMat (Random)")
+graphTime("ca-condmath/TIPDecompRandom",3,"Ca-CondMat (Random)")
+graphTime("ca-condmath/ViradsRandom",4,"Ca-CondMat (Random)")
+
+graphTime("ca-hepph/TSS",1,"Ca-HepPh")
+graphTime("ca-hepph/GreedyTSS",2,"Ca-HepPh")
+graphTime("ca-hepph/TIPDecomp",3,"Ca-HepPh")
+graphTime("ca-hepph/VirAds",4,"Ca-HepPh")
+
+graphTime("ca-hepph/TSSRandom",1,"Ca-HepPh (Random)")
+graphTime("ca-hepph/GreedyTSSRandom",2,"Ca-HepPh (Random)")
+graphTime("ca-hepph/TIPDecompRandom",3,"Ca-HepPh (Random)")
+graphTime("ca-hepph/ViradsRandom",4,"Ca-HepPh (Random)")
+
+graphTime("ca-hepth/TSS",1,"Ca-HepTh")
+graphTime("ca-hepth/GreedyTSS",2,"Ca-HepTh")
+graphTime("ca-hepth/TIPDecomp",3,"Ca-HepTh")
+graphTime("ca-hepph/VirAds",4,"Ca-HepTh")
+
+graphTime("ca-hepth/TSSRandom",1,"Ca-HepTh (Random)")
+graphTime("ca-hepth/GreedyTSSRandom",2,"Ca-HepTh (Random)")
+graphTime("ca-hepth/TIPDecompRandom",3,"Ca-HepTh (Random)")
+graphTime("ca-hepth/ViradsRandom",4,"Ca-HepTh (Random)")
+
+graphTime("ca-grqc/TSS",1,"Ca-GrQc")
+graphTime("ca-grqc/GreedyTSS",2,"Ca-GrQc")
+graphTime("ca-grqc/TIPDecomp",3,"Ca-GrQc")
+graphTime("ca-grqc/VirAds",4,"Ca-GrQc")
+
+graphTime("ca-grqc/TSSRandom",1,"Ca-GrQc (Random)")
+graphTime("ca-grqc/GreedyTSSRandom",2,"Ca-GrQc (Random)")
+graphTime("ca-grqc/TIPDecompRandom",3,"Ca-GrQc (Random)")
+graphTime("ca-grqc/ViradsRandom",4,"Ca-GrQc (Random)")
+
+graphTime("douban/TSS",1,"Douban")
+graphTime("douban/GreedyTSS",2,"Douban")
+graphTime("douban/TIPDecomp",3,"Douban")
+
+graphTime("douban/TSSRandom",1,"Douban (Random)")
+graphTime("douban/GreedyTSSRandom",2,"Douban (Random)")
+graphTime("douban/TIPDecompRandom",3,"Douban (Random)")
+graphTime("douban/ViradsRandom",4,"Douban (Random)")
