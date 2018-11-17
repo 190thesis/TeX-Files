@@ -8,7 +8,21 @@ The graphs used for this experiment are random graphs. We create a $random graph
 
 The formulation of the ILP is based of an existing model by \cite{}. Their model is for the $Weighted$ Target Set Selection problem. We can tweak the formulation by setting the weight variables as $w_{i}=1$ to fit our problem.
 
-Integer Linear Programming is a technique for optimizing a linear objective function, subject to linear constraints. We either want to maximize or minimize an objective function based off our problem.
+Integer Linear Programming is a technique for optimizing a linear objective function, subject to linear constraints. We either want to maximize or minimize an objective function based off our problem. If restrict the variables in this problems to $n$ {0,1} for this formulation. These variables are called decision variables.
+
+Given a graph $G=(V,E)$, we assign a threshold $t_{v}$ to each node in the graph. We also define two decision variables for this formulation $x_{v}\in{0,1}, h_{u,v}\in{0,1}$. $x_{v}$ is the decision variable we want to minimize the summation. It shows if that $x_{1}=1$ we know that this vertex is selection as part of the target set. The variable $h{u,v}$ indicates the direction of activation of nodes.
+
+\begin{equation*}
+	\begin{aligned}
+	& {\text{minimize}}
+	& &\sum_{v\in V}{x_{v}}\\ 
+	& \text{subject to} 
+	& &e_{(i,j)} \forall\{u,v\}\in\ E \\
+	& &\sum_{v\in n(v)} e_{v,u} \\
+	& &x_{v} \in \{0,1\} \\
+	& & h\{u,v\}, h\{v,u\} \in \{0,1\} \\
+	\end{aligned}
+\end{equation*}
 
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
