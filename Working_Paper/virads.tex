@@ -123,7 +123,7 @@ The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagi
 \begin{figure}
 
 VirAds has two main parameters, a graph with threshold for each vertex which is defined by $G=(V,E,T)$, as indicated on the algorithm and a positive natural number $d$ that indicates which $d-seeding$ is the algorithm will output. For this example we will use and compare $d=1$ and $d=2$.\\
-We start with $d=1$, using the graph in the figure \ref{viradsexample}. The algorithm selects the first vertex $v$ in the set of vertices that has maximum($n^{(e)}_v+n^{(a)}_v$), then it recomputes its $n^{(e)}_v$ as the number of new nodes it activates when it is activated. If the vertex $v$ does not maintain its position as the first vertex of the said set, then it selects the new first vertex, recomputes again its $n^{(e)}_v$ until the first vertex will be the same after re-computation. In this case, we select $v_1$ as the first vertex in the said set.\\
+We start with $d=1$, using the graph in the figure \ref{viradsexample}. The algorithm selects the last vertex $v$ in the set of vertices that has maximum($n^{(e)}_v+n^{(a)}_v$), then it recomputes its $n^{(e)}_v$ as the number of new nodes it activates when it is chosen as a target set. If the last vertex $v$ does not maintain its position as the last element of the said set, then it selects the new last vertex, recomputes again its $n^{(e)}_v$ until the last vertex will be the same after re-computation. In this case, we select $v_1$ as the last vertex in the said set.\\
  %iteration 1 d=1
  \textbf{Iteration 1}
  \begin{minipage}{\textwidth}
@@ -131,13 +131,13 @@ We start with $d=1$, using the graph in the figure \ref{viradsexample}. The algo
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={right:$v_1$},fill=orange] (1) {$3$};
-  \node[main node,label={right:$v_2$},below of=1,fill=yellow] (2) {$1$};
-  \node[main node,label={right:$v_3$}, below right of=1,fill=yellow] (3) {$1$};
-  \node[main node,label={right:$v_4$},above right of=1,fill=yellow] (4) {$1$};
+  \node[main node,label={right:$v_1$},fill=orange] (1) {$0$};
+  \node[main node,label={right:$v_2$},below of=1,fill=yellow] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1,fill=yellow] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1,fill=yellow] (4) {$0$};
   \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
   \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
-  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$2$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$1$};
   \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
   \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
   \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
@@ -163,13 +163,13 @@ We start with $d=1$, using the graph in the figure \ref{viradsexample}. The algo
 \begin{minipage}{\textwidth}
     \begin{tabular}{c c c c c c c}
 		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $n^{(e)}_i$ & $n^{(a)}_i$& $r^v$& $argmax$\\
-		$v_{1}$ & 4 & 3 & 3 & 3 & 2 & 6 \\
-		$v_{2}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
-		$v_{3}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
-		$v_{4}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
+		$v_{1}$ & 4 & 3 & 3 & 0 & 0 & 3 \\
+		$v_{2}$ & 1 & 1 & 1 & 0 & 2 & 1 \\
+		$v_{3}$ & 1 & 1 & 1 & 0 & 2 & 1 \\
+		$v_{4}$ & 2 & 1 & 2 & 0 & 2 & 2 \\
 		$v_{5}$ & 2 & 2 & 2 & 2 & 2 & 4 \\
 		$v_{6}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
-		$v_{7}$ & 3 & 2 & 3 & 2 & 2 & 5 \\
+		$v_{7}$ & 3 & 2 & 3 & 1 & 2 & 4 \\
 		$v_{8}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
 		$v_{9}$ &  1 & 1 & 1 & 1 & 2 & 2 \\
 		$v_{10}$ & 1 & 1 & 1 & 1 & 2 & 2\\
@@ -189,15 +189,15 @@ We start with $d=1$, using the graph in the figure \ref{viradsexample}. The algo
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={right:$v_1$},fill=orange] (1) {$3$};
-  \node[main node,label={right:$v_2$},below of=1,fill=yellow] (2) {$1$};
-  \node[main node,label={right:$v_3$}, below right of=1,fill=yellow] (3) {$1$};
-  \node[main node,label={right:$v_4$},above right of=1,fill=yellow] (4) {$1$};
+  \node[main node,label={right:$v_1$}] (1) {$0$};
+  \node[main node,label={right:$v_2$},below of=1,fill=yellow] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1,fill=yellow] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1,fill=yellow] (4) {$0$};
   \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
   \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
-  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$2$};
-  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
-  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=orange] (7) {$0$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$0$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$0$};
   \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
   
   \path[every node/.style={font=\sffamily\large}]
@@ -221,13 +221,13 @@ We start with $d=1$, using the graph in the figure \ref{viradsexample}. The algo
 \begin{minipage}{\textwidth}
     \begin{tabular}{c c c c c c c}
 		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $n^{(e)}_i$ & $n^{(a)}_i$& $r^v$& $argmax$\\
-		$v_{1}$ & 4 & 3 & 3 & 3 & 2 & 6 \\
-		$v_{2}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
-		$v_{3}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
-		$v_{4}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
+		$v_{1}$ & 4 & 3 & 3 & 0 & 0 & 3 \\
+		$v_{2}$ & 1 & 1 & 1 & 0 & 2 & 1 \\
+		$v_{3}$ & 1 & 1 & 1 & 0 & 2 & 1 \\
+		$v_{4}$ & 2 & 1 & 2 & 0 & 2 & 2 \\
 		$v_{5}$ & 2 & 2 & 2 & 2 & 2 & 4 \\
 		$v_{6}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
-		$v_{7}$ & 3 & 2 & 3 & 2 & 2 & 5 \\
+		$v_{7}$ & 3 & 2 & 3 & 1 & 2 & 4 \\
 		$v_{8}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
 		$v_{9}$ &  1 & 1 & 1 & 1 & 2 & 2 \\
 		$v_{10}$ & 1 & 1 & 1 & 1 & 2 & 2\\
@@ -236,59 +236,5 @@ We start with $d=1$, using the graph in the figure \ref{viradsexample}. The algo
 \end{minipage}
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
 \vspace*{0.3cm}  
-
-%iteration 2 d=1
- \textbf{Iteration 2}
- \begin{minipage}{\textwidth}
- 	\centering
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
-                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-
-  \node[main node,label={right:$v_1$},fill=orange] (1) {$3$};
-  \node[main node,label={right:$v_2$},below of=1,fill=yellow] (2) {$1$};
-  \node[main node,label={right:$v_3$}, below right of=1,fill=yellow] (3) {$1$};
-  \node[main node,label={right:$v_4$},above right of=1,fill=yellow] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
-  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
-  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$2$};
-  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
-  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
-  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
-  
-  \path[every node/.style={font=\sffamily\large}]
-    (1) edge node {} (7)
-    	edge node {} (2)
-    	edge node {} (3)
-    (2) 
-    (3) 
-    (4) edge node {} (1)
-    	edge node {} (5)
-    (5) edge node {} (6)
-    (6) edge node {} (10)
-    (7) edge node {} (8)
-    	edge node {} (9)
-    (8)
-    (9)
-    (10) 
-    ;
-\end{tikzpicture}
-\end{minipage}
-\begin{minipage}{\textwidth}
-    \begin{tabular}{c c c c c c c}
-		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $n^{(e)}_i$ & $n^{(a)}_i$& $r^v$& $argmax$\\
-		$v_{1}$ & 4 & 3 & 3 & 3 & 2 & 6 \\
-		$v_{2}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
-		$v_{3}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
-		$v_{4}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
-		$v_{5}$ & 2 & 2 & 2 & 2 & 2 & 4 \\
-		$v_{6}$ & 2 & 1 & 2 & 1 & 2 & 3 \\
-		$v_{7}$ & 3 & 2 & 3 & 2 & 2 & 5 \\
-		$v_{8}$ & 1 & 1 & 1 & 1 & 2 & 2 \\
-		$v_{9}$ &  1 & 1 & 1 & 1 & 2 & 2 \\
-		$v_{10}$ & 1 & 1 & 1 & 1 & 2 & 2\\
-	\end{tabular}
-
-\end{minipage}
-\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
-\vspace*{0.3cm}  
+ 
 \end{figure}
