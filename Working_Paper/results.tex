@@ -53,7 +53,7 @@ We use the example from before to better understand how to formulate the problem
 	\end{aligned}
 \end{equation*}
 
-We can input these equations into a solver and we get $x_{1}=x_{5}=x_{7}=1$. The paper being studies got the same result with the TSS algorithm but the vertex selection started with the last node instead of the first node to be eligible. We get different vertices in different runs of TSS if the selection of the vertex in case 3 is random but, the cardinality stays the same.
+We can input these equations into a solver and we get $x_{1}=x_{5}=x_{7}=1$. The paper being studied got the same result with the TSS algorithm but the vertex selection started with the last node instead of the first node to be eligible. We get different vertices in different runs of TSS if the selection of the vertex in case 3 is random but, the cardinality stays the same.
 
 The random graphs and ILP objective function and constraints were generated and using matlab 2017a. The ILP formulation of the random graphs was solved using \textit{LPSolve}\cite{lpsolve}. The max number of variables we generate is 1000-1200, this is for only 50 nodes and 90/100 probability.
 
@@ -348,7 +348,7 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 
 From the graphs we can observe that for the majority of our graphs, the TSS algorithm obtains the least cardinality for every threshold.
 
-The time versus thresholds graphs show that in TSS we obtain fastest result when all the vertices' thresholds is 1. Note that with $t=1$, most of the time we go to case 1($t=0$) of the algorithm just after the first removal of the first node. This implies a fast computation of the equation in case 3($\frac{t(v)}{d(v)(d(v)+1}$). At the end there remains a single node (for some datasets it is more than 1) that has its degree to be less than its threshold, meaning we need to include it to the target set. VirAds seems to be the only algorithm to show that as the threshold increases, so does the time it takes to obtain the target set. The other algorithms seem to show that the time it takes per threshold is somewhat \textit{constant} through out the thresholds.
+The time versus thresholds graphs show that in TSS we obtain fastest result when all the vertices' thresholds is 1. Note that with $t=1$, most of the time we go to case 1($t=0$) of the algorithm just after the first removal of the first node. This implies a fast computation of the equation in case 3($\frac{t(v)}{d(v)(d(v)+1}$). At the end there remains a single node (for some datasets it is more than 1) that has its degree to be less than its threshold, meaning we need to include it to the target set. VirAds seems to be the only algorithm to show that as the threshold increases, so does the time it takes to obtain the target set. The other algorithms seem to show that the time it takes per threshold is somewhat \textit{constant} through out the thresholds. Also, the runtime per threshold of the TIPDecomp algorithm seems to show that the higher the threshold value the faster it runs.
 
 The bar plot comparing the algorithms shows that the TSS took the longest time in finding the target set. This maybe due to the fact that in our code we update a property of a node every iteration to keep track of the selection of nodes in case 3. In the paper, Cordasco did not report the run times of the experiment, stating that this experiment is very machine and implementation dependent.
 \clearpage
