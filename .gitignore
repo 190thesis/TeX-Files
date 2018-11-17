@@ -5,3 +5,5 @@
 *.synctex
 *.dvi
 Source Codes/getGraph.asv
+*.bbl
+*.blg
