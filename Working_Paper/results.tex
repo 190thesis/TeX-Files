@@ -28,28 +28,28 @@ We use the example from before to better understand how to formulate the problem
 \begin{equation*}
 	\begin{aligned}
 	&&& {\text{minimize}} \ x_{1}+x_{2}+x_{3}+x_{4}+x_{5}+x_{6}+x_{7}+x_{8}+x_{9}+x_{10}&&&\\ 
-	&&&\text{subject to} && \\
-	&&&e_{1,2}+e_{2,1}=1&&&\\
-	&&&e_{1,3}+e_{3,1}=1&&&\\
-	&&&e_{1,4}+e_{4,1}=1&&&\\
-	&&&e_{1,7}+e_{7,1}=1&&&\\
-	&&&e_{4,5}+e_{5,4}=1&&&\\
-	&&&e_{5,6}+e_{6,5}=1&&&\\
-	&&&e_{6,10}+e_{10,6}=1&&&\\
-	&&&e_{7,8}+e_{8,7}=1&&&\\
-	&&&e_{7,9}+e_{9,7}=1&&&\\	
-	&&& e_{1,2}+e_{1,3}+e_{1,4}+e_{1,7}+3x_{1}\geq 3&&&\\
-	&&& e_{2,1} + x_{2}\geq 1&&&\\
-	&&& e_{3,1} + x_{3}\geq 1&&&\\
-	&&& e_{4,1} + e_{4,5} + x_{4}\geq 1&&&\\
-	&&& e_{5,4} + e_{5,6} + 2 x_{5}\geq 2&&&\\
-	&&& e_{6,5} + e_{6,10} + x_{6}\geq 1&&&\\
-	&&& e_{7,1} + e_{7,8} + e_{7,9} + 2 x_{6}\geq 2&&&\\
-	&&& e_{8,7} + x_{8}\geq 1&&&\\
-	&&& e_{9,7} + x_{9}\geq 1&&&\\
-	&&& e_{10,6} + x_{10}\geq 1&&&\\
-	&& &x_{v} \in \{0,1\}  \forall v \in V&&&\\
-	&& &e_{v,u}\in \{0,1\}  \forall v \in V &&&\\
+	&&\text{subject to} &&& \\
+	&&&e_{1,2}+e_{2,1}=1&&\\
+	&&&e_{1,3}+e_{3,1}=1&&\\
+	&&&e_{1,4}+e_{4,1}=1&&\\
+	&&&e_{1,7}+e_{7,1}=1&&\\
+	&&&e_{4,5}+e_{5,4}=1&&\\
+	&&&e_{5,6}+e_{6,5}=1&&\\
+	&&&e_{6,10}+e_{10,6}=1&&\\
+	&&&e_{7,8}+e_{8,7}=1&&\\
+	&&&e_{7,9}+e_{9,7}=1&&\\	
+	&&& e_{1,2}+e_{1,3}+e_{1,4}+e_{1,7}+3x_{1}\geq 3&&\\
+	&&& e_{2,1} + x_{2}\geq 1&&\\
+	&&& e_{3,1} + x_{3}\geq 1&&\\
+	&&& e_{4,1} + e_{4,5} + x_{4}\geq 1&&\\
+	&&& e_{5,4} + e_{5,6} + 2 x_{5}\geq 2&&\\
+	&&& e_{6,5} + e_{6,10} + x_{6}\geq 1&&\\
+	&&& e_{7,1} + e_{7,8} + e_{7,9} + 2 x_{6}\geq 2&&\\
+	&&& e_{8,7} + x_{8}\geq 1&&\\
+	&&& e_{9,7} + x_{9}\geq 1&&\\
+	&&& e_{10,6} + x_{10}\geq 1&&\\
+	&&&x_{v} \in \{0,1\}  \forall v \in V&&\\
+	&&&e_{v,u}\in \{0,1\}  \forall v \in V &&\\
 	\end{aligned}
 \end{equation*}
 
@@ -90,11 +90,11 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 	\item Douban (154907 nodes, 654188 edges):
 	 Douban.com, launched on March 6, 2005, is a Chinese Web 2.0 website providing user review and recommendation services for movies, books, and music.
 \end{enumerate}
-
+\clearpage
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/bc3paper.jpg}
-\caption{Cardinality vs Threshold}
+\caption{Cardinality vs Threshold (From Paper)}
 \label{fase1}
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
@@ -106,12 +106,12 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/bc3resultrandom.jpg}
-\caption{Time vs Threshold}
+\caption{Cardinality vs Threshold (Random)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/bc3time1.jpg}
-\caption{Time vs Threshold}
+\caption{Time for all algorithms}
 \end{minipage}
 \end{figure}
 
@@ -123,13 +123,14 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/bc3timerandom.jpg}
-\caption{Time vs Threshold}
+\caption{Time vs Threshold (Random)}
 \end{minipage}
 \end{figure}
+
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-astrophpaper.jpg}
-\caption{Cardinality vs Threshold}
+\caption{Cardinality vs Threshold (From Paper)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
@@ -141,12 +142,12 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-astrophresultrandom.jpg}
-\caption{Time vs Threshold}
+\caption{Cardinality vs Threshold (Random)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/astrophtime.jpg}
-\caption{Time vs Threshold}
+\caption{Time for all algorithms}
 \end{minipage}
 \end{figure}
 
@@ -162,10 +163,11 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \end{figure}
 
+
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-condmatpaper.jpg}
-\caption{Cardinality vs Threshold}
+\caption{Cardinality vs Threshold (From Paper)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
@@ -177,12 +179,12 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-condmatresultrandom.jpg}
-\caption{Time vs Threshold}
+\caption{Cardinality vs Threshold (Random)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/condmattime.jpg}
-\caption{Time vs Threshold}
+\caption{Time for all algorithms}
 \end{minipage}
 \end{figure}
 
@@ -198,10 +200,11 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \end{figure}
 
+
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepphpaper.jpg}
-\caption{Cardinality vs Threshold}
+\caption{Cardinality vs Threshold (From Paper)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
@@ -213,12 +216,12 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepphresultrandom.jpg}
-\caption{Time vs Threshold}
+\caption{Cardinality vs Threshold (Random)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/hepphtime.jpg}
-\caption{Time vs Threshold}
+\caption{Time for all algorithms}
 \end{minipage}
 \end{figure}
 
@@ -230,14 +233,15 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepphrandomtime.jpg}
-\caption{Time vs Threshold}
+\caption{Time vs Threshold(Random)}
 \end{minipage}
 \end{figure}
+
 
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepthpaper.jpg}
-\caption{Cardinality vs Threshold}
+\caption{Cardinality vs Threshold (From Paper)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
@@ -249,12 +253,12 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepthresultrandom.jpg}
-\caption{Time vs Threshold}
+\caption{Cardinality vs Threshold (Random)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/hepthtime.jpg}
-\caption{Time vs Threshold}
+\caption{Time for all algorithms}
 \end{minipage}
 \end{figure}
 
@@ -266,14 +270,13 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-hepthrandomtime.jpg}
-\caption{Time vs Threshold}
+\caption{Time vs Threshold (Random)}
 \end{minipage}
 \end{figure}
-	
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-grqcpaper.jpg}
-\caption{Cardinality vs Threshold}
+\caption{Cardinality vs Threshold (From Paper)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
@@ -285,12 +288,12 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-grqcresultrandom.jpg}
-\caption{Time vs Threshold}
+\caption{Cardinality vs Threshold (Random)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/grqctime.jpg}
-\caption{Time vs Threshold}
+\caption{Time for all algorithms}
 \end{minipage}
 \end{figure}
 
@@ -302,14 +305,15 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/ca-grqcrandomtime.jpg}
-\caption{Time vs Threshold}
+\caption{Time vs Threshold (Random)}
 \end{minipage}
 \end{figure}
+
 
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/doubanpaper.jpg}
-\caption{Cardinality vs Threshold}
+\caption{Cardinality vs Threshold (From Paper)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
@@ -321,12 +325,12 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \begin{figure}[h!]
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/doubanresultrandom.jpg}
-\caption{Cardinality vs Threshold}
+\caption{Cardinality vs Threshold (Random)}
 
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/doubantime1.jpg}
-\caption{Time vs Algorithms}
+\caption{Time for all algorithms}
 \end{minipage}
 \end{figure}
 
@@ -338,12 +342,30 @@ We get our data from real-life networks\cite{datasets1}\cite{datasets2}. The fol
 \end{minipage}
 \begin{minipage}[t]{0.50\textwidth}
 \includegraphics[width=\linewidth,keepaspectratio=true]{images/doubantimerandom.jpg}
-\caption{Time vs Threshold}
+\caption{Time vs Threshold (Random)}
 \end{minipage}
 \end{figure}
 
-From the graphs we can observe that for the majority of our graphs, the TSS algorithm obtains the least cardinality for every thresholds.
+From the graphs we can observe that for the majority of our graphs, the TSS algorithm obtains the least cardinality for every threshold.
 
 The time versus thresholds graphs show that in TSS we obtain fastest result when all the vertices' thresholds is 1. Note that with $t=1$, most of the time we go to case 1($t=0$) of the algorithm just after the first removal of the first node. This implies a fast computation of the equation in case 3($\frac{t(v)}{d(v)(d(v)+1}$). At the end there remains a single node (for some datasets it is more than 1) that has its degree to be less than its threshold, meaning we need to include it to the target set. VirAds seems to be the only algorithm to show that as the threshold increases, so does the time it takes to obtain the target set. The other algorithms seem to show that the time it takes per threshold is somewhat \textit{constant} through out the thresholds.
 
-The bar plots comparing the algorithms shows that the TSS took the longest time in finding the target set. This maybe due to the fact that in our code we update a property of a node every iteration to keep track of the selection of nodes in case 3. In the paper, Cordasco did not report the run times of the experiment, stating that this experiment is very machine and implementation dependent.
+The bar plot comparing the algorithms shows that the TSS took the longest time in finding the target set. This maybe due to the fact that in our code we update a property of a node every iteration to keep track of the selection of nodes in case 3. In the paper, Cordasco did not report the run times of the experiment, stating that this experiment is very machine and implementation dependent.
+\clearpage
+
+\begin{sidewaysfigure}
+\begin{tabular}{|c|c| c|c|c|c|c|c|c|} \hline
+  Dataset&TSS& TSS Random & Greedy & Greedy Random & TIPDecomp & TIPDecomp Random & VirAds & VirAds Random \\ \hline
+ BC1 & X & X & X & X & X & X & X & X\\ \hline
+ BC2 & X & X & X & 1 iter & X & X & X & X \\ \hline
+ Buzznet & X & 1 iter & \checkmark & 2 iter& \checkmark & 3 iter & X & X \\ \hline
+ Delicious & X & X & X & X & X & X & X & X \\ \hline
+ Douban & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & X & \checkmark \\ \hline
+ Lastfm & X & X & X & X & X & X & X & X\\ \hline
+ LiveMocha & X & 1 iter & \checkmark & 2 iter &\checkmark & 3 iter & X & \\ \hline
+ Youtube  & X & X & X & X & X & X & X & X\\ \hline
+ 
+\end{tabular}
+\end{sidewaysfigure}
+
+The datasets with all cross marks are large graphs consisting of millions of nodes and millions of edges. Running the Youtube dataset takes atleast 18 hours to run one threshold for one algorithm and the Lastfm dataset takes 2 days for one threshold for one algorithm. 
