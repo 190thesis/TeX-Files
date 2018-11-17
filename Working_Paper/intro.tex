@@ -1,0 +1,1124 @@
+\section{Introduction to the Problem}
+"Viral Marketing" is a term first introduced in 1997 by Steve Jurvetson and Time Draper\cite{viralmarketing}. It is an effective way of advertising a product to a large group of people by having little groups eventually spread awareness to your product. Companies make a commercial with this in mind. Many over-the-top and absurd commercial having been making rounds across the internet \cite{commercialrise}. First, being seen by a few people who were entertained by the commercial enough for them to hit the share button creating a network to other people who will eventually see the commercial shared by their friend and promptly clicking the share button themselves. Thus, repeating the cycle and expanding the network. 
+
+Online social networks are a good medium to advertise on. Viral Marketing on online social networks is a very cost-effective technique that most companies today utilize. For only spending a few dollars, the payoff can be amazing.\cite{viralmarketing} In 1996, this strategy was used by the once popular e-mail service Hotmail: Every mail sent via Hotmail contained advertisement for the service. A total of \$50,000 was spent on this campaign. Hotmail expanded into 12 million users in just 18 months.\cite{viralmarketing} 
+
+Recently, the video game company Epic Games, used this tactic to advertise their new battle royale game "Fortnite" and it gave astounding results. The number one video streaming site, Youtube, is a very large network and resource to put to use. They sponsored Youtubers with hundred to millions of subscribers to promote their game.\cite{sponsoredvideos} Youtuber Evan Fong "VanossGaming" was one of the content creators Epic Games sponsored for advertising the beta release of Fortnite \cite{vanoss}. He currently has 23 million subscribers(August 2018). The video, titled "Fortnite Funny Moments-Launcing the Rocket!(Gameplay)", has garnered 10 million views in a span of a year.
+
+With this in mind, finding the set of people to target would be ideal. \textbf{Target Set Selection} is basically finding the smallest set of people in a social network to influence all of the people in said network.\cite{Kempe,chen,Shakarian:2012:LSN:2456719.2457081} This network can be represented with a graph $G$ with each person as a node/vertex $V$. Connecting each node/vertex $V$ is an edge $E$. Connected vertices are considered neighbors $n$. The degree $d(v)$ of each node is how many neighbors a node has. The threshold $k(v)$ of each node is a factor to gauge the suceptability of a node from being influenced. The neighbor $N(v)$ is the set of neighbors of the node. 
+
+\include{diffmodel}
+
+
+\include{tipdecomp}
+
+\include{virads}
+
+<<<<<<< HEAD
+=======
+Imagine yourself walking down the street. A stranger approaches you and hands you a brochure showing you how amazing a new product is, but still, it's not enough to convince you to buy said product. As you walk home, you see a poster with your favorite celebrity advertising the same product. You think: \textit{"That seems nice, I'll consider buying it"}. You arrive to see your parents using the same product. So you quickly leave your house to buy the product. The next day, you tell your friends about the product you just bought and try to make them buy and use it.
+
+We represent the different vertices in the network graph as the stranger, the poster of the celebrity or your parents, each having individual weights on your decision to buy the product. You start off as unconvinced(inactive) that the product is worth buying, but as time goes by and as the influence of other people pile up on you, you reach your threshold and finally buy the product, making you active. Making you eligible to influence other inactive nodes/vertices.
+
+We also assume that a node can only switch from inactive to active and not the other way around. A active node will remain active during the diffusion process. The process runs until no more activation occurs.\cite{Shakarian:2012:LSN:2456719.2457081} 
+\subsubsection{Linear Threshold Model}
+Different people have different weights to their words. If a family member or a famous person gives you a recommendation, we assume that their statement will have a large weight attributed to it and if a random stranger you do not know and have no affiliation with tell you to buy their product, we know that it will have tiny to average effect on you the consumer.
+
+Given a simple directed graph $G=(V,E)$, we assign a weight $w(e) \in \mathbb{R}^{+}$ on each edge $e$ selected uniformly random in the interval $[0,1]$. We also assign a threshold $t(v) \in \mathbb{R}^{+}$ to every vertex $v$ in $G$ selected uniformly random in the interval $[0,1]$. Note: $t(v) \not\geq w(e)_{\nu^{in}}$.
+We define a vertex/node as active when
+
+		$$\sum_{e \in \eta^{in}(v)} w(e)\geq t(v)$$
+
+If the sum of the weight of the edges incoming to the vertex $v$ is greater than or equal to the threshold of $v$, $v$ becomes active. The process ends when all nodes are active.
+
+In the first graph in the figure \ref{linearfig} we set to vertex C to be active to start the process. After each time step/round $r$ we look to see if the weight of the edges outgoing from the activated vertices to the other vertices in its neighborhood. At round 2 vertices B and D become active. At round 3 A becomes active and the process ends when all the vertices are active. \cite{Kempe}
+
+We define a simple directed graph $G$ with\\
+\begin{equation}
+\begin{array}{c c}
+V=(A,B,C,D) &
+E=(e_{1},e_{2},e_{3},e_{4},e_{5},e_{6},e_{7},e_{8},e_{9},e_{10})\\
+e_{1}=\{A,B\} & e_{2}=\{B,A\}\\
+e_{3}=\{B,C\} & e_{4}=\{C,B\}\\
+e_{5}=\{B,D\} & e_{6}=\{D,B\}\\
+e_{7}=\{A,C\} & e_{8}=\{C,A\}\\
+e_{9}=\{C,D\} & e_{10}=\{D,C\}\\ 
+w(e_{1})=0.5 & w(e_{2})=0.2\\
+w(e_{3})=0.3 & w(e_{4})=0.7\\
+w(e_{5})=0.4 & w(e_{6})=0.2\\
+w(e_{7})=0.4 & w(e_{8})=0.3\\
+w(e_{9})=0.5 & w(e_{10})=0.3\\
+t(A)=0.4 & t(B)=0.6\\
+t(C)=0.8 & t(D)=0.3\\
+\end{array} 
+\end{equation}
+\begin{figure}[h!]
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={t(A)=0.4}] (A) {$A$};
+  \node[main node,label=below:{t(C)=0.8},color={red}] (C) [below of=A] {$C$};
+  \node[main node,label={t(B)=0.6}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{t(D)=0.3}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily}]
+    (A) edge node [pos=0.8] {$e_1=0.5$} (B)
+    	edge node [pos=0.8] {$e_7=0.4$} (C)
+    (B) edge node [pos=0.8]{$e_2=0.2$} (A)
+    	edge node [pos=0.8]{$e_3=0.3$} (C)
+    	edge node [pos=0.8]{$e_5=0.2$} (D)
+    (C) edge node [pos=0.8]{$e_8=0.3$} (A)
+    	edge node [pos=0.8]{$e_4=0.7$} (B)
+    	edge node [pos=0.8]{$e_9=0.5$} (D)
+    (D) edge node [pos=0.8]{$e_{10}=0.3$} (C)
+    	edge node [pos=0.8]{$e_6=0.4$} (B)
+    ;
+		\end{tikzpicture}
+		\caption{r=1}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+		
+		  \node[main node,label={t(A)=0.4}] (A) {$A$};
+		  \node[main node,label=below:{t(C)=0.8},color={red}] (C) [below of=A] {$C$};
+		  \node[main node,label={t(B)=0.6},color={red}] (B) [right of=A] {$B$};
+		  \node[main node,label=below:{t(D)=0.3},color={red}] (D) [right of=C] {$D$};
+		  
+		    \path[every node/.style={font=\sffamily}]
+    (A) edge node [pos=0.8] {$e_1=0.5$} (B)
+    	edge node [pos=0.8] {$e_7=0.4$} (C)
+    (B) edge node [pos=0.8]{$e_2=0.2$} (A)
+    	edge node [pos=0.8]{$e_3=0.3$} (C)
+    	edge node [pos=0.8]{$e_5=0.2$} (D)
+    (C) edge node [pos=0.8]{$e_8=0.3$} (A)
+    	edge node [pos=0.8]{$e_4=0.7$} (B)
+    	edge node [pos=0.8]{$e_9=0.5$} (D)
+    (D) edge node [pos=0.8]{$e_{10}=0.3$} (C)
+    	edge node [pos=0.8]{$e_6=0.4$} (B)
+    ;
+	\end{tikzpicture}
+	\caption{r=2}
+
+	\end{minipage}
+	\vspace*{0.2cm}
+	\begin{minipage}{0.45\textwidth}
+	\centering
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+	  \node[main node,label={t(A)=0.4}, color={red}] (A) {$A$};
+	  \node[main node,label=below:{t(C)=0.8},color={red}] (C) [below of=A] {$C$};
+	  \node[main node,label={t(B)=0.6}, color={red}] (B) [right of=A] {$B$};
+	  \node[main node,label=below:{t(D)=0.3}, color={red}] (D) [right of=C] {$D$};
+	  
+	   \path[every node/.style={font=\sffamily}]
+    (A) edge node [pos=0.8] {$e_1=0.5$} (B)
+    	edge node [pos=0.8] {$e_7=0.4$} (C)
+    (B) edge node [pos=0.8]{$e_2=0.2$} (A)
+    	edge node [pos=0.8]{$e_3=0.3$} (C)
+    	edge node [pos=0.8]{$e_5=0.2$} (D)
+    (C) edge node [pos=0.8]{$e_8=0.3$} (A)
+    	edge node [pos=0.8]{$e_4=0.7$} (B)
+    	edge node [pos=0.8]{$e_9=0.5$} (D)
+    (D) edge node [pos=0.8]{$e_{10}=0.3$} (C)
+    	edge node [pos=0.8]{$e_6=0.4$} (B)
+    ;
+	\end{tikzpicture}
+	\caption{r=3}
+	\end{minipage}
+	\caption{Linear Threshold model of graph G at $r=1,2,3$ with C initially activated}
+\label{linearfig}
+\end{figure}
+
+\subsubsection{Independent Cascade Model}
+Now, in this model, we assume that when a person tries you influence you, they only have that one chance to do so. After that, they lose their chance of doing it again. We still have the knowledge that different people have different weights assigned to their words. In this model, however, we assign a percentage that determines how likely is that person to influence you. Say, your mother has a 90\% chance to recommend you a product but, on the contrary, the known scam artist has a 15\% chance of influencing you.
+
+Given a simple directed graph $G(V,E)$,we assign a probability $P_{u,v}(e)$, this defines the probability of $u$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node again.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
+
+We define a simple directed graph
+\begin{equation}
+	\begin{array}{c c}
+	V=(A,B,C,D) &
+	E=(e_{1},e_{2},e_{3},e_{4},e_{5},e_{6},e_{7},e_{8})\\
+	e_{1}=\{A,B\} & e_{2}=\{B,A\}\\
+	e_{3}=\{B,C\} & e_{4}=\{C,B\}\\
+	e_{5}=\{A,C\} & e_{6}=\{C,A\}\\
+	e_{7}=\{C,D\} & e_{8}=\{D,C\}\\ 
+	P(e_{1})=0.1 & P(e_{2})=0.5\\
+	P(e_{3})=0.2 & P(e_{4})=0.6\\
+	P(e_{5})=0.4 & P(e_{6})=0.3\\
+	P(e_{7})=0.5 & P(e_{8})=0.2\\ 
+	\end{array}
+\end{equation}
+\begin{figure}[h!]
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node] (A) {$A$};
+  \node[main node,color={red}] (C) [below of=A] {$C$};
+  \node[main node] (B) [right of=A] {$B$};
+  \node[main node] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node [pos=0.8] {$0.5$} (B)
+		edge node [pos=0.8] {$0.4$} (C)
+	(B) edge node [pos=0.8] {$0.1$} (A)
+    	edge node [pos=0.8] {$0.2$} (C)
+    (C) edge node [pos=0.8] {$0.3$} (A)
+    	edge node [pos=0.8] {$0.6$} (B)
+    	edge node [pos=0.8] {$0.2$} (D)
+    (D) edge node [pos=0.8] {$0.5$} (C)
+    	
+    ;
+\end{tikzpicture}
+\caption{r=1}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,color={gray}] (A) {$A$};
+  \node[main node,color={red}] (C) [below of=A] {$C$};
+  \node[main node,color={red}] (B) [right of=A] {$B$};
+  \node[main node,color={gray}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node [pos=0.8] {$0.5$} (B)
+		edge node [pos=0.8] {$0.4$} (C)
+	(B) edge node [pos=0.8] {$0.1$} (A)
+    	edge node [pos=0.8] {$0.2$} (C)
+	(C) edge node [pos=0.8] {$0.3$} (A)
+		edge node [pos=0.8] {$0.6$} (B)
+    	edge node [pos=0.8] {$0.2$} (D)
+    (D) edge node [pos=0.8] {$0.5$} (C)
+    ;
+\end{tikzpicture}
+\caption{r=2}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\centering
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node, color={red}] (A) {$A$};
+  \node[main node,color={red}] (C) [below of=A] {$C$};
+  \node[main node, color={red}] (B) [right of=A] {$B$};
+  \node[main node, color={gray}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node [pos=0.8] {$0.5$} (B)
+    	edge node [pos=0.8] {$0.4$} (C)
+    (B) edge node [pos=0.8] {$0.1$} (A)
+    	edge node [pos=0.8] {$0.2$} (C)
+    (C) edge node [pos=0.8] {$0.3$} (A)
+    	edge node [pos=0.8] {$0.6$} (B)
+    	edge node [pos=0.8] {$0.2$} (D)
+    (D) edge node [pos=0.8] {$0.5$} (C)
+    ;
+\end{tikzpicture}
+\caption{r=3}
+	\end{minipage}
+\caption{Independent Cascade model of graph G at $r=1,2,3$ with C initially activated}
+\label{Independentfig1}
+\end{figure}
+
+Notice that on figure \ref{Independentfig1}; at round 2, vertex $C$ fails to activate vertices A and D. This means that C loses the ability to influence said vertices but this doesn't mean that that the neighbor of vertex A can't influence A. At round 3, vertex B succeeds in influencing vertex A and all of the vertices have been tried for activation and there they have no more neighbors left to activate, meaning, the process ends.
+\subsection{The threshold model reintroduced by Chen}
+
+Now, we limit and modify the model. Where in the vertices/nodes know each other or have some kind of connection/relationship. This means, every neighbor or friend of a certain person has the same effect as every other neighbor or friend of that person. The threshold is only thing to be considered. When determining how likely a person is to be influence, the size of their neighbor considered.
+
+Given a simple undirected connected graph $G=(V,E)$, $v \in V, e \in E$, let $d(v)$ to be the degree of $v \in V$. For each node/vertex $v \in V$, we assign a threshold value $t(v) \in \mathbb{N}$, where $1 \leq t(v) \leq d(v)$. At the start, the states of all the nodes/vertices are set to inactive. We then pick a subset of $V$, the $target\; set$, and set their states to active. At each round/time step, the states of vertices are to be updated if an inactive vertex $v$ has at least as many active neighbors as its threshold $t(v)$. The process ends when all vertices are active or no additional vertices can make the remaining nodes active. Again, the vertices can only change states from being inactive to active, not the other way around \cite{chen}.
+
+The difference of this model to the two previously discussed models by Kempe et.al \cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}, is that their model focused on maximization of the vertices the target set can activate. This model on the other hand, will aim to find a target set that activates all or a fixed fraction of vertices. The previous two models were based of probabilistic thresholds where all thresholds were drawn randomly from a given distribution. \cite{Kempe}\cite{chen}
+
+We define a simple undirected graph $G=(V,E)$, $v \in V and\; e \in E$. 
+\begin{equation}
+	\begin{array}{c c}
+	V=\{A, B, C ,D\} & E=\{e_1, e_2, e_3, e_4, e_5\}\\
+	t(A)=3 & t(B)=1 \\
+	t(C)=3 & t(D)=1 \\
+	\end{array}
+\end{equation}
+\begin{figure}[h!]
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$t(A)=3$}] (A) {$A$};
+  \node[main node,color={red},label=below:{$t(C)=3$}] (C) [below of=A] {$C$};
+  \node[main node,label={$t(B)=1$}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$t(D)=1$}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node {} (B)
+    	
+    (B) 
+    (C) edge node {} (A)
+    	edge node {} (D)
+    (D) edge node {} (B)
+    	edge node {} (A)
+    	
+    ;
+\end{tikzpicture}
+\caption{r=1}
+	\end{minipage}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$t(A)=3$}] (A) {$A$};
+  \node[main node,color={red},label=below:{$t(C)=3$}] (C) [below of=A] {$C$};
+  \node[main node,label={$t(B)=1$}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$t(D)=1$},color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node {} (B)
+    	
+    (B) 
+    (C) edge[color=red] node {} (A)
+    	edge[color=red] node {} (D)
+    (D) edge node {} (B)
+    	edge node {} (A)
+    	
+    ;
+\end{tikzpicture}
+\caption{r=2}
+	\end{minipage}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$t(A)=3$}] (A) {$A$};
+  \node[main node,color={red},label=below:{$t(C)=3$}] (C) [below of=A] {$C$};
+  \node[main node,label={$t(B)=1$},color={red}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$t(D)=1$},color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node {} (B)
+    	
+    (B) 
+    (C) edge[color=red] node {} (A)
+    	edge[color=red] node {} (D)
+    (D) edge[color=red] node {} (B)
+    	edge[color=red] node {} (A)
+    	
+    ;
+\end{tikzpicture}
+\caption{r=3}
+	\end{minipage}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$t(A)=3$},color={red}] (A) {$A$};
+  \node[main node,color={red},label=below:{$t(C)=3$},color={red}] (C) [below of=A] {$C$};
+  \node[main node,label={$t(B)=1$},color={red}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$t(D)=1$},color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge[color=red] node {} (B)
+    	
+    (B) 
+    (C) edge[color=red] node {} (A)
+    	edge[color=red] node {} (D)
+    (D) edge[color=red] node {} (B)
+    	edge[color=red] node {} (A)
+    	
+    ;
+    
+
+\end{tikzpicture}
+\caption{r=4}
+	\end{minipage}
+
+\caption{Threshold model with C vertex as target set at round/time step = 1,2,3,4}
+\label{Thresholdfig1}
+\end{figure}
+
+In the example figure \ref{Thresholdfig1}, we pick C as the target set. We activate C at round 1. At round 2 we check the neighbors of C which is A and D, but only D is eligible for activation since the threshold of A is 3 and it does not have enough active neighbors. D, however is eligible for activation and activates at round 2. In the next round, B, with threshold 1, activates since D is active and is a neighbor of B. Finally at round 4, A has enough active neighbors to reach its threshold 3.
+
+In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced.
+
+The threshold value is set depending on the network we want to find the target set of.
+
+\begin{enumerate}
+	\item \textbf{Small Thresholds} This case is when all the thresholds are small constants. However, this threshold becomes more complex as the threshold increases from $k=1$. Past researches have studied that, for any $k \leq 2$, the Target Set Selection Problem is NP-hard.A statement constructed by Chen et.al(2009) states that the Target Set Selection problem is NP-hard when the thresholds are at most 2. Earlier before that, Dreyer(2000) proved this instance for only $k \geq 3$.\cite{dreyer} \cite{NPhardness} 
+	\begin{itemize}
+	\item Time Complexity defines the runtime of a certain algorithm. Denoted by the Big-O notation. Example: $O(n)$ is linear time, $n$ represents the size of the input.
+	\item P or Polynomial time is a set of languages that are relatively easy to get the solution and to verify it (i.e Multiplication, sorting, finding primes, etc). This determined from the time complexity of the algorithm. Being in polynomial time, the notation would be $O(n^k)$ for some $k>1$.
+	\item NP or Non-deterministic polynomial time is the set of languages that can verified in polynomial time. Basically NP Problems are problems that when given a solution, it is easy to verify the solution, but hard to get the solution itself.
+	\item NP-Complete problems are problems that are in NP and are NP-hard(i.e $n^{2}by\; n^{2}$ sudoku, Boolean Satisfiability Problem). They are also considered as the hardest problems in NP.
+	\item A problem is NP-hard if the problem is atleast as hard or even harder than the problems in NP. This means that if you find an algorithm that solves an NP-hard problem, you can use that very algorithm to solve any other problem in NP in polynomial time or P = NP(i.e Cryptography, Routing, Scheduling).  
+\end{itemize} 
+\textbf{The Target Set Selection problem is NP-hard when the threshold $k$ for every vertex $v$ is at most 2}. \cite{chen,dreyer}
+
+We can visualize this by increasing the thresholds from 2. Using the previous threshold model example, let's set the all the thesholds of the vertex to 2. We can pick out that the size of the target set is atleast 2. Incrementing the threshold to four will show that we need atleast 4 nodes to activate all the vertices in the graph since the number of edges do not meet the theshold of the vertex. Increasing the threshold further, we need to add more vertices to suffice the condition that the threshold should always be less than or equal to the degree of the node. Checking the threshold 2 again for the new graph where we added a new node, it gets progressively harder. In real-life online social network data, which will be used for this algorithm, graphs have at least tens of thousands of nodes and hundreds of thousands of edges with the degrees in thousands.
+
+\begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={$t(A)=2$}] (A) {$A$};
+	\node[main node,label=below:{$t(C)=2$}] (C) [below of=A] {$C$};
+	\node[main node,label={$t(B)=2$}] (B) [right of=A] {$B$};
+	\node[main node,label=below:{$t(D)=2$}] (D) [right of=C] {$D$};
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(A) edge node {} (B)
+	
+	(B) 
+	(C) edge node {} (A)
+		edge node {} (D)
+	(D) edge node {} (B)
+		edge node {} (A)
+	
+	;
+	\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={$t(A)=3$}] (A) {$A$};
+	\node[main node,label=below:{$t(C)=3$}] (C) [below of=A] {$C$};
+	\node[main node,label={$t(B)=3$}] (B) [right of=A] {$B$};
+	\node[main node,label=below:{$t(D)=3$}] (D) [right of=C] {$D$};
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(A) edge node {} (B)
+	
+	(B) 
+	(C) edge node {} (A)
+		edge node {} (D)
+	(D) edge node {} (B)
+		edge node {} (A)
+	
+	;
+	\end{tikzpicture}
+\end{minipage}
+\\
+\begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={$t(A)=2$}] (A) {$A$};
+	\node[main node,label=left:{$t(E)=2$}](E) [below right of=A] {$E$};
+	\node[main node,label=below:{$t(C)=2$}] (C) [below of=A] {$C$};
+	\node[main node,label={$t(B)=2$}] (B) [right of=A] {$B$};
+	\node[main node,label=below:{$t(D)=2$}] (D) [right of=C] {$D$};
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(A) edge node {} (B)
+	
+	(B) 
+	(C) edge node {} (A)
+		edge node {} (D)
+	(D) edge node {} (B)
+	(E) edge node {} (B)
+		edge node {} (A)
+		edge node {} (D)
+	;
+	\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={$t(A)=3$}] (A) {$A$};
+	\node[main node,label=left:{$t(E)=3$}](E) [below right of=A] {$E$};
+	\node[main node,label=below:{$t(C)=3$}] (C) [below of=A] {$C$};
+	\node[main node,label={$t(B)=3$}] (B) [right of=A] {$B$};
+	\node[main node,label=below:{$t(D)=3$}] (D) [right of=C] {$D$};
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(A) edge node {} (B)
+	
+	(B) 
+	(C) edge node {} (A)
+	edge node {} (D)
+	(D) edge node {} (B)
+	(E) edge node {} (B)
+	edge node {} (A)
+	edge node {} (D)
+	;
+	\end{tikzpicture}
+\end{minipage}
+
+For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set of all node's thresholds $k=1$. Activate any of the nodes in that graph and you will create a chain reaction of activating \textbf{every} node in that graph. So, with $k=1$ we can take any one node from that graph that is our target set.\cite{chen}
+
+This is commonly used in study of social networks where in an action of a small group of people is enough to make their neighbor pick up same behavior/principle/ideology.
+	\item \textbf{Majority Thresholds t=$\frac{d(v)}{2}$} One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems, dynamic monopolies, distributed computing and use the majority rule. It was proven by Peleg (1997) that this type of threshold value is NP-hard. \cite{majority} 
+	
+	\item \textbf{Unanimous Thresholds t(v)=d(v)} This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen} 
+\end{enumerate}
+
+\subsection{Target Set Selection Algorithms compared in this study}
+
+\subsubsection{TIP-DECOMP}
+\begin{algorithm}
+	\caption{TIP-DECOMP}
+	\begin{algorithmic}[1]
+		\Require Threshold function, $t$ and social network $G=(V,E)$
+		\Ensure $V'$
+		
+		\ForAll{$vertex \  v_{i}$}
+			\State compute $k_{i}$ 
+		\EndFor
+		\ForAll{$vertex \  v_{i}$}
+			\State $dist_{i}=d_{i}^{in}-k_{i} $
+		\EndFor
+		\State FLAG=TRUE 
+		\While{FLAG=TRUE}
+			\For{$v_{i} \in V $}
+				\If{$v_{i}\; has \;min(dist_{i})$}
+					\State $v_{i}=$ current $v$
+				\EndIf
+			\EndFor
+			\If{$dist_{i}=\infty$}
+				\State FLAG=FALSE 
+			\Else
+			\State Remove $v_{i}$ from $G$ 
+				\ForAll{$v_{j} \in n_{i}^{out}$} 
+					\If {$dist_{j}>0$}  
+						\State $dist_{j}=dist_{j}-1$
+					\Else
+						\State$dist_{j}=\infty$  
+					\EndIf
+				\EndFor
+			\EndIf
+		\EndWhile
+		\State \Return All nodes left in G 
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{itemize}
+	\item $d_{i}^{in}$= degree of vertex $v_{i}$
+	\item At lines 1-3, a for loop is used for computing the $k_{i}'s$ for each vertex $v_{i}$. $k_{i}$ is defined as  $k_{i}=[t(v_{i})\cdot d_{i}^{in}]$
+	\item At lines 4-6, a for loop is used to compute for the distribution or $dist_{i}$. This will later be used as distinguishing what the current $v_{i}$ is to be used in the inner while loop.
+	\item At line 7 a FLAG is instantiated as a boolean variable which will be used in the while loop for identifying the target set selection. We can see it being used in line 8.
+	\item The for loop in line 9-13 is for selecting the vertex $v_{i}$ where the result of the degree and the threshold is minimal.
+	\item Lines 14-16 are for escaping the main while loop. If this condition is met, it means that the procedure is done.
+	\item The else statement in 16-25 is for removing the vertex where the degree and the threshold is almost the same(line 17).
+	\item The inner for loop in lines 18-24 is used for updating the distributions in the neighborhood of $v_{j}$.
+	\item The process returns the reduced vertex set with the vertices removed if necessary. This is the target set.
+\end{itemize}
+TIP-DECOMP or Tipping Decomposition is model based on the idea of node "tipping" when a node adopts a property or behavior if a number of his neighbors currently exhibit the same. It is a type of Target Set Selection Algorithm. 
+
+The algorithm above inputs a threshold function $t$ and the social network $G$ and outputs the network with vertices removed based off the condition in the algorithm.\cite{tipdecomp}
+
+\subsubsection{Step by step example}
+\begin{figure}[h!]
+\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    (2) edge node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{figure}
+\begin{table}[ht]
+\centering
+    \begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{1}$ & 2 & 2 & 0 \\
+		$v_{2}$ & 5 & 4 & 1 \\
+		$v_{3}$ & 1 & 1 & 0 \\
+		$v_{4}$ & 2 & 1 & 1 \\
+		$v_{5}$ & 2 & 2 & 0 \\
+		$v_{6}$ & 2 & 1 & 1 \\
+		$v_{7}$ & 3 & 2 & 1 \\
+		$v_{8}$ & 2 & 1 & 1 \\
+		$v_{9}$ & 3 & 3 & 0 \\
+		$v_{10}$ & 2 & 1 & 1\\
+	\end{tabular}
+\end{table}
+   
+ \begin{figure}
+ 
+ We first choose the vertex with minimum $dist$ which in this case is $v_{2}$, we remove $v_{2}$ from the graph and update the $dist$ of their neighbors. We set the $dist$ of the vertices with 0 or negative $dist$ values as $\infty$, meaning they are the maximum or not considered in the selection of current $v$.
+ \begin{minipage}{0.45\textwidth}
+ 	
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={above right:$v_2$}] (2) {$4$};
+	\node[main node,label={right:$v_3$}, below left of=2,fill=blue] (3) {$1$};
+	\node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+	\node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+	\node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+	\node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+	\node[main node,label={right:$v_8$},above left of=7, fill=blue] (8) {$1$};
+	\node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+	\node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+	
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(2) edge node {} (3)
+	edge node {} (4)
+	edge node {} (5)
+	edge node {} (6)
+	(3) 
+	(4) edge node {} (10)
+	(5) edge node {} (9)
+	(6) edge node {} (7)
+	(7) edge node {} (8)
+	edge node {} (9)
+	(8)
+	(9) edge node {} (10)
+	(10) 
+	
+	;
+	\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{tabular}{c c c c }
+    	Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+    	$v_{2}$ & 5 & 4 & 0 \\
+    	$v_{3}$ & 1 & 1 & 0 \\
+    	$v_{4}$ & 2 & 1 & 1 \\
+    	$v_{5}$ & 2 & 2 & 0 \\
+    	$v_{6}$ & 2 & 1 & 1 \\
+    	$v_{7}$ & 3 & 2 & 1 \\
+    	$v_{8}$ & 2 & 1 & 0 \\
+    	$v_{9}$ & 3 & 3 & 0 \\
+    	$v_{10}$ & 2 & 1 & 1\\
+    \end{tabular}
+
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.5cm}  
+ \begin{minipage}{0.45\textwidth}
+	
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={right:$v_3$},fill=blue] (3) {$1$};
+	\node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$1$};
+	\node[main node,label={right:$v_5$}, below right of=2,fill=blue] (5) {$2$};
+	\node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+	\node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+	\node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+	\node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+	\node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+	
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(3) 
+	(4) edge node {} (10)
+	(5) edge node {} (9)
+	(6) edge node {} (7)
+	(7) edge node {} (8)
+	edge node {} (9)
+	(8)
+	(9) edge node {} (10)
+	(10) 
+	
+	;
+	\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{3}$ & 1 & 1 & $\infty$ \\
+		$v_{4}$ & 2 & 1 & 0 \\
+		$v_{5}$ & 2 & 2 & $\infty$ \\
+		$v_{6}$ & 2 & 1 & 0 \\
+		$v_{7}$ & 3 & 2 & 1 \\
+		$v_{8}$ & 2 & 1 & 0 \\
+		$v_{9}$ & 3 & 3 & 0 \\
+		$v_{10}$ & 2 & 1 & 1\\
+	\end{tabular}
+	
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.5cm} 
+
+ \begin{minipage}{0.45\textwidth}
+	
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={right:$v_3$}] (3) {$1$};
+	\node[main node,label={right:$v_5$},left of=3] (5) {$2$};
+	\node[main node,label={right:$v_6$}, right of=3] (6) {$1$};
+	\node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+	\node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+	\node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+	\node[main node,label={right:$v_{10}$},below of=9,fill=blue] (10) {$1$};
+	
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(3) 
+	(5) edge node {} (9)
+	(6) edge node {} (7)
+	(7) edge node {} (8)
+	edge node {} (9)
+	(8)
+	(9) edge node {} (10)
+	(10) 
+	
+	;
+	\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{3}$ & 1 & 1 & $\infty$ \\
+		$v_{5}$ & 2 & 2 & $\infty$ \\
+		$v_{6}$ & 2 & 1 & 0 \\
+		$v_{7}$ & 3 & 2 & 1 \\
+		$v_{8}$ & 2 & 1 & 0 \\
+		$v_{9}$ & 3 & 3 & 0 \\
+		$v_{10}$ & 2 & 1 & 0\\
+	\end{tabular}
+	
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.5cm} 
+\end{figure}
+\begin{figure}
+\begin{minipage}{0.45\textwidth}
+	
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={right:$v_3$}] (3) {$1$};
+	\node[main node,label={right:$v_5$},left of=3] (5) {$2$};
+	\node[main node,label={right:$v_7$},right of=3,fill=blue] (7) {$2$};
+	\node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+	\node[main node,label={right:$v_9$},below of=7] (9) {$3$};
+	\node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+	
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(3) 
+	(5) edge node {} (9)
+	(7) edge node {} (8)
+	edge node {} (9)
+	(8)
+	(9) edge node {} (10)
+	(10) 
+	
+	;
+	\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{3}$ & 1 & 1 & $\infty$ \\
+		$v_{5}$ & 2 & 2 & $\infty$ \\
+		$v_{7}$ & 3 & 2 & 0 \\
+		$v_{8}$ & 2 & 1 & 0 \\
+		$v_{9}$ & 3 & 3 & 0 \\
+		$v_{10}$ & 2 & 1 & 0\\
+	\end{tabular}
+	
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.5cm} 
+\begin{minipage}{0.45\textwidth}
+	
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={right:$v_3$}] (3) {$1$};
+	\node[main node,label={right:$v_5$},below left of=3] (5) {$2$};
+	\node[main node,label={right:$v_8$},below right of=5, fill=blue] (8) {$1$};
+	\node[main node,label={right:$v_9$},above of=8, fill=blue] (9) {$3$};
+	\node[main node,label={right:$v_{10}$},above right of=9] (10) {$1$};
+	
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(3) 
+	(5) edge node {} (9)
+	(8)
+	(9) edge node {} (10)
+	(10) 
+	
+	;
+	\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{3}$ & 1 & 1 & $\infty$ \\
+		$v_{5}$ & 2 & 2 & $\infty$ \\
+		$v_{8}$ & 2 & 1 & $\infty$ \\
+		$v_{9}$ & 3 & 3 & $\infty$ \\
+		$v_{10}$ & 2 & 1 & 0\\
+	\end{tabular}
+	
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.5cm} 
+\begin{minipage}{0.45\textwidth}
+	
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={right:$v_3$}] (3) {$1$};
+	\node[main node,label={right:$v_5$},below of=3] (5) {$2$};
+	\node[main node,label={right:$v_8$},right of=5] (8) {$1$};
+	\node[main node,label={right:$v_9$},above of=8] (9) {$3$};
+	
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(3) 
+	(5) edge node {} (9)
+	(8)
+	(9) 
+	
+	;
+	\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{3}$ & 1 & 1 & $\infty$ \\
+		$v_{5}$ & 2 & 2 & $\infty$ \\
+		$v_{8}$ & 2 & 1 & $\infty$ \\
+		$v_{9}$ & 3 & 3 & $\infty$ \\
+	\end{tabular}
+	
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.5cm} 
+
+\end{figure}
+Only $\infty \; dist$ values are left thus, stopping the process. The nodes left in the graph the target set according to the algorithm. 
+
+We get the same result with our implementation of TIP DECOMP. 3, 5, 8, 9
+\subsection{VirAds} 
+\begin{algorithm}
+	\caption{VirAds Algorithm}
+	\begin{algorithmic}[1]
+		
+		\Require Graph $G = (V,E),0<\rho<1,d\in N^{+}$
+		\Ensure A small $d-seeding$ 
+		\State $n_{v}^{(e)} = d(v),n_{v}^{(a)} = \rho \cdot d(v), r_{v}  = d + 1, v \in V $
+		\State $r_{v}^{i}=0, i=0..d, P  = \varnothing $
+		
+		\While{there exist inactive vertices}
+		\Repeat
+		\State $u  = argmax_{v\not\in P}\{n_{v}^{(e)}+n_{v}^{(a)}\}$ 
+		
+		Recompute $n_{v}^{(e)}$ as the number of new active edges after adding $u$.
+		\Until{$u = argmax_{v\not\in P}\{n_{v}^{(e)}+n_{v}^{(a)}\}$ }
+		\State $P  = P \cup \{u\} $
+		\State Initialize a queue: $Q  = \{(u,r_{v})\} $
+		\State $r_u = 0 $
+		\ForAll{$x \in N(u)$}
+		
+		\State $n_{x}^{(a)}  = max\{n_{x}^{(a)}-1,0\} $
+		
+		\EndFor
+		\While{$Q\not=\varnothing$}
+		\State$(t,\widetilde{r_{t}})  = Q.pop() $
+		\ForAll{$w \in N(t)$}
+		\ForAll{$i=r_{t}\  to$ min $\{\widetilde{r_{t}}-1,r_{w}-2\}$}
+		\State $r_{w}^{(i)}=r_{w}^{(i)}+1 $
+		\If{$(r_{w}^{(i)}\geq \rho \cdot d_{w})\wedge(r_{w}\geq d)\wedge(i+1<d)$}
+		\ForAll{$x\in N(w)$}
+		\State $n_{x}^{(a)} =$max$\{n_{x}^{(a)}-1,0\} $	
+		\EndFor
+		\State $r_{w}=i+1 $
+		\If{$w\not\in Q$}
+		\State $Q.push(w,r_{w}) $	
+		\EndIf
+		\EndIf
+		\EndFor
+		\EndFor
+		\EndWhile
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
+\begin{itemize}
+	\item $\rho =$ The influence factor is a decimal between 0-1 that is multiplied to the degree of current vertex $v$ to get $n_{v}^{(a)}$
+	\item $r_{v}$ = the round in which the vertex $v$ is activated
+	\item $n_{v}^{(e)}=$ the number of new active edges after adding $v$ into the seeding
+	\item $n_{v}^{(a)}=$ the number of extra active neighbors $v$ needs in order for it to activate.
+	\item $r_{v}^{i}=$ the number of activated neighbors of $v$ up to round $i$ where $i$=$1..d$
+	\item Lines 1-2 are for initialization. Line 1 is initialization of variables with values while line 2 is initialization of zero variables.
+	\item Line 3 shows that all inactive vertices will be activated or considered in the algorithm
+	\item Line 4-6 finds the value where the maximum occurs in the sum of the degree of v and it's effectiveness.
+	\item $u$ is added to P in line 7
+	\item A queue is initialized by adding the vertex and its corresponding round, which at the start is zero $(u,r_{v})$
+	\item Lines 10-12 updates the neighbors of $u$, reducing their degree by 1. If less than zero is reached, it goes back to zero.
+	\item At the start of the while loop in line 14 $(t,r_{t})$ is set as the head of the queue. This is obtained by the pop function. 
+	\item For all neighbors $w$ of the current node $t$, another for loop is used for checking if the neighbors of $t$ have reached the threshold defined by $\rho \cdot d_{w}$ AND $round \; r_{w} \geq the\; max\; round\; d$ AND the index $i$ of the for loop doesn't exceed the max rounds $d$.
+	\item This then leads to the thresholds of the neighbors of the that neighbor $w$ being decremented.
+	\item In line 22 the round of the neighbor $w$ is incremented and if that current $w \notin Q$ then it is added to the queue and the while loop starts again.
+\end{itemize}
+VirAds selects in each step the vertex $u$ with the highest effectiveness which is defined as $n^{(e)}_{u}+n^{(e)}_{(a)}$. Which is basically the vertex $v$ which can activate the most number of $edges$. It also considers the vertex with the most active neighbors. After that, the algorithm updates the measures for all the remaining vertices. VirAds will make the selection based on the information within $d$-hop neighbor around the considered vertices rather than only one-hop neighbor as in the degree-based heuristic. When a vertex $u$ is selected, it causes a chain-reaction and activate a sequence of vertices or lower the rounds in which vertices are activated.\cite{virads}
+
+The algorithm utilizes a queue. A queue is a data structure which is FIFO. Imagine, a line at any commercial establishment where the first who came is the first who's served. 
+\subsubsection{Step by Step Example}
+\begin{figure}[h!]
+\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$}] (1) {$2$};
+  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$2$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$2$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$2$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$2$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$2$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    (2) edge node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{figure}
+The value of the parameter for the algorithm is $d=5$, making the output a small 5-seeding target set. The ceiling value of $n_v^{(a)}$ which is equal to $\rho \cdot d(v)$ or as known as $t(v)$ was used to avoid 0 $n_v^{(a)}$ at the start of the iteration. The table \ref{viradstable} contains the initial values needed in the algorithm. The iterations will show what are added into the target set $P$ denoted by the orange color node while the activated nodes are yellow nodes.
+\begin{table}[ht]
+\centering
+    \begin{tabular}{c c c c c}
+		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
+		$v_{1}$ & 2 & 2 & 2 & $\{v_2,v_8\}$ \\
+		\rowcolor{Orange}
+		$v_{2}$ & 5 & 5 & 4 & $\{v_1,v_3,v_4,v_5,v_6\}$\\
+		$v_{3}$ & 1 & 1 & 1 & $\{v_2\}$\\
+		$v_{4}$ & 2 & 2 & 2 & $\{v_2,v_{10}\}$\\
+		$v_{5}$ & 2 & 2 & 2 & $\{v_2,v_9\}$\\
+		$v_{6}$ & 2 & 2 & 2 & $\{v_2,v_7\}$\\
+		$v_{7}$ & 3 & 3 & 2 & $\{v_6,v_8,v_9\}$\\
+		$v_{8}$ & 2 & 2 & 2 & $\{v_1,v_7\}$\\
+		$v_{9}$ & 3 & 3 & 2 & $\{v_5,v_7,v_{10}\}$\\
+		$v_{10}$ & 2 & 2 & 2 & $\{v_4,v_9\}$\\
+	\end{tabular}
+	\label{viradstable}
+\end{table}
+\newpage
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+  \node[main node,label={right:$v_1$}] (1) {$1$};
+  \node[main node,label={above right:$v_2$}, below of=1,fill=orange] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$1$};
+  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
+  \node[main node,label={right:$v_7$},above right of=6] (7) {$1$};
+  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    (2) edge [color=blue] node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge node {} (7)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\\
+    \begin{tabular}{c c c c c}
+		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
+		$v_{1}$ & 1 & 2 & 1 & $\{v_8\}$ \\
+		$v_{4}$ & 1 & 2 & 1 & $\{v_{10}\}$\\
+		$v_{5}$ & 1 & 2 & 1 & $\{v_9\}$\\
+		$v_{6}$ & 1 & 2 & 1 & $\{v_7\}$\\
+		$v_{7}$ & 3 & 3 & 1 & $\{v_6,v_8,v_9\}$\\
+		$v_{8}$ & 2 & 2 & 1 & $\{v_1,v_7\}$\\
+		$v_{9}$ & 3 & 3 & 1 & $\{v_5,v_7,v_{10}\}$\\
+		$v_{10}$ & 2 & 2 & 1 & $\{v_4,v_9\}$\\
+	\end{tabular}
+	\caption{1st Iteration of Virads Example,$v_2$ has the highest $\{n_v^{(e)}+n_v^{(a)}\}$ and $P=\{v_2\}$}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+  \node[main node,label={right:$v_1$}] (1) {$1$};
+  \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
+  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$1$};
+  \node[main node,label={right:$v_6$},right of=2,fill=yellow] (6) {$0$};
+  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$1$};
+  \node[main node,label={right:$v_8$},above left of=7,fill=yellow] (8) {$0$};
+  \node[main node,label={right:$v_9$},below of=7,fill=yellow] (9) {$0$};
+  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    (2) edge [color=blue] node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
+    (4) edge node {} (10)
+    (5) edge node {} (9)
+    (6) edge [color=blue] node {} (7)
+    (7) edge [color=blue] node {} (8)
+    	edge [color=blue] node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\\
+    \begin{tabular}{c c c c c}
+		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
+		$v_{1}$ & 0 & 2 & 1 & $\{\}$ \\
+		$v_{4}$ & 1 & 2 & 1 & $\{v_{10}\}$\\
+		$v_{5}$ & 0 & 2 & 1 & $\{\}$\\
+		$v_{10}$ & 1 & 2 & 1 & $\{v_4\}$\\
+	\end{tabular}
+	\caption{2nd Iteration of Virads Example, $v_7$ has the highest $\{n_v^{(e)}+n_v^{(a)}\}$ and $P=\{v_2,v_7\}$}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+  \node[main node,label={right:$v_1$}] (1) {$1$};
+  \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
+  \node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2] (5) {$1$};
+  \node[main node,label={right:$v_6$},right of=2,fill=yellow] (6) {$0$};
+  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$1$};
+  \node[main node,label={right:$v_8$},above left of=7,fill=yellow] (8) {$0$};
+  \node[main node,label={right:$v_9$},below of=7,fill=yellow] (9) {$0$};
+  \node[main node,label={right:$v_{10}$},below of=9,fill=yellow] (10) {$0$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    (2) edge [color=blue] node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
+    (4) edge [color=blue] node {} (10)
+    (5) edge node {} (9)
+    (6) edge [color=blue] node {} (7)
+    (7) edge [color=blue] node {} (8)
+    	edge [color=blue] node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\\
+    \begin{tabular}{c c c c c}
+		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
+		$v_{1}$ & 0 & 0 & 1 & $\{\}$ \\
+		$v_{4}$ & 1 & 1 & 1 & $\{\}$\\
+		$v_{5}$ & 0 & 0 & 1 & $\{\}$\\
+	\end{tabular}
+	\caption{3rd Iteration of Virads Example, $v_4$ has the highest $\{n_v^{(e)}+n_v^{(a)}\}$ and $P=\{v_2,v_7,v_4\}$}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+  \node[main node,label={right:$v_1$},fill=blue] (1) {$1$};
+  \node[main node,label={above right:$v_2$}, below of=1,fill=blue] (2) {$4$};
+  \node[main node,label={right:$v_3$}, below left of=2,fill=yellow] (3) {$0$};
+  \node[main node,label={below:$v_4$}, below of=2,fill=blue] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=2,fill=blue] (5) {$1$};
+  \node[main node,label={right:$v_6$},right of=2,fill=yellow] (6) {$0$};
+  \node[main node,label={right:$v_7$},above right of=6,fill=blue] (7) {$1$};
+  \node[main node,label={right:$v_8$},above left of=7,fill=yellow] (8) {$0$};
+  \node[main node,label={right:$v_9$},below of=7,fill=yellow] (9) {$0$};
+  \node[main node,label={right:$v_{10}$},below of=9,fill=yellow] (10) {$0$};
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (2)
+    (2) edge [color=blue] node {} (3)
+    	edge node {} (4)
+    	edge node {} (5)
+    	edge node {} (6)
+    (3) 
+    (4) edge [color=blue] node {} (10)
+    (5) edge node {} (9)
+    (6) edge [color=blue] node {} (7)
+    (7) edge [color=blue] node {} (8)
+    	edge [color=blue] node {} (9)
+    (8)	edge node {} (1)
+    (9) edge node {} (10)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\\
+    \begin{tabular}{c c c c c}
+		Vertex $v_{i}$ & Degree $d(v)$ & $n_v^{(e)}$& $n_v^{(a)}$ & $N(v)$\\
+		$v_{1}$ & 0 & 0 & 1 & $\{\}$ \\
+		$v_{5}$ & 0 & 0 & 1 & $\{\}$\\
+	\end{tabular}
+	\caption{4th and 5th Iteration of Virads Example, vertex $v_1$ and $v_5$ were chosen  and $P=\{v_2,v_7,v_4,v_1,v_5\}$}
+\end{figure}
+>>>>>>> parent of 0bc5e45... Merge branch 'master' of https://github.com/190thesis/TeX-Files

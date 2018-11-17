@@ -1,0 +1,450 @@
+
+
+\subsection{Two Basic Diffusion Models}
+A diffusion model is a set mathematical formulas that attempt to model the spread of information or a disease through a network or population
+
+Two basic diffusion models have been introduced in 2003 by Kempe, Kleinberd and Tardos.\cite{Kempe} These models are improved upon by works proceeding it. These two models are considered in order to further understand the basics and foundations of the models the algorithm is based/taken from.
+
+
+In the following models, as information spreads through the network nodes will be referred to as either $active$ or $inactive$. The chance of the node to be active increases as more of its neighbor become active. Inactive nodes can become active nodes but the other way around is not to be considered. 
+
+Imagine yourself walking down the street. A stranger approaches you and hands you a brochure showing you how amazing a new product is, but still, it's not enough to convince you to buy said product. As you walk home, you see a poster with your favorite celebrity advertising the same product. You think: \textit{"That seems nice, I'll consider buying it"}. You arrive to see your parents using the same product. So you quickly leave your house to buy the product. The next day, you tell your friends about the product you just bought and try to make them buy and use it.
+
+We represent the different vertices in the network graph as the stranger, the poster of the celebrity or your parents, each having individual weights on your decision to buy the product. You start off as unconvinced(inactive) that the product is worth buying, but as time goes by and as the influence of other people pile up on you, you reach your threshold and finally buy the product, making you active. Making you eligible to influence other inactive nodes/vertices.
+
+We also assume that a node can only switch from inactive to active and not the other way around. A active node will remain active during the diffusion process. The process runs until no more activation occurs.\cite{Shakarian:2012:LSN:2456719.2457081} 
+\subsubsection{Linear Threshold Model}
+Different people have different weights to their words. If a family member or a famous person gives you a recommendation, we assume that their statement will have a large weight attributed to it and if a random stranger you do not know and have no affiliation with tell you to buy their product, we know that it will have tiny to average effect on you the consumer.
+
+Given a simple directed graph $G=(V,E)$, we assign a weight $w(e) \in \mathbb{R}^{+}$ on each edge $e$ selected uniformly random in the interval $[0,1]$. We also assign a threshold $t(v) \in \mathbb{R}^{+}$ to every vertex $v$ in $G$ selected uniformly random in the interval $[0,1]$. Note: $t(v) \not\geq w(e)_{\nu^{in}}$.
+We define a vertex/node as active when
+
+		$$\sum_{e \in \eta^{in}(v)} w(e)\geq t(v)$$
+
+If the sum of the weight of the edges incoming to the vertex $v$ is greater than or equal to the threshold of $v$, $v$ becomes active. The process ends when all nodes are active.
+
+In the first graph in the figure \ref{linearfig} we set to vertex C to be active to start the process. After each time step/round $r$ we look to see if the weight of the edges outgoing from the activated vertices to the other vertices in its neighborhood. At round 2 vertices B and D become active. At round 3 A becomes active and the process ends when all the vertices are active. \cite{Kempe}
+
+We define a simple directed graph $G$ with\\
+\begin{equation}
+\begin{array}{c c}
+V=(A,B,C,D) &
+E=(e_{1},e_{2},e_{3},e_{4},e_{5},e_{6},e_{7},e_{8},e_{9},e_{10})\\
+e_{1}=\{A,B\} & e_{2}=\{B,A\}\\
+e_{3}=\{B,C\} & e_{4}=\{C,B\}\\
+e_{5}=\{B,D\} & e_{6}=\{D,B\}\\
+e_{7}=\{A,C\} & e_{8}=\{C,A\}\\
+e_{9}=\{C,D\} & e_{10}=\{D,C\}\\ 
+w(e_{1})=0.5 & w(e_{2})=0.2\\
+w(e_{3})=0.3 & w(e_{4})=0.7\\
+w(e_{5})=0.4 & w(e_{6})=0.2\\
+w(e_{7})=0.4 & w(e_{8})=0.3\\
+w(e_{9})=0.5 & w(e_{10})=0.3\\
+t(A)=0.4 & t(B)=0.6\\
+t(C)=0.8 & t(D)=0.3\\
+\end{array} 
+\end{equation}
+\begin{figure}[h!]
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={t(A)=0.4}] (A) {$A$};
+  \node[main node,label=below:{t(C)=0.8},color={red}] (C) [below of=A] {$C$};
+  \node[main node,label={t(B)=0.6}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{t(D)=0.3}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily}]
+    (A) edge node [pos=0.8] {$e_1=0.5$} (B)
+    	edge node [pos=0.8] {$e_7=0.4$} (C)
+    (B) edge node [pos=0.8]{$e_2=0.2$} (A)
+    	edge node [pos=0.8]{$e_3=0.3$} (C)
+    	edge node [pos=0.8]{$e_5=0.2$} (D)
+    (C) edge node [pos=0.8]{$e_8=0.3$} (A)
+    	edge node [pos=0.8]{$e_4=0.7$} (B)
+    	edge node [pos=0.8]{$e_9=0.5$} (D)
+    (D) edge node [pos=0.8]{$e_{10}=0.3$} (C)
+    	edge node [pos=0.8]{$e_6=0.4$} (B)
+    ;
+		\end{tikzpicture}
+		\caption{r=1}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+		
+		  \node[main node,label={t(A)=0.4}] (A) {$A$};
+		  \node[main node,label=below:{t(C)=0.8},color={red}] (C) [below of=A] {$C$};
+		  \node[main node,label={t(B)=0.6},color={red}] (B) [right of=A] {$B$};
+		  \node[main node,label=below:{t(D)=0.3},color={red}] (D) [right of=C] {$D$};
+		  
+		    \path[every node/.style={font=\sffamily}]
+    (A) edge node [pos=0.8] {$e_1=0.5$} (B)
+    	edge node [pos=0.8] {$e_7=0.4$} (C)
+    (B) edge node [pos=0.8]{$e_2=0.2$} (A)
+    	edge node [pos=0.8]{$e_3=0.3$} (C)
+    	edge node [pos=0.8]{$e_5=0.2$} (D)
+    (C) edge node [pos=0.8]{$e_8=0.3$} (A)
+    	edge node [pos=0.8]{$e_4=0.7$} (B)
+    	edge node [pos=0.8]{$e_9=0.5$} (D)
+    (D) edge node [pos=0.8]{$e_{10}=0.3$} (C)
+    	edge node [pos=0.8]{$e_6=0.4$} (B)
+    ;
+	\end{tikzpicture}
+	\caption{r=2}
+
+	\end{minipage}
+	\vspace*{0.2cm}
+	\begin{minipage}{0.45\textwidth}
+	\centering
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+	  \node[main node,label={t(A)=0.4}, color={red}] (A) {$A$};
+	  \node[main node,label=below:{t(C)=0.8},color={red}] (C) [below of=A] {$C$};
+	  \node[main node,label={t(B)=0.6}, color={red}] (B) [right of=A] {$B$};
+	  \node[main node,label=below:{t(D)=0.3}, color={red}] (D) [right of=C] {$D$};
+	  
+	   \path[every node/.style={font=\sffamily}]
+    (A) edge node [pos=0.8] {$w(e_1)=0.5$} (B)
+    	edge node [pos=0.8] {$e_7=0.4$} (C)
+    (B) edge node [pos=0.8]{$e_2=0.2$} (A)
+    	edge node [pos=0.8]{$e_3=0.3$} (C)
+    	edge node [pos=0.8]{$e_5=0.2$} (D)
+    (C) edge node [pos=0.8]{$e_8=0.3$} (A)
+    	edge node [pos=0.8]{$e_4=0.7$} (B)
+    	edge node [pos=0.8]{$e_9=0.5$} (D)
+    (D) edge node [pos=0.8]{$e_{10}=0.3$} (C)
+    	edge node [pos=0.8]{$e_6=0.4$} (B)
+    ;
+	\end{tikzpicture}
+	\caption{r=3}
+	\end{minipage}
+	\caption{Linear Threshold model of graph G at $r=1,2,3$ with C initially activated}
+\label{linearfig}
+\end{figure}
+
+\subsubsection{Independent Cascade Model}
+Now, in this model, we assume that when a person tries you influence you, they only have that one chance to do so. After that, they lose their chance of doing it again. We still have the knowledge that different people have different weights assigned to their words. In this model, however, we assign a percentage that determines how likely is that person to influence you. Say, your mother has a 90\% chance to recommend you a product but, on the contrary, the known scam artist has a 15\% chance of influencing you.
+
+Given a simple directed graph $G(V,E)$,we assign a probability $P_{u,v}(e)$, this defines the probability of $u$ infecting $v$. Each node can try to influence its neighbor. When a node is influenced successfully, the node being influenced becomes active. If a node fails to influence a neighbor they cannot try to influence that node again.\cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}
+
+We define a simple directed graph
+\begin{equation}
+	\begin{array}{c c}
+	V=(A,B,C,D) &
+	E=(e_{1},e_{2},e_{3},e_{4},e_{5},e_{6},e_{7},e_{8})\\
+	e_{1}=\{A,B\} & e_{2}=\{B,A\}\\
+	e_{3}=\{B,C\} & e_{4}=\{C,B\}\\
+	e_{5}=\{A,C\} & e_{6}=\{C,A\}\\
+	e_{7}=\{C,D\} & e_{8}=\{D,C\}\\ 
+	P(e_{1})=0.1 & P(e_{2})=0.5\\
+	P(e_{3})=0.2 & P(e_{4})=0.6\\
+	P(e_{5})=0.4 & P(e_{6})=0.3\\
+	P(e_{7})=0.5 & P(e_{8})=0.2\\ 
+	\end{array}
+\end{equation}
+\begin{figure}[h!]
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node] (A) {$A$};
+  \node[main node,color={red}] (C) [below of=A] {$C$};
+  \node[main node] (B) [right of=A] {$B$};
+  \node[main node] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node [pos=0.8] {$0.5$} (B)
+		edge node [pos=0.8] {$0.4$} (C)
+	(B) edge node [pos=0.8] {$0.1$} (A)
+    	edge node [pos=0.8] {$0.2$} (C)
+    (C) edge node [pos=0.8] {$0.3$} (A)
+    	edge node [pos=0.8] {$0.6$} (B)
+    	edge node [pos=0.8] {$0.2$} (D)
+    (D) edge node [pos=0.8] {$0.5$} (C)
+    	
+    ;
+\end{tikzpicture}
+\caption{r=1}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,color={gray}] (A) {$A$};
+  \node[main node,color={red}] (C) [below of=A] {$C$};
+  \node[main node,color={red}] (B) [right of=A] {$B$};
+  \node[main node,color={gray}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node [pos=0.8] {$0.5$} (B)
+		edge node [pos=0.8] {$0.4$} (C)
+	(B) edge node [pos=0.8] {$0.1$} (A)
+    	edge node [pos=0.8] {$0.2$} (C)
+	(C) edge node [pos=0.8] {$0.3$} (A)
+		edge node [pos=0.8] {$0.6$} (B)
+    	edge node [pos=0.8] {$0.2$} (D)
+    (D) edge node [pos=0.8] {$0.5$} (C)
+    ;
+\end{tikzpicture}
+\caption{r=2}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\centering
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node, color={red}] (A) {$A$};
+  \node[main node,color={red}] (C) [below of=A] {$C$};
+  \node[main node, color={red}] (B) [right of=A] {$B$};
+  \node[main node, color={gray}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node [pos=0.8] {$0.5$} (B)
+    	edge node [pos=0.8] {$0.4$} (C)
+    (B) edge node [pos=0.8] {$0.1$} (A)
+    	edge node [pos=0.8] {$0.2$} (C)
+    (C) edge node [pos=0.8] {$0.3$} (A)
+    	edge node [pos=0.8] {$0.6$} (B)
+    	edge node [pos=0.8] {$0.2$} (D)
+    (D) edge node [pos=0.8] {$0.5$} (C)
+    ;
+\end{tikzpicture}
+\caption{r=3}
+	\end{minipage}
+\caption{Independent Cascade model of graph G at $r=1,2,3$ with C initially activated}
+\label{Independentfig1}
+\end{figure}
+
+Notice that on figure \ref{Independentfig1}; at round 2, vertex $C$ fails to activate vertices A and D. This means that C loses the ability to influence said vertices but this doesn't mean that that the neighbor of vertex A can't influence A. At round 3, vertex B succeeds in influencing vertex A and all of the vertices have been tried for activation and there they have no more neighbors left to activate, meaning, the process ends.
+\subsection{The threshold model reintroduced by Chen}
+
+Now, we limit and modify the model. Where in the vertices/nodes know each other or have some kind of connection/relationship. This means, every neighbor or friend of a certain person has the same effect as every other neighbor or friend of that person. The threshold is only thing to be considered. When determining how likely a person is to be influence, the size of their neighbor considered.
+
+Given a simple undirected connected graph $G=(V,E)$, $v \in V, e \in E$, let $d(v)$ to be the degree of $v \in V$. For each node/vertex $v \in V$, we assign a threshold value $t(v) \in \mathbb{N}$, where $1 \leq t(v) \leq d(v)$. At the start, the states of all the nodes/vertices are set to inactive. We then pick a subset of $V$, the $target\; set$, and set their states to active. At each round/time step, the states of vertices are to be updated if an inactive vertex $v$ has at least as many active neighbors as its threshold $t(v)$. The process ends when all vertices are active or no additional vertices can make the remaining nodes active. Again, the vertices can only change states from being inactive to active, not the other way around \cite{chen}.
+
+The difference of this model to the two previously discussed models by Kempe et.al \cite{Kempe}\cite{Shakarian:2012:LSN:2456719.2457081}, is that their model focused on maximization of the vertices the target set can activate. This model on the other hand, will aim to find a target set that activates all or a fixed fraction of vertices. The previous two models were based of probabilistic thresholds where all thresholds were drawn randomly from a given distribution. \cite{Kempe}\cite{chen}
+
+We define a simple undirected graph $G=(V,E)$, $v \in V and\; e \in E$. 
+\begin{equation}
+	\begin{array}{c c}
+	V=\{A, B, C ,D\} & E=\{e_1, e_2, e_3, e_4, e_5\}\\
+	t(A)=3 & t(B)=1 \\
+	t(C)=3 & t(D)=1 \\
+	\end{array}
+\end{equation}
+\begin{figure}[h!]
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$t(A)=3$}] (A) {$A$};
+  \node[main node,color={red},label=below:{$t(C)=3$}] (C) [below of=A] {$C$};
+  \node[main node,label={$t(B)=1$}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$t(D)=1$}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node {} (B)
+    	
+    (B) 
+    (C) edge node {} (A)
+    	edge node {} (D)
+    (D) edge node {} (B)
+    	edge node {} (A)
+    	
+    ;
+\end{tikzpicture}
+\caption{r=1}
+	\end{minipage}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$t(A)=3$}] (A) {$A$};
+  \node[main node,color={red},label=below:{$t(C)=3$}] (C) [below of=A] {$C$};
+  \node[main node,label={$t(B)=1$}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$t(D)=1$},color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node {} (B)
+    	
+    (B) 
+    (C) edge[color=red] node {} (A)
+    	edge[color=red] node {} (D)
+    (D) edge node {} (B)
+    	edge node {} (A)
+    	
+    ;
+\end{tikzpicture}
+\caption{r=2}
+	\end{minipage}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$t(A)=3$}] (A) {$A$};
+  \node[main node,color={red},label=below:{$t(C)=3$}] (C) [below of=A] {$C$};
+  \node[main node,label={$t(B)=1$},color={red}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$t(D)=1$},color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge node {} (B)
+    	
+    (B) 
+    (C) edge[color=red] node {} (A)
+    	edge[color=red] node {} (D)
+    (D) edge[color=red] node {} (B)
+    	edge[color=red] node {} (A)
+    	
+    ;
+\end{tikzpicture}
+\caption{r=3}
+	\end{minipage}
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={$t(A)=3$},color={red}] (A) {$A$};
+  \node[main node,color={red},label=below:{$t(C)=3$},color={red}] (C) [below of=A] {$C$};
+  \node[main node,label={$t(B)=1$},color={red}] (B) [right of=A] {$B$};
+  \node[main node,label=below:{$t(D)=1$},color={red}] (D) [right of=C] {$D$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (A) edge[color=red] node {} (B)
+    	
+    (B) 
+    (C) edge[color=red] node {} (A)
+    	edge[color=red] node {} (D)
+    (D) edge[color=red] node {} (B)
+    	edge[color=red] node {} (A)
+    	
+    ;
+    
+
+\end{tikzpicture}
+\caption{r=4}
+	\end{minipage}
+
+\caption{Threshold model with C vertex as target set at round/time step = 1,2,3,4}
+\label{Thresholdfig1}
+\end{figure}
+
+In the example figure \ref{Thresholdfig1}, we pick C as the target set. We activate C at round 1. At round 2 we check the neighbors of C which is A and D, but only D is eligible for activation since the threshold of A is 3 and it does not have enough active neighbors. D, however is eligible for activation and activates at round 2. In the next round, B, with threshold 1, activates since D is active and is a neighbor of B. Finally at round 4, A has enough active neighbors to reach its threshold 3.
+
+In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced.
+
+The threshold value is set depending on the network we want to find the target set of.
+
+\begin{enumerate}
+	\item \textbf{Small Thresholds} This case is when all the thresholds are small constants. However, this threshold becomes more complex as the threshold increases from $k=1$. Past researches have studied that, for any $k \leq 2$, the Target Set Selection Problem is NP-hard.A statement constructed by Chen et.al(2009) states that the Target Set Selection problem is NP-hard when the thresholds are at most 2. Earlier before that, Dreyer(2000) proved this instance for only $k \geq 3$.\cite{dreyer} \cite{NPhardness} 
+	\begin{itemize}
+	\item Time Complexity defines the runtime of a certain algorithm. Denoted by the Big-O notation. Example: $O(n)$ is linear time, $n$ represents the size of the input.
+	\item P or Polynomial time is a set of languages that are relatively easy to get the solution and to verify it (i.e Multiplication, sorting, finding primes, etc). This determined from the time complexity of the algorithm. Being in polynomial time, the notation would be $O(n^k)$ for some $k>1$.
+	\item NP or Non-deterministic polynomial time is the set of languages that can verified in polynomial time. Basically NP Problems are problems that when given a solution, it is easy to verify the solution, but hard to get the solution itself.
+	\item NP-Complete problems are problems that are in NP and are NP-hard(i.e $n^{2}by\; n^{2}$ sudoku, Boolean Satisfiability Problem). They are also considered as the hardest problems in NP.
+	\item A problem is NP-hard if the problem is atleast as hard or even harder than the problems in NP. This means that if you find an algorithm that solves an NP-hard problem, you can use that very algorithm to solve any other problem in NP in polynomial time or P = NP(i.e Cryptography, Routing, Scheduling).  
+\end{itemize} 
+\textbf{The Target Set Selection problem is NP-hard when the threshold $k$ for every vertex $v$ is at most 2}. \cite{chen,dreyer}
+
+We can visualize this by increasing the thresholds from 2. Using the previous threshold model example, let's set the all the thesholds of the vertex to 2. We can pick out that the size of the target set is atleast 2. Incrementing the threshold to four will show that we need atleast 4 nodes to activate all the vertices in the graph since the number of edges do not meet the theshold of the vertex. Increasing the threshold further, we need to add more vertices to suffice the condition that the threshold should always be less than or equal to the degree of the node. Checking the threshold 2 again for the new graph where we added a new node, it gets progressively harder. In real-life online social network data, which will be used for this algorithm, graphs have at least tens of thousands of nodes and hundreds of thousands of edges with the degrees in thousands.
+
+\begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={$t(A)=2$}] (A) {$A$};
+	\node[main node,label=below:{$t(C)=2$}] (C) [below of=A] {$C$};
+	\node[main node,label={$t(B)=2$}] (B) [right of=A] {$B$};
+	\node[main node,label=below:{$t(D)=2$}] (D) [right of=C] {$D$};
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(A) edge node {} (B)
+	
+	(B) 
+	(C) edge node {} (A)
+		edge node {} (D)
+	(D) edge node {} (B)
+		edge node {} (A)
+	
+	;
+	\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={$t(A)=3$}] (A) {$A$};
+	\node[main node,label=below:{$t(C)=3$}] (C) [below of=A] {$C$};
+	\node[main node,label={$t(B)=3$}] (B) [right of=A] {$B$};
+	\node[main node,label=below:{$t(D)=3$}] (D) [right of=C] {$D$};
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(A) edge node {} (B)
+	
+	(B) 
+	(C) edge node {} (A)
+		edge node {} (D)
+	(D) edge node {} (B)
+		edge node {} (A)
+	
+	;
+	\end{tikzpicture}
+\end{minipage}
+\\
+\begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={$t(A)=2$}] (A) {$A$};
+	\node[main node,label=left:{$t(E)=2$}](E) [below right of=A] {$E$};
+	\node[main node,label=below:{$t(C)=2$}] (C) [below of=A] {$C$};
+	\node[main node,label={$t(B)=2$}] (B) [right of=A] {$B$};
+	\node[main node,label=below:{$t(D)=2$}] (D) [right of=C] {$D$};
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(A) edge node {} (B)
+	
+	(B) 
+	(C) edge node {} (A)
+		edge node {} (D)
+	(D) edge node {} (B)
+	(E) edge node {} (B)
+		edge node {} (A)
+		edge node {} (D)
+	;
+	\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+	
+	\node[main node,label={$t(A)=3$}] (A) {$A$};
+	\node[main node,label=left:{$t(E)=3$}](E) [below right of=A] {$E$};
+	\node[main node,label=below:{$t(C)=3$}] (C) [below of=A] {$C$};
+	\node[main node,label={$t(B)=3$}] (B) [right of=A] {$B$};
+	\node[main node,label=below:{$t(D)=3$}] (D) [right of=C] {$D$};
+	
+	\path[every node/.style={font=\sffamily\large}]
+	(A) edge node {} (B)
+	
+	(B) 
+	(C) edge node {} (A)
+	edge node {} (D)
+	(D) edge node {} (B)
+	(E) edge node {} (B)
+	edge node {} (A)
+	edge node {} (D)
+	;
+	\end{tikzpicture}
+\end{minipage}
+
+For the instance of $k=1$ it can be solved trivially. Take any graph $G$ and set of all node's thresholds $k=1$. Activate any of the nodes in that graph and you will create a chain reaction of activating \textbf{every} node in that graph. So, with $k=1$ we can take any one node from that graph that is our target set.\cite{chen}
+
+This is commonly used in study of social networks where in an action of a small group of people is enough to make their neighbor pick up same behavior/principle/ideology.
+	\item \textbf{Majority Thresholds t=$\frac{d(v)}{2}$} One important and well-studied threshold model is the majority threshold. This is where a vertex becomes active if at least half of its neighbors are active [1,$\frac{d(v)}{2}$].\cite{chen} This can be applied to networks that have voting systems, dynamic monopolies, distributed computing and use the majority rule. It was proven by Peleg (1997) that this type of threshold value is NP-hard. \cite{majority} 
+	
+	\item \textbf{Unanimous Thresholds t(v)=d(v)} This setting is considered the most influence-resistant of the previously mentioned.\cite{chen} All the nodes have unanimous thresholds meaning, the threshold of each node is the same as it's degree. This threshold can be applied to an ideal virus-resistant network, where a vertex is infected only if all of its neighbors are infected with the virus. With this in mind, this threshold can be used in constructing robust virus resistant network structures.\cite{chen} 
+\end{enumerate}

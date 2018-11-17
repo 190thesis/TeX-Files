@@ -1,0 +1,413 @@
+\subsection{Target Set Selection Algorithms compared in this study}
+\subsubsection{TIP-DECOMP}
+\begin{algorithm}
+	\caption{TIP-DECOMP}
+	\begin{algorithmic}[1]
+		\Require Threshold function, $t$ and social network $G=(V,E)$
+		\Ensure $V'$
+		
+		\ForAll{$vertex \  v_{i}$}
+			\State compute $k_{i}$ 
+		\EndFor
+		\ForAll{$vertex \  v_{i}$}
+			\State $dist_{i}=d_{i}^{in}-k_{i} $
+		\EndFor
+		\State FLAG=TRUE 
+		\While{FLAG=TRUE}
+			\For{$v_{i} \in V $}
+				\If{$v_{i}\; has \;min(dist_{i})$}
+					\State $v_{i}=$ current $v$
+				\EndIf
+			\EndFor
+			\If{$dist_{i}=\infty$}
+				\State FLAG=FALSE 
+			\Else
+			\State Remove $v_{i}$ from $G$ 
+				\ForAll{$v_{j} \in n_{i}^{out}$} 
+					\If {$dist_{j}>0$}  
+						\State $dist_{j}=dist_{j}-1$
+					\Else
+						\State$dist_{j}=\infty$  
+					\EndIf
+				\EndFor
+			\EndIf
+		\EndWhile
+		\State \Return All nodes left in G 
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{itemize}
+	\item $d_{i}^{in}$= degree of vertex $v_{i}$
+	\item At lines 1-3, a for loop is used for computing the $k_{i}'s$ for each vertex $v_{i}$. $k_{i}$ is defined as  $k_{i}=[t(v_{i})\cdot d_{i}^{in}]$
+	\item At lines 4-6, a for loop is used to compute for the distribution or $dist_{i}$. This will later be used as distinguishing what the current $v_{i}$ is to be used in the inner while loop.
+	\item At line 7 a FLAG is instantiated as a boolean variable which will be used in the while loop for identifying the target set selection. We can see it being used in line 8.
+	\item The for loop in line 9-13 is for selecting the vertex $v_{i}$ where the result of the degree and the threshold is minimal.
+	\item Lines 14-16 are for escaping the main while loop. If this condition is met, it means that the procedure is done.
+	\item The else statement in 16-25 is for removing the vertex where the degree and the threshold is almost the same(line 17).
+	\item The inner for loop in lines 18-24 is used for updating the distributions in the neighborhood of $v_{j}$.
+	\item The process returns the reduced vertex set with the vertices removed if necessary. This is the target set.
+\end{itemize}
+TIP-DECOMP or Tipping Decomposition is model based on the idea of node "tipping" when a node adopts a property or behavior if a number of his neighbors currently exhibit the same. It is a type of Target Set Selection Algorithm. 
+
+The algorithm above inputs a threshold function $t$ and the social network $G$ and outputs the network with vertices removed based off the condition in the algorithm.\cite{tipdecomp}
+
+\newpage
+\subsubsection{TIP-DECOMP Step by step example}
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$}] (1) {$3$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$1$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
+
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\caption{A tree with 10 vertices where the number inside the circle is the vertex threshold ($t(v)$.}
+\label{degreefig}
+\end{figure}
+
+\begin{table}[!ht]
+\centering
+    \begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{1}$ & 4 & 3 & 1 \\
+		$v_{2}$ & 1 & 1 & 0 \\
+		$v_{3}$ & 1 & 1 & 0 \\
+		$v_{4}$ & 2 & 1 & 1 \\
+		$v_{5}$ & 2 & 2 & 0 \\
+		$v_{6}$ & 2 & 1 & 1 \\
+		$v_{7}$ & 3 & 2 & 1 \\
+		$v_{8}$ & 1 & 1 & 0 \\
+		$v_{9}$ &  1 & 1 & 0 \\
+		$v_{10}$ & 1 & 1 & 0\\
+	\end{tabular}
+\end{table}
+   
+ \begin{figure}
+ First, we choose vertex $v_2$ (first element of the set) from the set of vertices with minimum $dist$ which is the set ${v_2,v_3,v_5,v_8,v_9,v_10}$. We remove $v_2$ from the graph and update the $dist$ of their neighbors.  We set the $dist$ of the vertices with 0 or negative $dist$ values as $\infty$, meaning they are the maximum or not considered in the selection of current $v$.\\
+ 
+ %iteration 1
+ \begin{minipage}{0.45\textwidth}
+ 	
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$},fill=yellow] (1) {$3$};
+  \node[main node,label={right:$v_2$},below of=1,fill=orange] (2) {$1$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{1}$ & 4 & 3 & 0 \\
+		$v_{2}$ & 1 & 1 & $\infty$ \\
+		$v_{3}$ & 1 & 1 & 0 \\
+		$v_{4}$ & 2 & 1 & 1 \\
+		$v_{5}$ & 2 & 2 & 0 \\
+		$v_{6}$ & 2 & 1 & 1 \\
+		$v_{7}$ & 3 & 2 & 1 \\
+		$v_{8}$ & 1 & 1 & 0 \\
+		$v_{9}$ &  1 & 1 & 0 \\
+		$v_{10}$ & 1 & 1 & 0\\
+	\end{tabular}
+
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
+
+ %iteration 2
+ \begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$},fill=orange] (1) {$3$};
+
+  \node[main node,label={right:$v_3$}, below right of=1,fill=yellow] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1,fill=yellow] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
+  
+  
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (7)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{1}$ & 4 & 3 & $\infty$  \\
+		$v_{3}$ & 1 & 1 & $\infty$  \\
+		$v_{4}$ & 2 & 1 & 0 \\
+		$v_{5}$ & 2 & 2 & 0 \\
+		$v_{6}$ & 2 & 1 & 1 \\
+		$v_{7}$ & 3 & 2 & 0 \\
+		$v_{8}$ & 1 & 1 & 0 \\
+		$v_{9}$ &  1 & 1 & 0 \\
+		$v_{10}$ & 1 & 1 & 0\\
+	\end{tabular}
+
+\end{minipage}
+
+\end{figure}
+\begin{figure}
+
+ %iteration 3
+ \begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1,fill=orange] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4,fill=yellow] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
+
+  \path[every node/.style={font=\sffamily\large}]
+    (3) 
+    (4) edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{3}$ & 1 & 1 & $\infty$  \\
+		$v_{4}$ & 2 & 1 & $\infty$ \\
+		$v_{5}$ & 2 & 2 & $\infty$ \\
+		$v_{6}$ & 2 & 1 & 1 \\
+		$v_{7}$ & 3 & 2 & 0 \\
+		$v_{8}$ & 1 & 1 & 0 \\
+		$v_{9}$ &  1 & 1 & 0 \\
+		$v_{10}$ & 1 & 1 & 0\\
+	\end{tabular}
+
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm} 
+
+ %iteration 4
+ \begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=orange] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7,fill=yellow] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7,fill=yellow] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
+
+  \path[every node/.style={font=\sffamily\large}]
+    (3) 
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{3}$ & 1 & 1 & $\infty$  \\
+		$v_{5}$ & 2 & 2 & $\infty$ \\
+		$v_{6}$ & 2 & 1 & 1 \\
+		$v_{8}$ & 1 & 1 & $\infty$ \\
+		$v_{9}$ &  1 & 1 & $\infty$ \\
+		$v_{10}$ & 1 & 1 & 0\\
+	\end{tabular}
+
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm} 
+
+ %iteration 5
+ \begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5,fill=yellow] (6) {$1$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6,fill=orange] (10) {$1$};
+
+  \path[every node/.style={font=\sffamily\large}]
+    (3) 
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (8)
+    (9)
+    (10) 
+    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{3}$ & 1 & 1 & $\infty$  \\
+		$v_{5}$ & 2 & 2 & $\infty$ \\
+		$v_{6}$ & 2 & 1 & 0 \\
+		$v_{8}$ & 1 & 1 & $\infty$ \\
+		$v_{9}$ &  1 & 1 & $\infty$ \\
+		$v_{10}$ & 1 & 1 & $\infty$\\
+	\end{tabular}
+
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm} 
+
+ %iteration 6
+ \begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4,fill=yellow] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5,fill=orange] (6) {$1$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+
+  \path[every node/.style={font=\sffamily\large}]
+    (3) 
+    (5) edge node {} (6)
+    (8)
+    (9)    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{3}$ & 1 & 1 & $\infty$  \\
+		$v_{5}$ & 2 & 2 & $\infty$ \\
+		$v_{6}$ & 2 & 1 & $\infty$ \\
+		$v_{8}$ & 1 & 1 & $\infty$ \\
+		$v_{9}$ &  1 & 1 & $\infty$ \\
+	\end{tabular}
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm} 
+
+
+
+
+
+\end{figure}
+
+
+\begin{figure}
+	 %iteration 7
+ \begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+
+  \path[every node/.style={font=\sffamily\large}]
+    (3) 
+    (8)
+    (9)    
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \begin{tabular}{c c c c }
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $dist_{i}$\\
+		$v_{3}$ & 1 & 1 & $\infty$  \\
+		$v_{5}$ & 2 & 2 & $\infty$ \\
+		$v_{8}$ & 1 & 1 & $\infty$ \\
+		$v_{9}$ &  1 & 1 & $\infty$ \\
+	\end{tabular}
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm} 
+
+Only $\infty \; dist$ values are left thus, stopping the process. The nodes left in the graph the target set according to the algorithm. We get the same result with our implementation of TIP DECOMP. 3, 5, 8, 9
+\end{figure}
+
