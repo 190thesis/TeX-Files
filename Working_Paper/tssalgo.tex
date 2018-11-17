@@ -78,6 +78,8 @@
 			\end{algorithmic}
 		\end{algorithm}
 \newpage
+
+\subsubsection{Step by step example}
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
@@ -93,9 +95,7 @@
   \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
   \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
   \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
-  
-  
-  
+
   \path[every node/.style={font=\sffamily\large}]
     (1) edge node {} (7)
     	edge node {} (2)
@@ -114,414 +114,638 @@
     
     ;
 \end{tikzpicture}
-\caption{A tree with 10 vertices where the number inside the circle is the vertex threshold.}
-\label{degreefig}
+\caption{A tree with 10 vertices where the number inside the circle is the vertex threshold ($t(v)$).}
+\label{viradsexample}
+
+\centering
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 4 & 3 & 0.15  \\
+		$v_{2}$ & 1 & 1 & 0.5  \\
+		$v_{3}$ & 1 & 1 & 0.5  \\
+		$v_{4}$ & 2 & 1 & 0.16667  \\
+		$v_{5}$ & 2 & 2 & 0.3333  \\
+		$v_{6}$ & 2 & 1 & 0.16667  \\
+		$v_{7}$ & 3 & 2 & 0.1667  \\
+		$v_{8}$ & 1 & 1 & 0.5  \\
+		$v_{9}$ &  1 & 1 & 0.5  \\
+		$v_{10}$ & 1 & 1 & 0.5 \\
+	\end{tabular}
 \end{figure}
+
+\textbf{Summary of the run time}
 \begin{equation}
 \begin{array}{l c c c c c c c c c c}
 	Iteration & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
-	vertex & v_{10} & v_9 & v_8 & v_7 & v_6 & v_5 & v_4 & v_3 & v_2 & v_1 \\
-	Case & 3 & 3 & 3 & 2 & 3 & 2 & 1 & 3 & 3 & 2\\
+	vertex & v_2 & v_3 & v_1 & v_4 & v_5 & v_6 & v_{10} & v_8 & v_7 & v_9 \\
+	Case & 3 & 3 & 2 & 1 & 3 & 3 & 2 & 3 & 3 & 2\\
 \end{array}
 \end{equation}
-\subsubsection{Step by step example}
-\begin{figure}[!h]
-	\begin{minipage}{0.45\textwidth}
 
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+\begin{figure}
+
+
+ %iteration 1 d=1
+ \textbf{Iteration 1, Case 3, $v=2$}\\
+ \begin{minipage}{0.45\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={right:$v_1$}] (1) {$2$};
-  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
-  \node[main node,label={right:$v_3$}, below left of=2] (3) {$1$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
-  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
-  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
-  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
-  
+  \node[main node,label={right:$v_1$},fill=yellow] (1) {$3$};
+  \node[main node,label={right:$v_2$},below of=1,fill=orange] (2) {$1$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (1) edge node {} (2)
-    (2) edge node {} (3)
-    	edge node {} (4)
-    	edge node {} (5)
-    	edge node {} (6)
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
     (3) 
-    (4) edge node {} (10)
-    (5) edge node {} (9)
-    (6) edge node {} (7)
-    (7) edge node {} (8)
-    	edge node {} (9)
-    (8)	edge node {} (1)
-    (9) edge node {} (10)
-    (10) 
-    
-    ;
-\end{tikzpicture}
-\end{minipage}
-\begin{minipage}{0.45\textwidth}
-	\begin{tabular}{c c c c c}
-	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
-	   $v_{1}$ & 2 & 2  \\
-	   $v_{2}$ & 5 & 4  \\
-	   $v_{3}$ & 1 & 1  \\
-	   $v_{4}$ & 2 & 1  \\
-	   $v_{5}$ & 2 & 2  \\
-	   $v_{6}$ & 2 & 1   \\
-	   $v_{7}$ & 3 & 2  \\
-	   $v_{8}$ & 2 & 1  \\
-	   $v_{9}$ & 3 & 3   \\
-	   $v_{10}$ & 2 & 1   \\
-	\end{tabular}
-\end{minipage}
-\vspace{0.2cm}
-
-	\begin{minipage}{0.45\textwidth}
-
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
-                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-
-  \node[main node,label={right:$v_1$}] (1) {$2$};
-  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
-  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
-  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
-  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
-  
-  
-  \path[every node/.style={font=\sffamily\large}]
-    (1) edge node {} (2)
-    (2) edge node {} (4)
+    (4) edge node {} (1)
     	edge node {} (5)
-    	edge node {} (6)
-    (4) edge node {} (10)
-    (5) edge node {} (9)
-    (6) edge node {} (7)
-    (7) edge node {} (8)
-    	edge node {} (9)
-    (8)	edge node {} (1)
-    (9) edge node {} (10)
-    (10) 
-    
-    ;
-\end{tikzpicture}
-\end{minipage}
-\begin{minipage}{0.45\textwidth}
-	\begin{tabular}{c c c c c}
-	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
-	   $v_{1}$ & 2 & 2  \\
-	   $v_{2}$ & 4 & 3  \\
-	   $v_{4}$ & 2 & 1  \\
-	   $v_{5}$ & 2 & 2  \\
-	   $v_{6}$ & 2 & 1   \\
-	   $v_{7}$ & 3 & 2  \\
-	   $v_{8}$ & 2 & 1  \\
-	   $v_{9}$ & 3 & 3   \\
-	   $v_{10}$ & 2 & 1   \\
-	\end{tabular}
-\end{minipage}
-\vspace{0.2cm}
-
-\begin{minipage}{0.45\textwidth}
-
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
-                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-
-  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
-  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
-  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
-  \node[main node,label={right:$v_8$},above left of=7] (8) {$1$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
-  
-  
-  \path[every node/.style={font=\sffamily\large}]
-    (2) edge node {} (4)
-    	edge node {} (5)
-    	edge node {} (6)
-    (4) edge node {} (10)
-    (5) edge node {} (9)
-    (6) edge node {} (7)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
     (7) edge node {} (8)
     	edge node {} (9)
     (8)
-    (9) edge node {} (10)
+    (9)
     (10) 
-    
     ;
 \end{tikzpicture}
 \end{minipage}
-\begin{minipage}{0.45\textwidth}
-	\begin{tabular}{c c c c c}
-	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
-	   $v_{2}$ & 3 & 2  \\
-	   $v_{4}$ & 2 & 1  \\
-	   $v_{5}$ & 2 & 2  \\
-	   $v_{6}$ & 2 & 1   \\
-	   $v_{7}$ & 2 & 1  \\
-	   $v_{8}$ & 1 & 0  \\
-	   $v_{9}$ & 3 & 3   \\
-	   $v_{10}$ & 2 & 1   \\
+\begin{minipage}{0.55\textwidth}
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 4 & 3 & 0.15  \\
+		$v_{2}$ & 1 & 1 & 0.5  \\
+		$v_{3}$ & 1 & 1 & 0.5  \\
+		$v_{4}$ & 2 & 1 & 0.16667  \\
+		$v_{5}$ & 2 & 2 & 0.3333  \\
+		$v_{6}$ & 2 & 1 & 0.16667  \\
+		$v_{7}$ & 3 & 2 & 0.1667  \\
+		$v_{8}$ & 1 & 1 & 0.5  \\
+		$v_{9}$ &  1 & 1 & 0.5  \\
+		$v_{10}$ & 1 & 1 & 0.5 \\
+	\end{tabular}
+
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
+
+%iteration 1 d=1
+ \textbf{Iteration 2, Case 3, $v=3$}\\
+ \begin{minipage}{0.45\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$},fill=yellow] (1) {$3$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1,fill=orange] (3) {$1$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$1$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$2$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.55\textwidth}
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 3 & 3 & 0.25  \\
+		$v_{2}$ & 1 &  0 & 0  \\
+		$v_{3}$ & 1 & 1 & 0.5  \\
+		$v_{4}$ & 2 & 1 & 0.16667  \\
+		$v_{5}$ & 2 & 2 & 0.3333  \\
+		$v_{6}$ & 2 & 1 & 0.16667  \\
+		$v_{7}$ & 3 & 2 & 0.1667  \\
+		$v_{8}$ & 1 & 1 & 0.5  \\
+		$v_{9}$ &  1 & 1 & 0.5  \\
+		$v_{10}$ & 1 & 1 & 0.5 \\
 	\end{tabular}
 \end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
 \end{figure}
 
-\begin{figure}[h!]
-
-\begin{minipage}{0.45\textwidth}
-$S=\{v_{8}\}$
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+\begin{figure}
+ %iteration 3
+ \textbf{Iteration 3, Case 2, $v=1$}\\
+ \begin{minipage}{0.45\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
-  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
-  \node[main node,label={right:$v_7$},above right of=6] (7) {$2$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
-  
+  \node[main node,label={right:$v_1$},fill=orange] (1) {$3$};
+  \node[main node,label={right:$v_2$},below of=1,fill=yellow] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1,fill=yellow] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1,fill=yellow] (4) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$1$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (2) edge node {} (4)
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
     	edge node {} (5)
-    	edge node {} (6)
-    (4) edge node {} (10)
-    (5) edge node {} (9)
-    (6) edge node {} (7)
-    (7) edge node {} (9)
-    (9) edge node {} (10)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
     (10) 
-    
     ;
 \end{tikzpicture}
 \end{minipage}
-\begin{minipage}{0.45\textwidth}
-	\begin{tabular}{c c c c c}
-	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
-	   $v_{2}$ & 3 & 2  \\
-	   $v_{4}$ & 2 & 1  \\
-	   $v_{5}$ & 2 & 2  \\
-	   $v_{6}$ & 2 & 1   \\
-	   $v_{7}$ & 1 & 0  \\
-	   $v_{9}$ & 3 & 3   \\
-	   $v_{10}$ & 2 & 1   \\
+\begin{minipage}{0.55\textwidth}
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 2 & 3 & 0.5  \\
+		$v_{2}$ & 1 & 0 & 0  \\
+		$v_{3}$ & 1 & 0 & 0  \\
+		$v_{4}$ & 2 & 0 & 0.16667  \\
+		$v_{5}$ & 2 & 2 & 0.3333  \\
+		$v_{6}$ & 2 & 1 & 0.16667  \\
+		$v_{7}$ & 3 & 1 & 0.1667  \\
+		$v_{8}$ & 1 & 1 & 0.5  \\
+		$v_{9}$ &  1 & 1 & 0.5  \\
+		$v_{10}$ & 1 & 1 & 0.5 \\
 	\end{tabular}
 \end{minipage}
-\vspace{0.2cm}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
 
-\begin{minipage}{0.45\textwidth}
-$S=\{v_{8},v_{7}\}$
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+%iteration 1 d=1
+ \textbf{Iteration 4, Case 1, $v=4$}\\
+ \begin{minipage}{0.45\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
-  \node[main node,label={right:$v_6$},right of=2] (6) {$1$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
-  
+  \node[main node,label={right:$v_1$}] (1) {$0$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1,fill=orange] (4) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4,fill=yellow] (5) {$1$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$1$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (2) edge node {} (4)
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
     	edge node {} (5)
-    	edge node {} (6)
-    (4) edge node {} (10)
-    (5) edge node {} (9)
-    (6) 
-    (9) edge node {} (10)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
     (10) 
-    
     ;
 \end{tikzpicture}
 \end{minipage}
-\begin{minipage}{0.45\textwidth}
-	\begin{tabular}{c c c c c}
-	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
-	   $v_{2}$ & 3 & 2  \\
-	   $v_{4}$ & 2 & 1  \\
-	   $v_{5}$ & 2 & 2  \\
-	   $v_{6}$ & 1 & 0   \\
-	   $v_{9}$ & 2 & 2   \\
-	   $v_{10}$ & 2 & 1   \\
+\begin{minipage}{0.55\textwidth}
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 2 & 0 & 0 \\
+		$v_{2}$ & 0 &  0 & 0  \\
+		$v_{3}$ & 0 & 0 & 0  \\
+		$v_{4}$ & 1 & 0 & 0  \\
+		$v_{5}$ & 2 & 1 & 0.3333  \\
+		$v_{6}$ & 2 & 1 & 0.16667  \\
+		$v_{7}$ & 2 & 1 & 0.1667  \\
+		$v_{8}$ & 1 & 1 & 0.5  \\
+		$v_{9}$ &  1 & 1 & 0.5  \\
+		$v_{10}$ & 1 & 1 & 0.5 \\
 	\end{tabular}
 \end{minipage}
-\vspace{0.2cm}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
 
-\begin{minipage}{0.45\textwidth}
-$S=\{v_{8},v_{7},v_{6}\}$
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+%iteration 1 d=1
+ \textbf{Iteration 5, Case 3, $v=5$}\\
+ \begin{minipage}{0.45\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-  \node[main node,label={right:$v_5$}, below right of=2] (5) {$2$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
-  
+  \node[main node,label={right:$v_1$}] (1) {$0$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4,fill=orange] (5) {$1$};
+  \node[main node,label={right:$v_6$},below of=5,fill=yellow] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$1$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (2) edge node {} (4)
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
     	edge node {} (5)
-    (4) edge node {} (10)
-    (5) edge node {} (9)
-    (9) edge node {} (10)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
     (10) 
-    
     ;
 \end{tikzpicture}
 \end{minipage}
-\begin{minipage}{0.45\textwidth}
-	\begin{tabular}{c c c c c}
-	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
-	   $v_{2}$ & 2 & 1  \\
-	   $v_{4}$ & 2 & 1  \\
-	   $v_{5}$ & 2 & 2  \\
-	   $v_{9}$ & 2 & 2   \\
-	   $v_{10}$ & 2 & 1   \\
+\begin{minipage}{0.55\textwidth}
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 1 & 0 & 0  \\
+		$v_{2}$ & 0 &  0 & 0  \\
+		$v_{3}$ & 0 & 0 & 0  \\
+		$v_{4}$ & 1 & 0 & 0  \\
+		$v_{5}$ & 1 & 1 & 0.5 \\
+		$v_{6}$ & 2 & 1 & 0.16667  \\
+		$v_{7}$ & 2 & 1 & 0.1667  \\
+		$v_{8}$ & 1 & 1 & 0.5  \\
+		$v_{9}$ &  1 & 1 & 0.5  \\
+		$v_{10}$ & 1 & 1 & 0.5 \\
 	\end{tabular}
 \end{minipage}
-\vspace{0.2cm}
-
-\begin{minipage}{0.45\textwidth}
-
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
-                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-
-  \node[main node,label={above right:$v_2$}, below of=1] (2) {$4$};
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
-  
-  
-  \path[every node/.style={font=\sffamily\large}]
-    (2) edge node {} (4)
-    (4) edge node {} (10)
-    (9) edge node {} (10)
-    (10) 
-    
-    ;
-\end{tikzpicture}
-\end{minipage}
-\begin{minipage}{0.45\textwidth}
-	\begin{tabular}{c c c c c}
-	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
-	   $v_{2}$ & 1 & 0  \\
-	   $v_{4}$ & 2 & 1  \\
-	   $v_{9}$ & 1 & 1   \\
-	   $v_{10}$ & 2 & 1   \\
-	\end{tabular}
-\end{minipage}
-\vspace{0.2cm}
-
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
 \end{figure}
-\begin{figure}[h!]
 
-
-\begin{minipage}{0.45\textwidth}
-$S=\{v_{8},v_{7},v_{6},v_{2}\}$
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+\begin{figure}
+%iteration 1 d=1
+ \textbf{Iteration 6, Case 3, $v=6$}\\
+ \begin{minipage}{0.45\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={below:$v_4$}, below of=2] (4) {$1$};
-  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
-  
+  \node[main node,label={right:$v_1$}] (1) {$0$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$0$};
+  \node[main node,label={right:$v_6$},below of=5,fill=orange] (6) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$1$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6,fill=yellow] (10) {$1$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (4) edge node {} (10)
-    (9) edge node {} (10)
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
     (10) 
-    
     ;
 \end{tikzpicture}
 \end{minipage}
-\begin{minipage}{0.45\textwidth}
-	\begin{tabular}{c c c c c}
-	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
-	   $v_{4}$ & 1 & 0  \\
-	   $v_{9}$ & 1 & 1   \\
-	   $v_{10}$ & 2 & 1   \\
+\begin{minipage}{0.55\textwidth}
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 1 & 0 & 0  \\
+		$v_{2}$ & 0 &  0 & 0  \\
+		$v_{3}$ & 0 & 0 & 0  \\
+		$v_{4}$ & 0 & 0 & 0  \\
+		$v_{5}$ & 1 & 0 & 0 \\
+		$v_{6}$ & 1 & 1 & 0.5  \\
+		$v_{7}$ & 2 & 1 & 0.1667  \\
+		$v_{8}$ & 1 & 1 & 0.5  \\
+		$v_{9}$ &  1 & 1 & 0.5  \\
+		$v_{10}$ & 1 & 1 & 0.5 \\
 	\end{tabular}
 \end{minipage}
-\vspace{0.2cm}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
 
-\begin{minipage}{0.45\textwidth}
-$S=\{v_{8},v_{7},v_{6},v_{2},v_{4}\}$
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+%iteration 1 d=1
+ \textbf{Iteration 7, Case 2, $v=10$}\\
+ \begin{minipage}{0.45\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-  \node[main node,label={right:$v_{10}$},below of=9] (10) {$1$};
-  
+  \node[main node,label={right:$v_1$}] (1) {$0$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$0$};
+  \node[main node,label={right:$v_6$},below of=5,fill=yellow] (6) {$0$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$1$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6,fill=orange] (10) {$1$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (9) edge node {} (10)
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
     (10) 
-    
     ;
 \end{tikzpicture}
 \end{minipage}
-\begin{minipage}{0.45\textwidth}
-	\begin{tabular}{c c c c c}
-	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
-	   $v_{9}$ & 1 & 1   \\
-	   $v_{10}$ & 1 & 0   \\
+\begin{minipage}{0.55\textwidth}
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 1 & 0 & 0  \\
+		$v_{2}$ & 0 &  0 & 0  \\
+		$v_{3}$ & 0 & 0 & 0  \\
+		$v_{4}$ & 0 & 0 & 0  \\
+		$v_{5}$ & 0 & 0 & 0 \\
+		$v_{6}$ & 1 & 0 & 0  \\
+		$v_{7}$ & 2 & 1 & 0.1667  \\
+		$v_{8}$ & 1 & 1 & 0.5  \\
+		$v_{9}$ &  1 & 1 & 0.5  \\
+		$v_{10}$ & 0 & 1 & 0.5 \\
 	\end{tabular}
 \end{minipage}
-\vspace{0.2cm}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
 
-\begin{minipage}{0.45\textwidth}
-$S=\{v_{8},v_{7},v_{6},v_{2},v_{4},v_{10}\}$
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+%iteration 1 d=1
+ \textbf{Iteration 8, Case 3, $v=8$}\\
+ \begin{minipage}{0.45\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-  
+  \node[main node,label={right:$v_1$}] (1) {$0$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$0$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$0$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$1$};
+  \node[main node,label={right:$v_8$},below left of=7,fill=orange] (8) {$1$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$0$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (9) 
-    
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
     ;
 \end{tikzpicture}
 \end{minipage}
-\begin{minipage}{0.45\textwidth}
-	\begin{tabular}{c c c c c}
-	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
-	   $v_{9}$ & 0 & 0   \\
+\begin{minipage}{0.55\textwidth}
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 1 & 0 & 0  \\
+		$v_{2}$ & 0 &  0 & 0  \\
+		$v_{3}$ & 0 & 0 & 0  \\
+		$v_{4}$ & 0 & 0 & 0  \\
+		$v_{5}$ & 0 & 0 & 0 \\
+		$v_{6}$ & 0 & 0 & 0  \\
+		$v_{7}$ & 2 & 1 & 0.1667  \\
+		$v_{8}$ & 1 & 1 & 0.5  \\
+		$v_{9}$ &  1 & 1 & 0.5  \\
+		$v_{10}$ & 0 & 0 & 0 \\
 	\end{tabular}
 \end{minipage}
-\vspace{0.2cm}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
+\end{figure}
 
-\begin{minipage}{0.45\textwidth}
+\begin{figure}
 
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
+%iteration 1 d=1
+ \textbf{Iteration 9, Case 3, $v=7$}\\
+ \begin{minipage}{0.45\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={right:$v_9$},below of=7] (9) {$3$};
-  
+  \node[main node,label={right:$v_1$}] (1) {$0$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$0$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$0$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=orange] (7) {$1$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$0$};
+  \node[main node,label={right:$v_9$},below right of=7,fill=yellow] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$0$};
   
   \path[every node/.style={font=\sffamily\large}]
-    (9) 
-    
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
     ;
 \end{tikzpicture}
 \end{minipage}
-\begin{minipage}{0.45\textwidth}
-	\begin{tabular}{c c c c c}
-	   Vertex $v$ & Degree $d$ & Threshold $t$ \\
-	   $v_{9}$ & 0 & 0   \\
+\begin{minipage}{0.55\textwidth}
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 1 & 0 & 0  \\
+		$v_{2}$ & 0 &  0 & 0  \\
+		$v_{3}$ & 0 & 0 & 0  \\
+		$v_{4}$ & 0 & 0 & 0  \\
+		$v_{5}$ & 0 & 0 & 0 \\
+		$v_{6}$ & 0 & 0 & 0  \\
+		$v_{7}$ & 1 & 1 & 0.5  \\
+		$v_{8}$ & 1 & 0 & 0  \\
+		$v_{9}$ &  1 & 1 & 0.5  \\
+		$v_{10}$ & 0 & 0 & 0 \\
 	\end{tabular}
 \end{minipage}
-\vspace{0.2cm}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
 
+%iteration 1 d=1
+ \textbf{Iteration 10, Case 2, $v=9$}\\
+ \begin{minipage}{0.45\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$}] (1) {$0$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$0$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$0$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$0$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$0$};
+  \node[main node,label={right:$v_9$},below right of=7,fill=orange] (9) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$0$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.55\textwidth}
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 0 & 0 & 0  \\
+		$v_{2}$ & 0 &  0 & 0  \\
+		$v_{3}$ & 0 & 0 & 0  \\
+		$v_{4}$ & 0 & 0 & 0  \\
+		$v_{5}$ & 0 & 0 & 0 \\
+		$v_{6}$ & 0 & 0 & 0  \\
+		$v_{7}$ & 1 & 0 & 0  \\
+		$v_{8}$ & 0 & 0 & 0  \\
+		$v_{9}$ &  0 & 1 & 0.5  \\
+		$v_{10}$ & 0 & 0 & 0 \\
+	\end{tabular}
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
+
+%iteration 1 d=1
+ \textbf{Finally,}\\
+ \begin{minipage}{0.45\textwidth}
+ 	\centering
+	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+
+  \node[main node,label={right:$v_1$}] (1) {$0$};
+  \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1] (4) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$0$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$0$};
+  \node[main node,label={right:$v_7$},below left of=1] (7) {$0$};
+  \node[main node,label={right:$v_8$},below left of=7] (8) {$0$};
+  \node[main node,label={right:$v_9$},below right of=7] (9) {$0$};
+  \node[main node,label={right:$v_{10}$},below of=6] (10) {$0$};
+  
+  \path[every node/.style={font=\sffamily\large}]
+    (1) edge node {} (7)
+    	edge node {} (2)
+    	edge node {} (3)
+    (2) 
+    (3) 
+    (4) edge node {} (1)
+    	edge node {} (5)
+    (5) edge node {} (6)
+    (6) edge node {} (10)
+    (7) edge node {} (8)
+    	edge node {} (9)
+    (8)
+    (9)
+    (10) 
+    ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.55\textwidth}
+    \begin{tabular}{c c c c}
+		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ & $TSSmax(v)$\\
+		$v_{1}$ & 0 & 0 & 0  \\
+		$v_{2}$ & 0 &  0 & 0  \\
+		$v_{3}$ & 0 & 0 & 0  \\
+		$v_{4}$ & 0 & 0 & 0  \\
+		$v_{5}$ & 0 & 0 & 0 \\
+		$v_{6}$ & 0 & 0 & 0  \\
+		$v_{7}$ & 0 & 0 & 0  \\
+		$v_{8}$ & 0 & 0 & 0  \\
+		$v_{9}$ &  0 & 0 & 0  \\
+		$v_{10}$ & 0 & 0 & 0 \\
+	\end{tabular}
+\end{minipage}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vspace*{0.3cm}  
+
+Thus, the target set is \textbf{ $S=\{v_1,v_{10},v_9\}$}
 \end{figure}
