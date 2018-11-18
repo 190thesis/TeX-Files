@@ -1,7 +1,7 @@
 \section{Preliminaries}
 \subsection{Graphs}
 \begin{itemize}
- \item \textbf{graph or general graph} - ordered triple $G=(V,E,\phi)$ where, $V\neq\varnothing$, $V \cap E = \varnothing$ and $\phi:E \rightarrow P(V)$ such that \textcolor{red}{$|\phi(e)|={1,2}$} for every $e \in E$.
+ \item \textbf{graph or general graph} - ordered triple $G=(V,E,\phi)$ where, $V\neq\varnothing$, $V \cap E = \varnothing$ and $\phi:E \rightarrow P(V)$ such that $|\phi(e)|={1,2}$ for every $e \in E$.
  \item Let G be a graph with $G = (V,E,\phi)$,
 	\begin{itemize}
 		\item The vertex set or $V$ is the set of vertices of G
@@ -32,7 +32,7 @@
 	(5) 
     ;
 \end{tikzpicture}
-\caption{\textcolor{red}{Graph G with 6 vertices and 7 edges.}}
+\caption{Graph G with 6 vertices and 7 edges.}
 \label{graph1}
 \end{figure}
 In figure \ref{graph1}, 
@@ -341,15 +341,21 @@ It was stated by that finding a Hamiltonian circuit from graphs with whose verti
 Conditions: input has more than 2 vertices.
 All of the degrees of the vertices of the graph is degree 2. 
 
-pick any node in the graph and set that as the start node and add that to our H.
-
-hamiltonian=false;
-
-for 1 to |vertices|
-	if current node == start node
-		hamiltonian=true
-	end
-	set the adjacent vertex of current vertex that hasn't been visited yet as the current vertex.
-	H=H $\cup$ {current vertex}
-	
-end
+\begin{algorithm}
+			\caption{A P Algorithm for finding a Hamiltonian Circuits}
+			\begin{algorithmic}[1]
+				\Require $G=(V,E)$,$Start\ vertex$ 
+				\Ensure Hamiltonian Circuit
+				\If{$The\ degree\ of\ all\ the\ v \in \V != 2$}
+					\State No Hamiltonian Circuit
+				\EndIf
+				\ForAll{$v \in V$}
+					\State Visit every vertex until we reach the start vertex.
+				\EndFor
+				\If{We have visited every vertex and we end at the start vertex}
+					\State Return Hamiltonian Circuit
+				\EndIf
+			\end{algorithmic}
+		\end{algorithm}
+		
+		We can observe that this algorithm is the same as checking to see if a graph is a Hamiltonian circuit. Which is a requirement in proving that the Hamiltonian Circuit problem is in NP. We can use our previous proof to say that this algorithm is in P.
