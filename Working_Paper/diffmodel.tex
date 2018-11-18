@@ -26,6 +26,7 @@ If the sum of the weight of the edges incoming to the vertex $v$ is greater than
 In the first graph in the figure \ref{linearfig} we set to vertex C to be active to start the process. After each time step/round $r$ we look to see if the weight of the edges outgoing from the activated vertices to the other vertices in its neighborhood. At round 2 vertices B and D become active. At round 3 A becomes active and the process ends when all the vertices are active. \cite{Kempe}
 
 We define a simple directed graph $G$ with\\
+
 \begin{equation}
 \begin{array}{c c}
 V=(A,B,C,D) &
@@ -44,10 +45,11 @@ t(A)=0.4 & t(B)=0.6\\
 t(C)=0.8 & t(D)=0.3\\
 \end{array} 
 \end{equation}
-\begin{figure}[h!]
+
+\begin{figure}[bp!]
+
 	\begin{minipage}{0.45\textwidth}
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,
-                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node,label={t(A)=0.4}] (A) {$A$};
   \node[main node,label=below:{t(C)=0.8},color={red}] (C) [below of=A] {$C$};
@@ -70,7 +72,7 @@ t(C)=0.8 & t(D)=0.3\\
 		\caption{r=1}
 	\end{minipage}
 	\begin{minipage}{0.45\textwidth}
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 		
 		  \node[main node,label={t(A)=0.4}] (A) {$A$};
 		  \node[main node,label=below:{t(C)=0.8},color={red}] (C) [below of=A] {$C$};
@@ -96,7 +98,7 @@ t(C)=0.8 & t(D)=0.3\\
 	\vspace*{0.2cm}
 	\begin{minipage}{0.45\textwidth}
 	\centering
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
 	  \node[main node,label={t(A)=0.4}, color={red}] (A) {$A$};
 	  \node[main node,label=below:{t(C)=0.8},color={red}] (C) [below of=A] {$C$};
@@ -122,6 +124,7 @@ t(C)=0.8 & t(D)=0.3\\
 \label{linearfig}
 \end{figure}
 
+\newpage
 \subsubsection{Independent Cascade Model}
 Now, in this model, we assume that when a person tries you influence you, they only have that one chance to do so. After that, they lose their chance of doing it again. We still have the knowledge that different people have different weights assigned to their words. In this model, however, we assign a percentage that determines how likely is that person to influence you. Say, your mother has a 90\% chance to recommend you a product but, on the contrary, the known scam artist has a 15\% chance of influencing you.
 
@@ -142,9 +145,9 @@ We define a simple directed graph
 	P(e_{7})=0.5 & P(e_{8})=0.2\\ 
 	\end{array}
 \end{equation}
-\begin{figure}[h!]
-	\begin{minipage}{0.45\textwidth}
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+\begin{figure}[!bp]
+	\begin{minipage}{0.3\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node] (A) {$A$};
@@ -166,8 +169,8 @@ We define a simple directed graph
 \end{tikzpicture}
 \caption{r=1}
 	\end{minipage}
-	\begin{minipage}{0.45\textwidth}
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	\begin{minipage}{0.3\textwidth}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node,color={gray}] (A) {$A$};
@@ -188,9 +191,9 @@ We define a simple directed graph
 \end{tikzpicture}
 \caption{r=2}
 	\end{minipage}
-	\begin{minipage}{0.45\textwidth}
+	\begin{minipage}{0.3\textwidth}
 		\centering
-	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node, color={red}] (A) {$A$};
@@ -211,11 +214,14 @@ We define a simple directed graph
 \end{tikzpicture}
 \caption{r=3}
 	\end{minipage}
-\caption{Independent Cascade model of graph G at $r=1,2,3$ with C initially activated}
+\caption{Independent Cascade model of graph G at $r=1,2,3$ with C initially activated\\}
 \label{Independentfig1}
+\vspace{0.5cm}
+Notice that on figure \ref{Independentfig1}; at round 2, vertex $C$ fails to activate vertices A and D. This means that C loses the ability to influence said vertices but this doesn't mean that that the neighbor of vertex A can't influence A. At round 3, vertex B succeeds in influencing vertex A and all of the vertices have been tried for activation and there they have no more neighbors left to activate, meaning, the process ends.
 \end{figure}
 
-Notice that on figure \ref{Independentfig1}; at round 2, vertex $C$ fails to activate vertices A and D. This means that C loses the ability to influence said vertices but this doesn't mean that that the neighbor of vertex A can't influence A. At round 3, vertex B succeeds in influencing vertex A and all of the vertices have been tried for activation and there they have no more neighbors left to activate, meaning, the process ends.
+
+\newpage
 \subsection{The threshold model reintroduced by Chen}
 
 Now, we limit and modify the model. Where in the vertices/nodes know each other or have some kind of connection/relationship. This means, every neighbor or friend of a certain person has the same effect as every other neighbor or friend of that person. The threshold is only thing to be considered. When determining how likely a person is to be influence, the size of their neighbor considered.
@@ -232,10 +238,10 @@ We define a simple undirected graph $G=(V,E)$, $v \in V and\; e \in E$.
 	t(C)=3 & t(D)=1 \\
 	\end{array}
 \end{equation}
-\begin{figure}[h!]
+\begin{figure}[!bp]
 	\centering
-	\begin{minipage}{0.45\textwidth}
-		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	\begin{minipage}{0.24\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node,label={$t(A)=3$}] (A) {$A$};
@@ -257,8 +263,8 @@ We define a simple undirected graph $G=(V,E)$, $v \in V and\; e \in E$.
 \caption{r=1}
 	\end{minipage}
 	\centering
-	\begin{minipage}{0.45\textwidth}
-		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	\begin{minipage}{0.24\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node,label={$t(A)=3$}] (A) {$A$};
@@ -280,8 +286,8 @@ We define a simple undirected graph $G=(V,E)$, $v \in V and\; e \in E$.
 \caption{r=2}
 	\end{minipage}
 	\centering
-	\begin{minipage}{0.45\textwidth}
-		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	\begin{minipage}{0.24\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node,label={$t(A)=3$}] (A) {$A$};
@@ -303,8 +309,8 @@ We define a simple undirected graph $G=(V,E)$, $v \in V and\; e \in E$.
 \caption{r=3}
 	\end{minipage}
 	\centering
-	\begin{minipage}{0.45\textwidth}
-		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=4cm,
+	\begin{minipage}{0.24\textwidth}
+		\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
   \node[main node,label={$t(A)=3$},color={red}] (A) {$A$};
@@ -322,8 +328,6 @@ We define a simple undirected graph $G=(V,E)$, $v \in V and\; e \in E$.
     	edge[color=red] node {} (A)
     	
     ;
-    
-
 \end{tikzpicture}
 \caption{r=4}
 	\end{minipage}
@@ -331,7 +335,7 @@ We define a simple undirected graph $G=(V,E)$, $v \in V and\; e \in E$.
 \caption{Threshold model with C vertex as target set at round/time step = 1,2,3,4}
 \label{Thresholdfig1}
 \end{figure}
-
+\newpage
 In the example figure \ref{Thresholdfig1}, we pick C as the target set. We activate C at round 1. At round 2 we check the neighbors of C which is A and D, but only D is eligible for activation since the threshold of A is 3 and it does not have enough active neighbors. D, however is eligible for activation and activates at round 2. In the next round, B, with threshold 1, activates since D is active and is a neighbor of B. Finally at round 4, A has enough active neighbors to reach its threshold 3.
 
 In the two previous diffusion models, we assign a value to the edges of the directed graph. This means that the neighbors of that vertices have different strengths of influence to a certain node. In Chen's model, the neighbors of any vertex $v \in V$ all have the same strength in influencing said vertex. The threshold will depend on how weak or strong a vertex is from being influenced.
