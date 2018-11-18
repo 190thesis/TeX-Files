@@ -47,7 +47,7 @@ while prod(G.Nodes.Status)==0
     sizeN=length(N);
     for j=1:sizeN
         G.Nodes.Degree(N(j))=G.Nodes.Degree(N(j))-1;
-        if G.Nodes.Degree(N(j))~=0
+        if G.Nodes.Degree(N(j))~=0 && G.Nodes.Status(N(j))==0
             G.Nodes.TSSMax(N(j))=G.Nodes.Thresholds(N(j))/(G.Nodes.Degree(N(j))*((G.Nodes.Degree(N(j)))+1));
         end
     end
