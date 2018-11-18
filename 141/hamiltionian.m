@@ -1,18 +1,20 @@
 function [hamil path]= hamiltionian(G,startNode)
 
-n=size(G.Nodes);
+n=size(G.Nodes,1);
 for i=1:n
     G.Nodes.Degree(i)=degree(G,i);
     G.Nodes.Visited(i)=0;
-    G.Nodes.Label(i)=int2str(i);
+    G.Nodes.Label(i)=i;
 end
-
+G.Nodes
 path=[];
 
 deg2=find(G.Nodes.Degree==2);
 
 if(length(deg2)~=n)
-    path="Not a hamiltonian circuit";
+    hamil="Not a hamiltonian circuit";
+    path=[];
+    return;
 end
 
 path=[path startNode];
@@ -24,10 +26,10 @@ G.Nodes.Visited(nextNode)=1;
 for j=1:n-2
     neigh=neighbors(G,nextNode);
     if(G.Nodes.Visited(neigh(1))==0)
-        nextNode=neigh(i);
+        nextNode=neigh(1);
         G.Nodes.Visited(nextNode)=1;
     elseif(G.Nodes.Visited(neigh(2))==0)
-        nextNode=neigh(i);
+        nextNode=neigh(2);
         G.Nodes.Visited(nextNode)=1;
     end
     path=[path nextNode];
