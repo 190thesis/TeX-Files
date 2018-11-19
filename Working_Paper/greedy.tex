@@ -88,13 +88,13 @@
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={right:$v_1$},fill=yellow] (1) {$3$};
-  \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
-  \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
-  \node[main node,label={right:$v_4$},above right of=1] (4) {$0$};
-  \node[main node,label={right:$v_5$}, below right of=4] (5) {$2$};
+  \node[main node,label={right:$v_1$},fill=orange] (1) {$0$};
+  \node[main node,label={right:$v_2$},below of=1,fill=yellow] (2) {$0$};
+  \node[main node,label={right:$v_3$}, below right of=1,fill=yellow] (3) {$0$};
+  \node[main node,label={right:$v_4$},above right of=1,fill=yellow] (4) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4,fill=yellow] (5) {$1$};
   \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
-  \node[main node,label={right:$v_7$},below left of=1] (7) {$1$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$1$};
   \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
   \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
   \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
@@ -118,13 +118,15 @@
 \end{tikzpicture}
 \end{minipage}
 \begin{minipage}{0.55\textwidth}
+	\textbf{Iteration 1 ($v_1$)}
+	
     \begin{tabular}{c c c c}
 		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$\\
-		$v_{1}$ & 4 & 3 \\
+		$v_{1}$ & 0 & 0 \\
 		$v_{2}$ & 0 & 0 \\
 		$v_{3}$ & 0 & 0 \\
-		$v_{4}$ & 1 & 0 \\
-		$v_{5}$ & 2 & 2 \\
+		$v_{4}$ & 0 & 0 \\
+		$v_{5}$ & 1 & 1 \\
 		$v_{6}$ & 2 & 1 \\
 		$v_{7}$ & 2 & 1 \\
 		$v_{8}$ & 1 & 1  \\
@@ -135,21 +137,21 @@
 \end{minipage}
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
 \vspace*{0.3cm}  
- \begin{minipage}{0.45\textwidth}
+  \begin{minipage}{0.45\textwidth}
  	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={right:$v_1$},fill=yellow] (1) {$3$};
+  \node[main node,label={right:$v_1$}] (1) {$0$};
   \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
   \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
   \node[main node,label={right:$v_4$},above right of=1] (4) {$0$};
-  \node[main node,label={right:$v_5$}, below right of=4,fill=yellow] (5) {$2$};
-  \node[main node,label={right:$v_6$},below of=5] (6) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4,fill=yellow] (5) {$0$};
+  \node[main node,label={right:$v_6$},below of=5,fill=orange] (6) {$0$};
   \node[main node,label={right:$v_7$},below left of=1] (7) {$1$};
   \node[main node,label={right:$v_8$},below left of=7] (8) {$1$};
   \node[main node,label={right:$v_9$},below right of=7] (9) {$1$};
-  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
+  \node[main node,label={right:$v_{10}$},below of=6,fill=yellow] (10) {$0$};
   
   \path[every node/.style={font=\sffamily\large}]
     (1) edge node {} (7)
@@ -170,90 +172,40 @@
 \end{tikzpicture}
 \end{minipage}
 \begin{minipage}{0.55\textwidth}
-    \begin{tabular}{c c c c}
-		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$ \\
-		$v_{1}$ & 4 & 3 \\
-		$v_{2}$ & 0 & 0 \\
-		$v_{3}$ & 0 & 0 \\
-		$v_{4}$ & 0 & 0 \\
-		$v_{5}$ & 2 & 2 \\
-		$v_{6}$ & 1 & 0 \\
-		$v_{7}$ & 2 & 1 \\
-		$v_{8}$ & 1 & 1  \\
-		$v_{9}$ &  1 & 1 \\
-		$v_{10}$ & 1 & 1\\
-	\end{tabular}
-
-\end{minipage}
-\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
-\vspace*{0.3cm}  
-
-\begin{minipage}{0.45\textwidth}
- 	\centering
-	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
-                    thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
-
-  \node[main node,label={right:$v_1$},fill=yellow] (1) {$3$};
-  \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
-  \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
-  \node[main node,label={right:$v_4$},above right of=1] (4) {$0$};
-  \node[main node,label={right:$v_5$}, below right of=4,fill=yellow] (5) {$2$};
-  \node[main node,label={right:$v_6$},below of=5] (6) {$1$};
-  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$1$};
-  \node[main node,label={right:$v_8$},below left of=7] (8) {$0$};
-  \node[main node,label={right:$v_9$},below right of=7] (9) {$0$};
-  \node[main node,label={right:$v_{10}$},below of=6] (10) {$1$};
-  
-  \path[every node/.style={font=\sffamily\large}]
-    (1) edge node {} (7)
-    	edge node {} (2)
-    	edge node {} (3)
-    (2) 
-    (3) 
-    (4) edge node {} (1)
-    	edge node {} (5)
-    (5) edge node {} (6)
-    (6) edge node {} (10)
-    (7) edge node {} (8)
-    	edge node {} (9)
-    (8)
-    (9)
-    (10) 
-    ;
-\end{tikzpicture}
-\end{minipage}
-\begin{minipage}{0.55\textwidth}
+	\textbf{Iteration 2 ($v_6$)}
+	
     \begin{tabular}{c c c c}
 		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$\\
-		$v_{1}$ & 4 & 3 \\
+		$v_{1}$ & 0 & 0 \\
 		$v_{2}$ & 0 & 0 \\
 		$v_{3}$ & 0 & 0 \\
 		$v_{4}$ & 0 & 0 \\
-		$v_{5}$ & 2 & 2 \\
-		$v_{6}$ & 1 & 0 \\
-		$v_{7}$ & 2 & 1 \\
-		$v_{8}$ & 0 & 0  \\
-		$v_{9}$ &  0 & 0 \\
-		$v_{10}$ & 1 & 1\\
+		$v_{5}$ & 0 & 0 \\
+		$v_{6}$ & 0 & 0 \\
+		$v_{7}$ & 1 & 1 \\
+		$v_{8}$ & 1 & 1  \\
+		$v_{9}$ &  1 & 1 \\
+		$v_{10}$ & 0 & 0\\
 	\end{tabular}
 
 \end{minipage}
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
 \vspace*{0.3cm}  
-\begin{minipage}{0.45\textwidth}
+
+  \begin{minipage}{0.45\textwidth}
  	\centering
 	\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
                     thick,main node/.style={circle,draw,font=\sffamily\small\bfseries}]
 
-  \node[main node,label={right:$v_1$},fill=yellow] (1) {$3$};
+  \node[main node,label={right:$v_1$}] (1) {$0$};
   \node[main node,label={right:$v_2$},below of=1] (2) {$0$};
   \node[main node,label={right:$v_3$}, below right of=1] (3) {$0$};
   \node[main node,label={right:$v_4$},above right of=1] (4) {$0$};
-  \node[main node,label={right:$v_5$}, below right of=4,fill=yellow] (5) {$2$};
-  \node[main node,label={right:$v_6$},below of=5,fill=yellow] (6) {$1$};
-  \node[main node,label={right:$v_7$},below left of=1,fill=yellow] (7) {$1$};
-  \node[main node,label={right:$v_8$},below left of=7] (8) {$0$};
-  \node[main node,label={right:$v_9$},below right of=7] (9) {$0$};
+  \node[main node,label={right:$v_5$}, below right of=4] (5) {$0$};
+  \node[main node,label={right:$v_6$},below of=5] (6) {$0$};
+  \node[main node,label={right:$v_7$},below left of=1,fill=orange] (7) {$0$};
+  \node[main node,label={right:$v_8$},below left of=7,fill=yellow] (8) {$0$};
+  \node[main node,label={right:$v_9$},below right of=7,fill=yellow] (9) {$0$};
   \node[main node,label={right:$v_{10}$},below of=6] (10) {$0$};
   
   \path[every node/.style={font=\sffamily\large}]
@@ -275,15 +227,17 @@
 \end{tikzpicture}
 \end{minipage}
 \begin{minipage}{0.55\textwidth}
+	\textbf{Iteration 3 ($v_7$)}
+	
     \begin{tabular}{c c c c}
 		Vertex $v_{i}$ & Degree $d^{in}_{i}$ & Threshold $t_{i}$\\
-		$v_{1}$ & 4 & 3 \\
+		$v_{1}$ & 0 & 0 \\
 		$v_{2}$ & 0 & 0 \\
 		$v_{3}$ & 0 & 0 \\
 		$v_{4}$ & 0 & 0 \\
-		$v_{5}$ & 2 & 2 \\
-		$v_{6}$ & 1 & 0 \\
-		$v_{7}$ & 2 & 1 \\
+		$v_{5}$ & 0 & 0 \\
+		$v_{6}$ & 0 & 0 \\
+		$v_{7}$ & 0 & 0 \\
 		$v_{8}$ & 0 & 0  \\
 		$v_{9}$ &  0 & 0 \\
 		$v_{10}$ & 0 & 0\\
@@ -293,4 +247,4 @@
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
 \vspace*{0.3cm}  
 
-We can stop here since all of the degrees of the vertices in the graph are 0. We get $S=\{v_{1},v_{5},v_{6},v_{7}\}$. But in the implementation of the algorithm, the process continues.
+We can stop here since all of the degrees of the vertices in the graph are 0. We get $S=\{v_{1},v_{6},v_{7}\}$. 
